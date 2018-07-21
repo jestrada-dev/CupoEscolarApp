@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "304384773564",
+    "firebase_url": "https://cupo-escolar.firebaseio.com",
+    "project_id": "cupo-escolar",
+    "storage_bucket": "cupo-escolar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:304384773564:android:19578d882e34b997",
+        "android_client_info": {
+          "package_name": "co.jestrada.cupoescolarapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "304384773564-dd12h9uno4g8d69l5r3cbfqgdhm7buao.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "co.jestrada.cupoescolarapp",
+            "certificate_hash": "3c3be2b0b8b1db0ad23fa4f225e16243dec02b16"
+          }
+        },
+        {
+          "client_id": "304384773564-ac50js8t2ims67p084t4q3gai7bivht7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgDcE4GkZoL4Wcge11zbmbLFtRramRlB0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "304384773564-ac50js8t2ims67p084t4q3gai7bivht7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
