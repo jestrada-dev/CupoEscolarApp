@@ -1,3 +1,41 @@
 <resources>
-    <string name="app_name">Cupo Escolar App</string>
+    <string name="app_name">CupoEscolarApp</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="sign_in_email_password">Iniciar Sesión</string>
+    <string name="sign_in_google_credentials">Google</string>
+    <string name="create_email_account">¿Eres nuevo aquí? Crea tu cuenta</string>
+    <string name="prefer">O si lo prefieres</string>
+
+    <string name="validate_input_email">Escribe una cuenta de correo válida</string>
+    <string name="validate_input_password">La contraseña debe tener mínimo 8 caracteres</string>
+    <string name="validate_input_first_name">Escribe un nombre válido</string>
+    <string name="validate_input_last_name">Escribe un apellido válido</string>
+    <string name="validate_input_unidentify">Error diligenciando el campo</string>
+
+    <string name="forget_password">¿Olvidaste tu Contraseña?</string>
+    <string name="logo_cupo_escolar_app">Logo Cupo Escolar App</string>
+    <string name="sign_in_google">Continuar con Google</string>
+    <string name="sign_in_facebook">Continuar con Facebook</string>
+    <string name="create_account">Crea tu Cuenta</string>
+    <string name="first_name">Nombre</string>
+    <string name="last_name">Apellidos</string>
+    <string name="sign_up_email_password">Crea tu Cuenta</string>
+    <string name="accept_terms">Al crear la cuenta, aceptas los Términos de servicio y la Política de privacidad de Cupo Escolar App.</string>
+
+    <string name="sign_up_user_succesfully">Enhorabuena! Hemos creado tu usuario correctamente. En breve recibirás un correo electrónico para verificar tu cuenta.</string>
+    <string name="sign_up_user_failed">Algo salió mal! Ha ocurrido un error al crear el usuario. Por favor intenta nuevamente mas tarde.</string>
+    <string name="search_schools">Buscar Colegios</string>
+    <string name="ok">OK</string>
+    <string name="errorOnInternetConnection">Algo salió mal! Tu conexión a internet a fallado. Por favor intenta nuevamente cuando se restablezca el servicio.</string>
+
+    <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
+    <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+    <string name="firebase_user_already_registered">The email address is already in use by another account.</string>
+    <string name="firebase_user_already_registered_es">El usuario ya se encuentra registrado</string>
+    <string name="change_email_account">Cambiar cuenta de correo</string>
+    <string name="try_later">Intentar mas tarde</string>
+    <string name="check_my_email">OK, voy a revisar mi buzón de correo</string>
+
 </resources>

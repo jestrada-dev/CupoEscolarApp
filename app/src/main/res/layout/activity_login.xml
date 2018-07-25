@@ -1,18 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/colorDivider"
+    tools:context=".login.view.LoginActivity">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/rl_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginLeft="@dimen/margin_horizontal"
+        android:layout_marginRight="@dimen/margin_horizontal">
+        <TextView
+            android:id="@+id/tv_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_logo"
+            android:text="@string/app_name"
+            style="@style/TextTitle"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_inputs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginLeft="@dimen/margin_horizontal"
+        android:layout_marginRight="@dimen/margin_horizontal"
+        android:layout_below="@id/rl_logo">
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_background"
+            style="@style/TextField"
+            android:padding="@dimen/padding_text_double"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginLeft="@dimen/margin_horizontal_double"
+            android:layout_marginRight="@dimen/margin_horizontal_double"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"/>
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_background"
+            style="@style/TextField"
+            android:longClickable="false"
+            android:padding="@dimen/padding_text_double"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginLeft="@dimen/margin_horizontal_double"
+            android:layout_marginRight="@dimen/margin_horizontal_double"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:layout_below="@id/et_email"/>
+        <Button
+            android:id="@+id/btn_sign_in_email_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:paddingTop="@dimen/padding_button_double"
+            android:paddingBottom="@dimen/padding_button_double"
+            android:paddingLeft="@dimen/padding_button_cuadruple"
+            android:paddingRight="@dimen/padding_button_cuadruple"
+            android:layout_alignEnd="@id/et_password"
+            android:layout_below="@id/et_password"
+            style="@style/TextButton"
+            android:text="@string/sign_in_email_password"/>
+        <TextView
+            android:id="@+id/tv_forget_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/btn_sign_in_email_password"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginBottom="@dimen/margin_vertical"
+            android:layout_below="@id/btn_sign_in_email_password"
+            style="@style/TextLabel2"
+            android:text="@string/forget_password"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_sign_up"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginLeft="@dimen/margin_horizontal"
+        android:layout_marginRight="@dimen/margin_horizontal"
+        android:layout_marginBottom="@dimen/margin_vertical"
+        android:layout_below="@id/rl_inputs">
+        <TextView
+            android:id="@+id/tv_create_email_account"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical_triple"
+            android:gravity="center"
+            style="@style/TextBody1"
+            android:text="@string/create_email_account"/>
+        <TextView
+            android:id="@+id/tv_prefer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical_triple"
+            android:layout_below="@id/tv_create_email_account"
+            android:gravity="center"
+            style="@style/TextLabel2"
+            android:text="@string/prefer"/>
+
+        <RelativeLayout
+            android:id="@+id/ll_sign_in_google"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/margin_vertical_triple"
+            android:layout_below="@id/tv_prefer">
+            <Button
+                android:id="@+id/btn_sign_in_google"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_logo_google"
+                android:paddingLeft="@dimen/padding_button_double"
+                android:paddingRight="@dimen/padding_button_double"
+                android:paddingTop="@dimen/padding_button"
+                android:paddingBottom="@dimen/padding_button"
+                android:layout_marginLeft="@dimen/margin_horizontal_triple"
+                android:layout_marginRight="@dimen/margin_horizontal_triple"
+                style="@style/TextButtonSocial"
+                android:text="@string/sign_in_google" />
+            <Button
+                android:id="@+id/btn_sign_in_facebook"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/white"
+                android:drawableStart="@drawable/ic_logo_facebook"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:layout_marginBottom="@dimen/margin_vertical"
+                android:paddingLeft="@dimen/padding_button_double"
+                android:paddingRight="@dimen/padding_button_double"
+                android:paddingTop="@dimen/padding_button"
+                android:paddingBottom="@dimen/padding_button"
+                android:layout_marginLeft="@dimen/margin_horizontal_triple"
+                android:layout_marginRight="@dimen/margin_horizontal_triple"
+                style="@style/TextButtonSocial"
+                android:text="@string/sign_in_facebook"
+                android:layout_below="@id/btn_sign_in_google"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyleLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+    </ProgressBar>
 
-</android.support.constraint.ConstraintLayout>
+</RelativeLayout>

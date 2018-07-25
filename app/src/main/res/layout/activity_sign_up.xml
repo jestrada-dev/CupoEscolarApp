@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDivider"
+    tools:context=".login.view.SignUpActivity">
+
+    <RelativeLayout
+        android:id="@+id/rl_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginLeft="@dimen/margin_horizontal"
+        android:layout_marginRight="@dimen/margin_horizontal">
+        <TextView
+            android:id="@+id/tv_app"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_logo"
+            android:text="@string/app_name"
+            style="@style/TextTitle"
+            android:layout_centerHorizontal="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            style="@style/TextSubtitle1"
+            android:text="@string/create_account"
+            android:layout_below="@id/tv_app"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rl_inputs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginLeft="@dimen/margin_horizontal"
+        android:layout_marginRight="@dimen/margin_horizontal"
+        android:layout_below="@id/rl_logo">
+        <EditText
+            android:id="@+id/et_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_background"
+            style="@style/TextField"
+            android:padding="@dimen/padding_text_double"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginLeft="@dimen/margin_horizontal_double"
+            android:layout_marginRight="@dimen/margin_horizontal_double"
+            android:inputType="textEmailAddress"
+            android:hint="@string/email"/>
+        <EditText
+            android:id="@+id/et_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/et_background"
+            style="@style/TextField"
+            android:longClickable="false"
+            android:padding="@dimen/padding_text_double"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginLeft="@dimen/margin_horizontal_double"
+            android:layout_marginRight="@dimen/margin_horizontal_double"
+            android:inputType="textPassword"
+            android:hint="@string/password"
+            android:layout_below="@id/et_email"/>
+
+        <TextView
+            android:id="@+id/tv_accept_terms"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginLeft="@dimen/margin_horizontal_double"
+            android:layout_marginRight="@dimen/margin_horizontal_double"
+            android:textAlignment="center"
+            android:layout_marginBottom="@dimen/margin_vertical"
+            android:layout_below="@id/et_password"
+            style="@style/TextBody2"
+            android:text="@string/accept_terms"/>
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_sign_up_email_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginRight="@dimen/margin_horizontal_double"
+        android:layout_marginBottom="@dimen/margin_vertical_double"
+        android:paddingTop="@dimen/padding_button_double"
+        android:paddingBottom="@dimen/padding_button_double"
+        android:paddingLeft="@dimen/padding_button_cuadruple"
+        android:paddingRight="@dimen/padding_button_cuadruple"
+        android:layout_alignEnd="@id/rl_inputs"
+        android:layout_alignParentBottom="true"
+        style="@style/TextButton"
+        android:text="@string/sign_up_email_password"/>
+
+    <ProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone">
+    </ProgressBar>
+
+</RelativeLayout>
