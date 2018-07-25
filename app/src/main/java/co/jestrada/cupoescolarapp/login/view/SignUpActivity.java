@@ -42,7 +42,6 @@ public class SignUpActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         mSignUpPresenter = new SignUpPresenter(SignUpActivity.this);
-        mSignUpPresenter.initAuthListener();
 
         mBuilder = new AlertDialog.Builder(this);
 
@@ -64,7 +63,7 @@ public class SignUpActivity extends BaseActivity implements
     @Override
     public void goToMain() {
         Intent intent = new Intent();
-        startActivity(intent);;
+        startActivity(intent);
         finish();
     }
 
@@ -96,5 +95,10 @@ public class SignUpActivity extends BaseActivity implements
     @Override
     protected void onStart() {
         super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 }

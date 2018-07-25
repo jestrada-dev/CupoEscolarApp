@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.common.AppCore;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
@@ -32,13 +33,26 @@ public class SignUpPresenter extends BasePresenter
     private LoginInteractor mLoginInteractor;
     private ISignUpContract.ISignUpView mSignUpView;
     private Context mContext;
-    private FirebaseAuth mFirebaseAuth = FirebaseAuth.getInstance();
-    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private FirebaseAuth mFirebaseAuth;
+
+/*    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            if (firebaseUser != null) {
+
+            } else {
+
+            }
+        }
+    };*/
 
     public SignUpPresenter(final Context mContext) {
         mLoginInteractor = new LoginInteractor(this);
         mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mContext = mContext;
+
+        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     private boolean isValidEmail(String email){
@@ -119,9 +133,11 @@ public class SignUpPresenter extends BasePresenter
                                 } else {
                                     if(task.getException().getMessage().equals
                                             (mContext.getString(R.string.firebase_user_already_registered))){
+
                                         mSignUpView.showNeutralDialog(email,
                                                 mContext.getString(R.string.firebase_user_already_registered_es),
                                                 mContext.getString(R.string.change_email_account));
+
                                     } else {
                                         mSignUpView.showNeutralDialog(email,
                                                 mContext.getString(R.string.sign_up_user_failed),
@@ -142,24 +158,4 @@ public class SignUpPresenter extends BasePresenter
         userApp.setOnSession(true);
     }
 
-    @Override
-    public void initAuthListener() {
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-                if(firebaseUser != null){
-                    if (firebaseUser.isEmailVerified()){
-                        mLoginInteractor.getUser(firebaseUser.getUid());
-                        mSignUpView.goToMain();
-                    }
-                }
-            }
-        };
-    }
-
-    @Override
-    public void stopAuthListener() {
-
-    }
 }

@@ -18,9 +18,6 @@ public interface ISignUpContract extends IBaseContract {
 
         void signUpEmailPassword(final EditText etEmail, final EditText etPassword);
 
-        void initAuthListener();
-        void stopAuthListener();
-
     }
 
 }
