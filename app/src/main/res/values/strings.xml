@@ -32,10 +32,20 @@
     <!-- Facebook application ID and custom URL scheme (app ID prefixed by 'fb'). -->
     <string name="facebook_application_id" translatable="false">YOUR_APP_ID</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
+
     <string name="firebase_user_already_registered">The email address is already in use by another account.</string>
-    <string name="firebase_user_already_registered_es">El usuario ya se encuentra registrado</string>
+    <string name="firebase_user_already_registered_es">Ya te encuentras registrado en Cupo Escolar App pero aún no has confirmado tu cuenta de correo electrónico</string>
     <string name="change_email_account">Cambiar cuenta de correo</string>
     <string name="try_later">Intentar mas tarde</string>
     <string name="check_my_email">OK, voy a revisar mi buzón de correo</string>
+    <string name="failed_resend_verification_email">Algo salió mal, no fue posible enviar nuevamente el correo electrónico de verificación. Intenta mas tarde.</string>
+    <string name="enter_email_resend_password">Escribe tu correo electrónico para reestablecer su contraseña.</string>
+    <string name="resend_verification_email">Enviar Correo de Verificación nuevamente</string>
+    <string name="got_email">Ya lo tengo</string>
+    <string name="sent_email_restore_password">Te enviamos un correo electrónico para que puedas restablecer su contraseña</string>
+    <string name="verify_my_email">Corregir mi correo electrónico</string>
+    <string name="failed_send_password_reset_email">Algo salió mal! No fue posible enviar correo electrónico para restablecer tu password</string>
+    <string name="email_password_incorrects">Correo electrónico y/o password incorrectos. Por favor valida tus datos.</string>
+    <string name="try_again">Validar e intentar de nuevo</string>
 
 </resources>

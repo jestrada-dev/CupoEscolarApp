@@ -44,10 +44,6 @@ public class User {
         this.logins = userModel.getLogins();
     }
 
-    public static User getUserModelInstance() {
-        return userModelInstance;
-    }
-
     public String getuId() {
         return uId;
     }

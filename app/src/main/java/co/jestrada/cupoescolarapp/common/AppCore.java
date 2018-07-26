@@ -7,11 +7,19 @@ import android.support.annotation.NonNull;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import co.jestrada.cupoescolarapp.login.interactor.LoginInteractor;
 import co.jestrada.cupoescolarapp.login.model.User;
+import co.jestrada.cupoescolarapp.login.presenter.LoginPresenter;
+import co.jestrada.cupoescolarapp.login.presenter.SignUpPresenter;
+import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 
 public class AppCore extends Application {
 
     private FirebaseAuth mFirebaseAuth;
+    private SignUpPresenter mSignUpPresenter;
+    private LoginPresenter mLoginPresenter;
+
+    private LoginInteractor loginInteractor;
 
     private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
         @Override
@@ -19,19 +27,21 @@ public class AppCore extends Application {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             if (firebaseUser != null) {
                 if (firebaseUser.isEmailVerified()){
+                    loginInteractor.getUser(firebaseUser.getUid());
                     User userApp = User.getInstance();
-                    goToMain();
-                } else {
-
+                    userApp.setOnSession(true);
+                    //goToMain();
                 }
             } else {
-                goToLogin();
+                User userApp = User.getInstance();
+                userApp.setOnSession(false);
+                //goToLogin();
             }
         }
     };
 
     private void goToLogin() {
-        Intent intent = new Intent();
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
@@ -45,6 +55,8 @@ public class AppCore extends Application {
         super.onCreate();
         mFirebaseAuth = FirebaseAuth.getInstance();
         initAuthListener();
+
+        loginInteractor = new LoginInteractor(this);
     }
 
     @Override

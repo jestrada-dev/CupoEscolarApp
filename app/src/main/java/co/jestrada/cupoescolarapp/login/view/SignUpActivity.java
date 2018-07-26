@@ -20,7 +20,7 @@ import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
 import co.jestrada.cupoescolarapp.login.presenter.SignUpPresenter;
 
 public class SignUpActivity extends BaseActivity implements
-        ISignUpContract.ISignUpView, GoogleApiClient.OnConnectionFailedListener {
+        ISignUpContract.ISignUpView {
 
     @BindView(R.id.et_email)
     EditText etEmail;
@@ -61,13 +61,54 @@ public class SignUpActivity extends BaseActivity implements
     }
 
     @Override
+    public void showUserCreatedDialog(String title, String message, String textPositiveButton) {
+        mBuilder.setTitle(title);
+        mBuilder.setMessage(message);
+        mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                goToLogin();
+            }
+        });
+        mBuilder.show();
+    }
+
+    @Override
+    public void showResendEmailDialog(final String title, String message, String textPositiveButton,
+                           String textNegativeButton) {
+        mBuilder.setTitle(title);
+        mBuilder.setMessage(message);
+        mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mSignUpPresenter.sendVerificationEmail(title);
+            }
+        });
+        mBuilder.setNegativeButton(textNegativeButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                enableFields(true);
+            }
+        });
+        mBuilder.show();
+    }
+
+    @Override
     public void goToMain() {
         Intent intent = new Intent();
         startActivity(intent);
         finish();
     }
 
-    private void enableFields(boolean enable) {
+    @Override
+    public void goToLogin() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    @Override
+    public void enableFields(boolean enable) {
         etEmail.setEnabled(enable);
         etPassword.setEnabled(enable);
         btnSignUp.setEnabled(enable);
@@ -75,14 +116,8 @@ public class SignUpActivity extends BaseActivity implements
 
     @OnClick(R.id.btn_sign_up_email_password)
     public void signUpEmailPassword(){
-        enableFields(false);
         showProgressBar(true);
         mSignUpPresenter.signUpEmailPassword(etEmail, etPassword);
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
     }
 
     @Override

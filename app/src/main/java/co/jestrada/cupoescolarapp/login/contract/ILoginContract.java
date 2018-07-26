@@ -8,8 +8,8 @@ public interface ILoginContract {
 
     interface ILoginView extends IBaseContract.IBaseView{
         void showErrorValidateEditText(EditText editText, String etName);
-        void loginSuccess();
-        void loginError();
+        void showNeutralDialog(String title, String message, String textNeutralButton);
+        void goToMain();
         void enableFields(boolean enable);
 
         void goToEnrolledStudents();
@@ -19,6 +19,7 @@ public interface ILoginContract {
         void signInEmailPassword(final EditText etEmail, final EditText etPassword);
         void signInGoogleCredentials();
         void signInFacebookCredentials();
+        void forgetMyPassword(final EditText etEmail);
     }
 
 }

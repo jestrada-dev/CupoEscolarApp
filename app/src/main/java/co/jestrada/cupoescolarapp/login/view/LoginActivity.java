@@ -1,7 +1,9 @@
 package co.jestrada.cupoescolarapp.login.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.widget.Button;
@@ -41,6 +43,8 @@ ILoginContract.ILoginView{
 
     private LoginPresenter mLoginPresenter;
 
+    private AlertDialog.Builder mBuilder;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +53,8 @@ ILoginContract.ILoginView{
         ButterKnife.bind(this);
 
         mLoginPresenter = new LoginPresenter(LoginActivity.this);
+
+        mBuilder = new AlertDialog.Builder(this);
 
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -105,8 +111,7 @@ ILoginContract.ILoginView{
     }
 
     private void goToForgetPassword() {
-/*        Intent intent = new Intent(this, ForgetPasswordActivity.class);
-        startActivity(intent);*/
+        mLoginPresenter.forgetMyPassword(etEmail);
     }
 
     @OnClick(R.id.tv_create_email_account)
@@ -134,6 +139,26 @@ ILoginContract.ILoginView{
         editText.setError(getErrMessage(etName));
     }
 
+    @Override
+    public void showNeutralDialog(String title, String message, String textNeutralButton) {
+        mBuilder.setTitle(title);
+        mBuilder.setMessage(message);
+        mBuilder.setNeutralButton(textNeutralButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                enableFields(true);
+            }
+        });
+        mBuilder.show();
+    }
+
+    @Override
+    public void goToMain() {
+        Intent intent = new Intent();
+        startActivity(intent);
+        finish();
+    }
+
     private String getErrMessage(String etName) {
         String errEditText;
         switch (etName){
@@ -143,6 +168,9 @@ ILoginContract.ILoginView{
             case Fields.EMAIL:
                 errEditText = getString(R.string.validate_input_email);
                 break;
+            case Fields.FORGET_EMAIL:
+                errEditText = getString(R.string.enter_email_resend_password);
+                break;
             default:
                 errEditText = getString(R.string.validate_input_unidentify);
                 break;
@@ -151,12 +179,7 @@ ILoginContract.ILoginView{
     }
 
     @Override
-    public void loginSuccess() {
-        Toast.makeText(getApplicationContext(), "Login exitoso", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public void loginError() {
-        Toast.makeText(getApplicationContext(), "Error del login", Toast.LENGTH_SHORT).show();
+    protected void onStop() {
+        super.onStop();
     }
 }

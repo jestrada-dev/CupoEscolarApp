@@ -28,27 +28,11 @@ import co.jestrada.cupoescolarapp.login.model.UserModel;
 public class SignUpPresenter extends BasePresenter
         implements ISignUpContract.ISignUpPresenter {
 
-    private final static String TAG = "SIGN_UP";
-
-    private LoginInteractor mLoginInteractor;
     private ISignUpContract.ISignUpView mSignUpView;
     private Context mContext;
     private FirebaseAuth mFirebaseAuth;
 
-/*    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) {
-
-            } else {
-
-            }
-        }
-    };*/
-
     public SignUpPresenter(final Context mContext) {
-        mLoginInteractor = new LoginInteractor(this);
         mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mContext = mContext;
 
@@ -80,10 +64,6 @@ public class SignUpPresenter extends BasePresenter
         return validCredentials;
     }
 
-    public void showUserCreatedSuccesfully(){
-        //mSignUpView.showUserCreatedSuccesfully(user);
-    }
-
     private boolean isInternetConnectionActive(){
         return isNetAvailable() && isOnlineNet();
     }
@@ -111,6 +91,7 @@ public class SignUpPresenter extends BasePresenter
     public void signUpEmailPassword(EditText etEmail, EditText etPassword) {
         if (isValidCredentials(etEmail, etPassword)){
             if(!isInternetConnectionActive()){
+                mSignUpView.enableFields(false);
                 mSignUpView.showProgressBar(false);
                 mSignUpView.showNeutralDialog(mContext.getString(R.string.create_account),
                         mContext.getString(R.string.errorOnInternetConnection),
@@ -118,30 +99,30 @@ public class SignUpPresenter extends BasePresenter
             } else{
                 final String email = etEmail.getText().toString().trim().toLowerCase();
                 String password = etPassword.getText().toString();
-
                 mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener((Activity)mContext, new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 mSignUpView.showProgressBar(false);
+                                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 if (task.isSuccessful()) {
-                                    FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                                    mFirebaseUser.sendEmailVerification();
-                                    mSignUpView.showNeutralDialog(email,
-                                            mContext.getString(R.string.sign_up_user_succesfully),
-                                            mContext.getString(R.string.check_my_email));
+                                    sendVerificationEmail(email);
                                 } else {
                                     if(task.getException().getMessage().equals
                                             (mContext.getString(R.string.firebase_user_already_registered))){
-
-                                        mSignUpView.showNeutralDialog(email,
-                                                mContext.getString(R.string.firebase_user_already_registered_es),
-                                                mContext.getString(R.string.change_email_account));
-
+                                        if (mFirebaseUser.isEmailVerified()){
+                                            mSignUpView.goToMain();
+                                        } else {
+                                            mSignUpView.showResendEmailDialog(email,
+                                                    mContext.getString(R.string.firebase_user_already_registered_es),
+                                                    mContext.getString(R.string.resend_verification_email),
+                                                    mContext.getString(R.string.got_email));
+                                        }
                                     } else {
                                         mSignUpView.showNeutralDialog(email,
                                                 mContext.getString(R.string.sign_up_user_failed),
                                                 mContext.getString(R.string.try_later));
+                                        mSignUpView.enableFields(true);
                                     }
                                 }
                             }
@@ -152,10 +133,18 @@ public class SignUpPresenter extends BasePresenter
 
     }
 
-    public void setUserApp(UserModel userModel){
-        User userApp = User.getInstance();
-        userApp.setUser(userModel);
-        userApp.setOnSession(true);
+    @Override
+    public void sendVerificationEmail(String email) {
+        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser != null){
+            mFirebaseUser.sendEmailVerification();
+            mSignUpView.showUserCreatedDialog(email,
+                    mContext.getString(R.string.sign_up_user_succesfully),
+                    mContext.getString(R.string.check_my_email));
+        }else{
+            mSignUpView.showNeutralDialog(email, mContext.getString(R.string.failed_resend_verification_email),
+                    mContext.getString(R.string.change_email_account));
+        }
     }
 
 }

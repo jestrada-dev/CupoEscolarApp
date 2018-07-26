@@ -7,6 +7,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import co.jestrada.cupoescolarapp.common.AppCore;
 import co.jestrada.cupoescolarapp.common.constant.Firebase;
 import co.jestrada.cupoescolarapp.login.model.LoginMethodEnum;
 import co.jestrada.cupoescolarapp.login.model.User;
@@ -18,10 +19,10 @@ public class LoginInteractor {
 
     private FirebaseDatabase mFirebaseDB;
 
-    private SignUpPresenter mSignUpPresenter;
+    private AppCore appCore;
 
-    public LoginInteractor(SignUpPresenter mSignUpPresenter) {
-        this.mSignUpPresenter = mSignUpPresenter;
+    public LoginInteractor(AppCore appCore) {
+        this.appCore = appCore;
         this.mFirebaseDB = FirebaseDatabase.getInstance();
     }
 
@@ -31,7 +32,8 @@ public class LoginInteractor {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 UserModel userModel = dataSnapshot.getValue(UserModel.class);
-                mSignUpPresenter.setUserApp(userModel);
+                User userApp = User.getInstance();
+                userApp.setUser(userModel);
             }
 
             @Override
