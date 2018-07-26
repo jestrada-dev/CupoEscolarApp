@@ -16,4 +16,8 @@ public interface IBaseContract {
 
     }
 
+    interface IBaseInteractor{
+
+    }
+
 }

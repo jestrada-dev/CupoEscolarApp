@@ -120,7 +120,8 @@ ILoginContract.ILoginView{
     }
 
     private void goToSignUpEmailPassword() {
-        Intent intent = new Intent(this, SignUpActivity.class);
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        finish();
         startActivity(intent);
     }
 
@@ -154,9 +155,9 @@ ILoginContract.ILoginView{
 
     @Override
     public void goToMain() {
-        Intent intent = new Intent();
-        startActivity(intent);
+        Intent intent = new Intent(this, MainActivity.class);
         finish();
+        startActivity(intent);
     }
 
     private String getErrMessage(String etName) {
@@ -179,7 +180,20 @@ ILoginContract.ILoginView{
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        mLoginPresenter.onStart();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
+        mLoginPresenter.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mLoginPresenter.onDestroy();
     }
 }

@@ -32,6 +32,21 @@ public class SignUpPresenter extends BasePresenter
     private Context mContext;
     private FirebaseAuth mFirebaseAuth;
 
+    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            if (firebaseUser != null) {
+                if (firebaseUser.isEmailVerified()){
+                    mSignUpView.goToMain();
+                }
+            } else {
+                //mSignUpView.goToLogin();
+            }
+        }
+    };
+
+
     public SignUpPresenter(final Context mContext) {
         mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mContext = mContext;
@@ -147,4 +162,18 @@ public class SignUpPresenter extends BasePresenter
         }
     }
 
+    @Override
+    public void onStart() {
+        mFirebaseAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        mFirebaseAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        mAuthListener = null;
+    }
 }

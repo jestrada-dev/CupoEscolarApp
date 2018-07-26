@@ -20,6 +20,14 @@ public interface ILoginContract {
         void signInGoogleCredentials();
         void signInFacebookCredentials();
         void forgetMyPassword(final EditText etEmail);
+
+        void onStart();
+        void onStop();
+        void onDestroy();
+    }
+
+    interface ILoginInteractor extends IBaseContract.IBaseInteractor{
+        
     }
 
 }

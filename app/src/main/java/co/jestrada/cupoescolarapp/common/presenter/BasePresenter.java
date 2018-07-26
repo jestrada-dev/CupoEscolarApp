@@ -5,5 +5,4 @@ import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
 public class BasePresenter implements IBaseContract.IBasePresenter {
 
 
-
 }

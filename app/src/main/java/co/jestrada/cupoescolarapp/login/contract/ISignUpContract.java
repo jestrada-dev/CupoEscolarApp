@@ -24,6 +24,9 @@ public interface ISignUpContract extends IBaseContract {
         void signUpEmailPassword(final EditText etEmail, final EditText etPassword);
         void sendVerificationEmail(String email);
 
+        void onStart();
+        void onStop();
+        void onDestroy();
     }
 
 }

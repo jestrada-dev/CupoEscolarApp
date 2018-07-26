@@ -17,6 +17,8 @@ import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
+import co.jestrada.cupoescolarapp.login.interactor.LoginInteractor;
+import co.jestrada.cupoescolarapp.login.model.User;
 
 public class LoginPresenter extends BasePresenter implements
         ILoginContract.ILoginPresenter {
@@ -24,10 +26,26 @@ public class LoginPresenter extends BasePresenter implements
     private ILoginContract.ILoginView mLoginView;
     private Context mContext;
 
+    private LoginInteractor mLoginInteractor;
+
     private FirebaseAuth mFirebaseAuth;
+
+    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
+        @Override
+        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+            if (firebaseUser != null) {
+                if (firebaseUser.isEmailVerified()){
+                    mLoginView.goToMain();
+                }
+            }
+        }
+    };
+
 
     public LoginPresenter(final Context mContext) {
         this.mLoginView = (ILoginContract.ILoginView) mContext;
+        this.mLoginInteractor = new LoginInteractor(this);
         this.mContext = mContext;
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -123,6 +141,21 @@ public class LoginPresenter extends BasePresenter implements
                 }
             }
         });
+    }
+
+    @Override
+    public void onStart() {
+        mFirebaseAuth.addAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onStop() {
+        mFirebaseAuth.removeAuthStateListener(mAuthListener);
+    }
+
+    @Override
+    public void onDestroy() {
+        mAuthListener = null;
     }
 
 }

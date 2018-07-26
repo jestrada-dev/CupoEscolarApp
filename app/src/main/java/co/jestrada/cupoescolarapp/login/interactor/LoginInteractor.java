@@ -9,20 +9,24 @@ import com.google.firebase.database.ValueEventListener;
 
 import co.jestrada.cupoescolarapp.common.AppCore;
 import co.jestrada.cupoescolarapp.common.constant.Firebase;
+import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
+import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
 import co.jestrada.cupoescolarapp.login.model.LoginMethodEnum;
 import co.jestrada.cupoescolarapp.login.model.User;
 import co.jestrada.cupoescolarapp.login.model.UserModel;
 import co.jestrada.cupoescolarapp.login.model.userChilds.LoginMethodModel;
+import co.jestrada.cupoescolarapp.login.presenter.LoginPresenter;
 import co.jestrada.cupoescolarapp.login.presenter.SignUpPresenter;
 
-public class LoginInteractor {
+public class LoginInteractor implements
+        IBaseContract.IBaseInteractor {
 
     private FirebaseDatabase mFirebaseDB;
 
-    private AppCore appCore;
+    private ILoginContract.ILoginPresenter mLoginPresenter;
 
-    public LoginInteractor(AppCore appCore) {
-        this.appCore = appCore;
+    public LoginInteractor(LoginPresenter mLoginPresenter) {
+        this.mLoginPresenter = mLoginPresenter;
         this.mFirebaseDB = FirebaseDatabase.getInstance();
     }
 

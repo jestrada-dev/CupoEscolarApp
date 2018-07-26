@@ -95,16 +95,16 @@ public class SignUpActivity extends BaseActivity implements
 
     @Override
     public void goToMain() {
-        Intent intent = new Intent();
-        startActivity(intent);
+        Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
         finish();
+        startActivity(intent);
     }
 
     @Override
     public void goToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        startActivity(intent);
+        Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
         finish();
+        startActivity(intent);
     }
 
     @Override
@@ -130,10 +130,18 @@ public class SignUpActivity extends BaseActivity implements
     @Override
     protected void onStart() {
         super.onStart();
+        mSignUpPresenter.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        mSignUpPresenter.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mSignUpPresenter.onDestroy();
     }
 }
