@@ -34,7 +34,7 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fbYOUR_APP_ID</string>
 
     <string name="firebase_user_already_registered">The email address is already in use by another account.</string>
-    <string name="firebase_user_already_registered_es">Ya te encuentras registrado en Cupo Escolar App pero aún no has confirmado tu cuenta de correo electrónico</string>
+    <string name="firebase_user_already_registered_es">Ya te encuentras registrado en Cupo Escolar App!</string>
     <string name="change_email_account">Cambiar cuenta de correo</string>
     <string name="try_later">Intentar mas tarde</string>
     <string name="check_my_email">OK, voy a revisar mi buzón de correo</string>
@@ -47,5 +47,10 @@
     <string name="failed_send_password_reset_email">Algo salió mal! No fue posible enviar correo electrónico para restablecer tu password</string>
     <string name="email_password_incorrects">Correo electrónico y/o password incorrectos. Por favor valida tus datos.</string>
     <string name="try_again">Validar e intentar de nuevo</string>
+    <string name="try_another_email_account">Intentar con otra cuenta de correo</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="sign_out">Cerrar Sesión</string>
+    <string name="resend_verify_email">Reenviar correo de verificación</string>
+    <string name="sent_verify_email">En breve recibirás nuevamente un correo electrónico para verificar tu cuenta.</string>
 
 </resources>

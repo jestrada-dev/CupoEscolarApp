@@ -18,7 +18,6 @@ import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
 import co.jestrada.cupoescolarapp.login.interactor.LoginInteractor;
-import co.jestrada.cupoescolarapp.login.model.User;
 
 public class LoginPresenter extends BasePresenter implements
         ILoginContract.ILoginPresenter {
@@ -91,7 +90,15 @@ public class LoginPresenter extends BasePresenter implements
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     mLoginView.showProgressBar(false);
                     if (task.isSuccessful()){
-                        mLoginView.goToMain();
+                        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+                        if(mFirebaseUser.isEmailVerified()){
+                            mLoginView.goToMain();
+                        } else {
+                            mLoginView.showVerifyEmailDialog(email,
+                                    mContext.getString(R.string.firebase_user_already_registered_es),
+                                    mContext.getString(R.string.resend_verify_email),
+                                    mContext.getString(R.string.check_my_email));
+                        }
                     }else {
                         mLoginView.enableFields(true);
                         mLoginView.showNeutralDialog(email,
@@ -120,11 +127,29 @@ public class LoginPresenter extends BasePresenter implements
             mLoginView.showErrorValidateEditText(etEmail, Fields.FORGET_EMAIL);
             etEmail.requestFocus();
         }else {
-            sendVerificationEmail(email);
+            sendRestorePasswordEmail(email);
         }
     }
 
-    private void sendVerificationEmail(final String email) {
+    public void sendVerificationEmail() {
+        final FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser != null){
+            mFirebaseUser.sendEmailVerification().addOnCompleteListener(
+                    new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                mLoginView.showNeutralDialog(mFirebaseUser.getEmail(),
+                                        mContext.getString(R.string.sent_verify_email),
+                                        mContext.getString(R.string.check_my_email));
+                            }
+                        }
+                    }
+            );
+        }
+    }
+
+    private void sendRestorePasswordEmail(final String email) {
         mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(
                 new OnCompleteListener<Void>() {
             @Override
