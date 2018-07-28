@@ -54,8 +54,6 @@ ILoginContract.ILoginView{
 
         mLoginPresenter = new LoginPresenter(LoginActivity.this);
 
-        mBuilder = new AlertDialog.Builder(this);
-
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -92,12 +90,6 @@ ILoginContract.ILoginView{
         tvCreateEmailAccount.setEnabled(enable);
         btnSignInGoogle.setEnabled(enable);
         btnSignInFacebook.setEnabled(enable);
-    }
-
-    public void goToEnrolledStudents(){
-/*        Intent intent = new Intent(this, EnrolledStudentsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);*/
     }
 
     @OnClick(R.id.btn_sign_in_email_password)
@@ -142,6 +134,8 @@ ILoginContract.ILoginView{
 
     @Override
     public void showNeutralDialog(String title, String message, String textNeutralButton) {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
         mBuilder.setTitle(title);
         mBuilder.setMessage(message);
         mBuilder.setNeutralButton(textNeutralButton, new DialogInterface.OnClickListener() {
@@ -154,8 +148,30 @@ ILoginContract.ILoginView{
     }
 
     @Override
+    public void showVerifyEmailDialog(String title, String message, String textPositiveButton, String textNegativeButton) {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle(title);
+        mBuilder.setMessage(message);
+        mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                mLoginPresenter.sendVerificationEmail();
+                enableFields(true);
+            }
+        });
+        mBuilder.setNegativeButton(textNegativeButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                enableFields(true);
+            }
+        });
+        mBuilder.show();
+    }
+
+    @Override
     public void goToMain() {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         finish();
         startActivity(intent);
     }

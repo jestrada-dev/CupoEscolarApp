@@ -6,8 +6,10 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Patterns;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -40,8 +42,6 @@ public class SignUpPresenter extends BasePresenter
                 if (firebaseUser.isEmailVerified()){
                     mSignUpView.goToMain();
                 }
-            } else {
-                //mSignUpView.goToLogin();
             }
         }
     };
@@ -76,6 +76,10 @@ public class SignUpPresenter extends BasePresenter
             etEmail.requestFocus();
             validCredentials = false;
         }
+        if(!validCredentials){
+            mSignUpView.enableFields(true);
+        }
+
         return validCredentials;
     }
 
@@ -119,25 +123,19 @@ public class SignUpPresenter extends BasePresenter
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 mSignUpView.showProgressBar(false);
-                                FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                                 if (task.isSuccessful()) {
                                     sendVerificationEmail(email);
                                 } else {
                                     if(task.getException().getMessage().equals
                                             (mContext.getString(R.string.firebase_user_already_registered))){
-                                        if (mFirebaseUser.isEmailVerified()){
-                                            mSignUpView.goToMain();
-                                        } else {
-                                            mSignUpView.showResendEmailDialog(email,
-                                                    mContext.getString(R.string.firebase_user_already_registered_es),
-                                                    mContext.getString(R.string.resend_verification_email),
-                                                    mContext.getString(R.string.got_email));
-                                        }
+                                        mSignUpView.showUserAlreadyRegisteredDialog(email,
+                                                mContext.getString(R.string.firebase_user_already_registered_es),
+                                                mContext.getString(R.string.login),
+                                                mContext.getString(R.string.try_another_email_account));
                                     } else {
                                         mSignUpView.showNeutralDialog(email,
                                                 mContext.getString(R.string.sign_up_user_failed),
                                                 mContext.getString(R.string.try_later));
-                                        mSignUpView.enableFields(true);
                                     }
                                 }
                             }
@@ -156,9 +154,6 @@ public class SignUpPresenter extends BasePresenter
             mSignUpView.showUserCreatedDialog(email,
                     mContext.getString(R.string.sign_up_user_succesfully),
                     mContext.getString(R.string.check_my_email));
-        }else{
-            mSignUpView.showNeutralDialog(email, mContext.getString(R.string.failed_resend_verification_email),
-                    mContext.getString(R.string.change_email_account));
         }
     }
 

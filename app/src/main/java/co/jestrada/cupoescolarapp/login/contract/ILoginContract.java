@@ -9,10 +9,12 @@ public interface ILoginContract {
     interface ILoginView extends IBaseContract.IBaseView{
         void showErrorValidateEditText(EditText editText, String etName);
         void showNeutralDialog(String title, String message, String textNeutralButton);
+        void showVerifyEmailDialog(String title, String message, String textPositiveButton,
+                                   String textNegativeButton);
+
         void goToMain();
         void enableFields(boolean enable);
 
-        void goToEnrolledStudents();
     }
 
     interface ILoginPresenter extends IBaseContract.IBasePresenter{

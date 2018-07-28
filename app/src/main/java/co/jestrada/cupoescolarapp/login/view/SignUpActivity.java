@@ -42,13 +42,12 @@ public class SignUpActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         mSignUpPresenter = new SignUpPresenter(SignUpActivity.this);
-
-        mBuilder = new AlertDialog.Builder(this);
-
     }
 
     @Override
     public void showNeutralDialog(String title, String message, String textNeutralButton) {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
         mBuilder.setTitle(title);
         mBuilder.setMessage(message);
         mBuilder.setNeutralButton(textNeutralButton, new DialogInterface.OnClickListener() {
@@ -62,6 +61,8 @@ public class SignUpActivity extends BaseActivity implements
 
     @Override
     public void showUserCreatedDialog(String title, String message, String textPositiveButton) {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
         mBuilder.setTitle(title);
         mBuilder.setMessage(message);
         mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
@@ -74,14 +75,16 @@ public class SignUpActivity extends BaseActivity implements
     }
 
     @Override
-    public void showResendEmailDialog(final String title, String message, String textPositiveButton,
+    public void showUserAlreadyRegisteredDialog(final String title, String message, String textPositiveButton,
                            String textNegativeButton) {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
         mBuilder.setTitle(title);
         mBuilder.setMessage(message);
         mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mSignUpPresenter.sendVerificationEmail(title);
+                goToLogin();
             }
         });
         mBuilder.setNegativeButton(textNegativeButton, new DialogInterface.OnClickListener() {
@@ -116,6 +119,7 @@ public class SignUpActivity extends BaseActivity implements
 
     @OnClick(R.id.btn_sign_up_email_password)
     public void signUpEmailPassword(){
+        enableFields(false);
         showProgressBar(true);
         mSignUpPresenter.signUpEmailPassword(etEmail, etPassword);
     }
