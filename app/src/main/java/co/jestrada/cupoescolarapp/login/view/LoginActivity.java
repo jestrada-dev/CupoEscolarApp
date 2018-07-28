@@ -94,12 +94,6 @@ ILoginContract.ILoginView{
         btnSignInFacebook.setEnabled(enable);
     }
 
-    public void goToEnrolledStudents(){
-/*        Intent intent = new Intent(this, EnrolledStudentsActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);*/
-    }
-
     @OnClick(R.id.btn_sign_in_email_password)
     public void signInEmailPassword(){
         mLoginPresenter.signInEmailPassword(etEmail, etPassword);
@@ -107,10 +101,6 @@ ILoginContract.ILoginView{
 
     @OnClick(R.id.tv_forget_password)
     public void forgetPassword(){
-        goToForgetPassword();
-    }
-
-    private void goToForgetPassword() {
         mLoginPresenter.forgetMyPassword(etEmail);
     }
 

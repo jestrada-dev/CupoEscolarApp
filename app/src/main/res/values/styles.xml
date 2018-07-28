@@ -1,28 +1,24 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColorPrimary">@color/colorPrimaryText</item>
-        <item name="android:textColorSecondary">@color/colorSecondaryText</item>
-        <item name="android:colorButtonNormal">@color/colorPrimaryLight</item>
+        <item name="textColorPrimary">@color/colorPrimaryText</item>
+        <item name="textColorSecondary">@color/colorSecondaryText</item>
+        <item name="colorButtonNormal">@color/colorPrimaryLight</item>
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
-    <style name="Widget.Design.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-    </style>
-
     <style name="TextTitle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:fontFamily">@font/worksans_medium</item>
-        <item name="android:textSize">20sp</item>
+        <item name="textColor">@color/colorPrimary</item>
+        <item name="fontFamily">@font/worksans_medium</item>
+        <item name="textSize">20sp</item>
     </style>
 
     <style name="TextSubtitle1" parent="TextAppearance.AppCompat">

@@ -12,7 +12,6 @@ public interface ILoginContract {
         void goToMain();
         void enableFields(boolean enable);
 
-        void goToEnrolledStudents();
     }
 
     interface ILoginPresenter extends IBaseContract.IBasePresenter{
