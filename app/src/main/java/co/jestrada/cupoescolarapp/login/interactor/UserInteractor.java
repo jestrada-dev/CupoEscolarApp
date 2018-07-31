@@ -4,6 +4,8 @@ package co.jestrada.cupoescolarapp.login.interactor;
 import android.support.annotation.NonNull;
 import android.text.format.DateFormat;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -13,6 +15,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import co.jestrada.cupoescolarapp.common.AppCore;
 import co.jestrada.cupoescolarapp.common.constant.CustomDateUtils;
 import co.jestrada.cupoescolarapp.common.constant.Firebase;
 import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
@@ -32,11 +35,18 @@ public class UserInteractor implements
     private FirebaseDatabase mFirebaseDB;
     private DatabaseReference dbRefUsers;
 
+    private AppCore mAppCore;
+
     private ILoginContract.ILoginPresenter mLoginPresenter;
     private ISignUpContract.ISignUpPresenter mSignUpPresenter;
     private IMainContract.IMainPresenter mMainPresenter;
 
     private UserBO userBOApp;
+
+    public UserInteractor() {
+        this.mFirebaseDB = FirebaseDatabase.getInstance();
+        this.dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
+    }
 
     public UserInteractor(ILoginContract.ILoginPresenter mLoginPresenter) {
         this.mFirebaseDB = FirebaseDatabase.getInstance();
@@ -117,6 +127,7 @@ public class UserInteractor implements
     }
 
     public void activateUser() {
+        userBOApp = UserBO.getInstance();
         userBOApp.setState(StateUserEnum.ACTIVE);
         for(LoginMethodBO loginMethod : userBOApp.getLogins()){
             if (loginMethod.getLoginMethod().equals(LoginMethodEnum.EMAIL_AND_PASSWORD)){

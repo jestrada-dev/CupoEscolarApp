@@ -170,8 +170,8 @@ ILoginContract.ILoginView{
     @Override
     public void goToMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        finish();
         startActivity(intent);
+        finish();
     }
 
     private String getErrMessage(String etName) {

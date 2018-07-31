@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.common.AppCore;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
@@ -27,28 +28,20 @@ public class LoginPresenter extends BasePresenter implements
     private ILoginContract.ILoginView mLoginView;
     private Context mContext;
 
+    private AppCore mAppCore;
+
     private UserInteractor mUserInteractor;
+    private UserBO userBOApp;
 
     private FirebaseAuth mFirebaseAuth;
-
-    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) {
-                mUserInteractor.getUser(firebaseUser.getUid());
-                if (firebaseUser.isEmailVerified()){
-                    mLoginView.goToMain();
-                }
-            }
-        }
-    };
 
     public LoginPresenter(final Context mContext) {
         this.mLoginView = (ILoginContract.ILoginView) mContext;
         this.mContext = mContext;
         this.mUserInteractor = new UserInteractor(this);
         this.mFirebaseAuth = FirebaseAuth.getInstance();
+
+        mAppCore = new AppCore();
     }
 
     private boolean isValidEmail(String email){
@@ -89,13 +82,7 @@ public class LoginPresenter extends BasePresenter implements
                     if (task.isSuccessful()){
                         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                         if(mFirebaseUser.isEmailVerified()){
-                            UserBO userBO = UserBO.getInstance();
-                            if ( (userBO.getState() != null) &&
-                                    (userBO.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
-                                userBO.setState(StateUserEnum.ACTIVE);
-                            }
-                            mUserInteractor.activateUser();
-                            mLoginView.goToMain();
+                            login();
                         } else {
                             mLoginView.showProgressBar(false);
                             mLoginView.enableFields(true);
@@ -114,8 +101,19 @@ public class LoginPresenter extends BasePresenter implements
                 }
             });
         } else {
+
             mLoginView.enableFields(true);
             mLoginView.showProgressBar(false);
+        }
+    }
+
+    private void login() {
+        userBOApp = UserBO.getInstance();
+        userBOApp.setOnSession(true);
+        mLoginView.goToMain();
+        if ( (userBOApp.getState() != null) &&
+                (userBOApp.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
+            mUserInteractor.activateUser();
         }
     }
 
@@ -158,12 +156,10 @@ public class LoginPresenter extends BasePresenter implements
 
     @Override
     public void signInGoogleCredentials() {
-
     }
 
     @Override
     public void signInFacebookCredentials() {
-
     }
 
     @Override
@@ -179,17 +175,18 @@ public class LoginPresenter extends BasePresenter implements
 
     @Override
     public void onStart() {
-        mFirebaseAuth.addAuthStateListener(mAuthListener);
+        userBOApp = UserBO.getInstance();
+        if (userBOApp.isOnSession()){
+            mLoginView.goToMain();
+        }
     }
 
     @Override
     public void onStop() {
-        mFirebaseAuth.removeAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onDestroy() {
-        mAuthListener = null;
     }
 
 }

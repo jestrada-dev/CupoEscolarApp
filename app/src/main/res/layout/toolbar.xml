@@ -6,4 +6,4 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/mColorPrimary"
     android:theme="@android:style/Theme.Material"
-    android:translationZ="4dp"/>
+    android:translationZ="4dp" />

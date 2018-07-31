@@ -21,29 +21,10 @@ public class MainPresenter extends BasePresenter implements
 
     private FirebaseAuth mFirebaseAuth;
 
-    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) {
-                if (!firebaseUser.isEmailVerified()){
-                    mMainView.goToLogin();
-                } else {
-                    mUserInteractor.getUser(firebaseUser.getUid());
-                    mMainView.setUIToolbar();
-                }
-            } else {
-                mMainView.goToLogin();
-            }
-        }
-    };
-
     public MainPresenter(final Context mContext) {
         this.mMainView = (IMainContract.IMainView) mContext;
         this.mUserInteractor = new UserInteractor(this);
         this.mContext = mContext;
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -59,16 +40,13 @@ public class MainPresenter extends BasePresenter implements
 
     @Override
     public void onStart() {
-        mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
-        mFirebaseAuth.removeAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onDestroy() {
-        mAuthListener = null;
     }
 }

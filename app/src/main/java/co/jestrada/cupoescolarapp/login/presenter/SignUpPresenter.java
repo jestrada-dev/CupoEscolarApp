@@ -41,18 +41,6 @@ public class SignUpPresenter extends BasePresenter implements
 
     private UserBO userBOApp;
 
-    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
-        @Override
-        public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-            FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            if (firebaseUser != null) {
-                if (firebaseUser.isEmailVerified()){
-                    mSignUpView.goToMain();
-                }
-            }
-        }
-    };
-
     public SignUpPresenter(final Context mContext) {
         this.mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mContext = mContext;
@@ -130,7 +118,6 @@ public class SignUpPresenter extends BasePresenter implements
             mSignUpView.enableFields(true);
             mSignUpView.showProgressBar(false);
         }
-
     }
 
     private void createUserEmailPassword(final String email, String password) {
@@ -200,16 +187,13 @@ public class SignUpPresenter extends BasePresenter implements
 
     @Override
     public void onStart() {
-        mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onStop() {
-        mFirebaseAuth.removeAuthStateListener(mAuthListener);
     }
 
     @Override
     public void onDestroy() {
-        mAuthListener = null;
     }
 }

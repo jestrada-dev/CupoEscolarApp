@@ -41,9 +41,8 @@ public class MainActivity extends BaseActivity implements
 
         mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
 
-        if(mToolbar != null){
-            setSupportActionBar(mToolbar);
-        }
+        getData();
+
 
 //        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav_bar);
 
@@ -80,6 +79,13 @@ public class MainActivity extends BaseActivity implements
     }
 
 
+    private void getData(){
+        getAttendant();
+    }
+
+    private void getAttendant(){
+
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
