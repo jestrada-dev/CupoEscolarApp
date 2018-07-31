@@ -3,6 +3,8 @@ package co.jestrada.cupoescolarapp.login.contract;
 import android.widget.EditText;
 
 import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
+import co.jestrada.cupoescolarapp.login.model.bo.LoginMethodBO;
+import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public interface ISignUpContract extends IBaseContract {
 
@@ -28,5 +30,6 @@ public interface ISignUpContract extends IBaseContract {
         void onStop();
         void onDestroy();
     }
+
 
 }

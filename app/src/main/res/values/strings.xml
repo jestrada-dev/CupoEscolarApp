@@ -52,5 +52,17 @@
     <string name="sign_out">Cerrar Sesión</string>
     <string name="resend_verify_email">Reenviar correo de verificación</string>
     <string name="sent_verify_email">En breve recibirás nuevamente un correo electrónico para verificar tu cuenta.</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+    <string name="menu_nav_dashboard">Dashboard</string>
+    <string name="menu_nav_search_schools">Buscar Colegios</string>
+    <string name="menu_nav_menu">Menú</string>
+    <string name="students">Estudiantes</string>
+    <string name="account">Cuenta</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

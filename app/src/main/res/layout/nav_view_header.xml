@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/height_nav_view_header"
+    android:background="@drawable/ic_account_circle"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tv_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:gravity="end"
+        android:layout_above="@id/tv_user_email"
+        style="@style/TextBody1"
+        android:text="Jorge Estrada"/>
+
+    <TextView
+        android:id="@+id/tv_user_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="@dimen/margin_vertical"
+        android:gravity="end"
+        style="@style/TextBody2"
+        android:text="jorgeestradafrases@hotmail.com"/>
+
+</RelativeLayout>

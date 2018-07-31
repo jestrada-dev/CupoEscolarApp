@@ -1,21 +1,25 @@
-package co.jestrada.cupoescolarapp.login.model;
-
-import java.util.ArrayList;
-import java.util.Date;
+package co.jestrada.cupoescolarapp.login.model.modelDocJson;
 
 import co.jestrada.cupoescolarapp.login.enums.StateUserEnum;
-import co.jestrada.cupoescolarapp.login.model.userChilds.LoginMethodModel;
+import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
-public class UserModel {
+public class UserDocJson {
 
     private String uId;
     private String email;
     private String firstName;
     private String lastName;
     private StateUserEnum state;
-    private ArrayList<LoginMethodModel> logins;
 
-    public UserModel() {
+    public UserDocJson() {
+    }
+
+    public void setValues(UserBO userBO){
+        this.uId = userBO.getuId();
+        this.email = userBO.getEmail();
+        this.firstName = userBO.getFirstName();
+        this.lastName = userBO.getLastName();
+        this.state = userBO.getState();
     }
 
     public String getuId() {
@@ -48,14 +52,6 @@ public class UserModel {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public ArrayList<LoginMethodModel> getLogins() {
-        return logins;
-    }
-
-    public void setLogins(ArrayList<LoginMethodModel> logins) {
-        this.logins = logins;
     }
 
     public StateUserEnum getState() {

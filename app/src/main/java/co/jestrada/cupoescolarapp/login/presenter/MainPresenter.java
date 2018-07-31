@@ -8,6 +8,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.IMainContract;
+import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
+import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public class MainPresenter extends BasePresenter implements
         IMainContract.IMainPresenter{
@@ -15,7 +17,7 @@ public class MainPresenter extends BasePresenter implements
     private IMainContract.IMainView mMainView;
     private Context mContext;
 
-    //private LoginInteractor mLoginInteractor;
+    private UserInteractor mUserInteractor;
 
     private FirebaseAuth mFirebaseAuth;
 
@@ -26,6 +28,9 @@ public class MainPresenter extends BasePresenter implements
             if (firebaseUser != null) {
                 if (!firebaseUser.isEmailVerified()){
                     mMainView.goToLogin();
+                } else {
+                    mUserInteractor.getUser(firebaseUser.getUid());
+                    mMainView.setUIToolbar();
                 }
             } else {
                 mMainView.goToLogin();
@@ -35,7 +40,7 @@ public class MainPresenter extends BasePresenter implements
 
     public MainPresenter(final Context mContext) {
         this.mMainView = (IMainContract.IMainView) mContext;
-        //this.mLoginInteractor = new LoginInteractor(this);
+        this.mUserInteractor = new UserInteractor(this);
         this.mContext = mContext;
 
         mFirebaseAuth = FirebaseAuth.getInstance();
@@ -45,6 +50,11 @@ public class MainPresenter extends BasePresenter implements
     @Override
     public void signOut() {
         mFirebaseAuth.signOut();
+    }
+
+    @Override
+    public void getUser(UserBO userBO) {
+
     }
 
     @Override

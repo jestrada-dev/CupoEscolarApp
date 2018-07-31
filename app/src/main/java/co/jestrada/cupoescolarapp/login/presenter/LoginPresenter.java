@@ -17,7 +17,11 @@ import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
-import co.jestrada.cupoescolarapp.login.interactor.LoginInteractor;
+import co.jestrada.cupoescolarapp.login.enums.StateUserEnum;
+import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
+import co.jestrada.cupoescolarapp.login.model.bo.LoginMethodBO;
+import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
+import co.jestrada.cupoescolarapp.login.model.enums.LoginMethodEnum;
 
 public class LoginPresenter extends BasePresenter implements
         ILoginContract.ILoginPresenter {
@@ -25,7 +29,7 @@ public class LoginPresenter extends BasePresenter implements
     private ILoginContract.ILoginView mLoginView;
     private Context mContext;
 
-    private LoginInteractor mLoginInteractor;
+    private UserInteractor mUserInteractor;
 
     private FirebaseAuth mFirebaseAuth;
 
@@ -34,7 +38,19 @@ public class LoginPresenter extends BasePresenter implements
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             if (firebaseUser != null) {
+                mUserInteractor.getUser(firebaseUser.getUid());
+                UserBO userBOApp = UserBO.getInstance();
                 if (firebaseUser.isEmailVerified()){
+                    if (userBOApp.getState().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())){
+                        userBOApp.setState(StateUserEnum.ACTIVE);
+                        LoginMethodBO loginMethodBO = new LoginMethodBO();
+                        //TODO: Corregir el manejo de la fecha.
+                        loginMethodBO.setCreationTimestamp("");
+                        loginMethodBO.setLoginMethod(LoginMethodEnum.EMAIL_AND_PASSWORD);
+                        loginMethodBO.setEmail(firebaseUser.getEmail());
+                        loginMethodBO.setState(StateUserEnum.ACTIVE);
+                        mUserInteractor.saveUser( userBOApp, loginMethodBO);
+                    }
                     mLoginView.goToMain();
                 }
             }
@@ -44,8 +60,9 @@ public class LoginPresenter extends BasePresenter implements
 
     public LoginPresenter(final Context mContext) {
         this.mLoginView = (ILoginContract.ILoginView) mContext;
-        this.mLoginInteractor = new LoginInteractor(this);
         this.mContext = mContext;
+
+        mUserInteractor = new UserInteractor(this);
 
         mFirebaseAuth = FirebaseAuth.getInstance();
     }
@@ -129,6 +146,11 @@ public class LoginPresenter extends BasePresenter implements
         }else {
             sendRestorePasswordEmail(email);
         }
+    }
+
+    @Override
+    public void getUser(UserBO userBO) {
+
     }
 
     public void sendVerificationEmail() {

@@ -10,6 +10,10 @@
     <color name="mColorSecondaryText">#344955</color>
 
     <color name="mColorIcons">#232F34</color>
+    <color name="mColorNavIcon">#344955</color>
+    <color name="mColorNavText">#344955</color>
+
+    <color name="mColorBackground">#F5F5F5</color>
     <color name="mColorDivider">#F5F5F5</color>
     <color name="mColorBorder">#9E9E9E</color>
 

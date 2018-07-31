@@ -2,21 +2,30 @@ package co.jestrada.cupoescolarapp.login.view;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.widget.FrameLayout;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
 import co.jestrada.cupoescolarapp.login.contract.IMainContract;
+import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.login.presenter.MainPresenter;
 
 public class MainActivity extends BaseActivity implements
         IMainContract.IMainView{
 
-    @BindView(R.id.btn_sign_out)
-    Button btnSignOut;
+//    private BottomNavigationView mBottomNavigationView;
+
+    private FrameLayout mFrameLayout;
+
+    private android.support.v7.widget.Toolbar mToolbar;
+
+    private DashboardFragment mDashboardFragment;
+    private SearchSchoolsFragment mSearchSchoolsFragment;
 
     private MainPresenter mMainPresenter;
 
@@ -29,9 +38,62 @@ public class MainActivity extends BaseActivity implements
 
         mMainPresenter = new MainPresenter(MainActivity.this);
 
+        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+
+        if(mToolbar != null){
+            setSupportActionBar(mToolbar);
+        }
+
+//        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav_bar);
+
+        mDashboardFragment = new DashboardFragment();
+        mSearchSchoolsFragment = new SearchSchoolsFragment();
+
+        setFragment(mDashboardFragment);
+
+/*
+        mBottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                switch (menuItem.getItemId()){
+                    case R.id.menu_nav_menu:
+
+                        return true;
+
+                    case R.id.menu_nav_dashboard:
+                        setFragment(mDashboardFragment);
+                        return true;
+
+                    case R.id.menu_nav_search_schools:
+                        setFragment(mSearchSchoolsFragment);
+                        return true;
+
+                    default:
+                        return false;
+                }
+
+            }
+        });
+*/
     }
 
-    @OnClick(R.id.btn_sign_out)
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater mMenuInflater = getMenuInflater();
+        mMenuInflater.inflate(R.menu.menu_toolbar, menu);
+        return true;
+    }
+
+    private void setFragment(Fragment fragment){
+        FragmentTransaction mFragmentTransaction = getSupportFragmentManager()
+                .beginTransaction();
+        mFragmentTransaction.replace(R.id.fl_main, fragment);
+        mFragmentTransaction.commit();
+    }
+
     public void signOut(){
         mMainPresenter.signOut();
     }
@@ -41,6 +103,16 @@ public class MainActivity extends BaseActivity implements
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
         finish();
         startActivity(intent);
+    }
+
+    @Override
+    public void setUIToolbar() {
+        if(mToolbar != null){
+            UserBO userBOApp = UserBO.getInstance();
+            mToolbar.setTitle(userBOApp.getEmail());
+            mToolbar.setSubtitle(userBOApp.getFirstName());
+            mToolbar.setLogo(getDrawable(R.drawable.ic_account_circle));
+        }
     }
 
     @Override

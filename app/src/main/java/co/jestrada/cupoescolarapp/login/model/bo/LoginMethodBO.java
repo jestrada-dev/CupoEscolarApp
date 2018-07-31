@@ -1,18 +1,24 @@
-package co.jestrada.cupoescolarapp.login.model.userChilds;
-
-import java.util.Date;
+package co.jestrada.cupoescolarapp.login.model.bo;
 
 import co.jestrada.cupoescolarapp.login.enums.StateUserEnum;
-import co.jestrada.cupoescolarapp.login.model.LoginMethodEnum;
+import co.jestrada.cupoescolarapp.login.model.enums.LoginMethodEnum;
+import co.jestrada.cupoescolarapp.login.model.modelDocJson.LoginMethodDocJson;
 
-public class LoginMethodModel {
+public class LoginMethodBO {
 
     private LoginMethodEnum loginMethod;
     private String email;
-    private Date creationTimestamp;
+    private String creationTimestamp;
     private StateUserEnum state;
 
-    public LoginMethodModel() {
+    public LoginMethodBO() {
+    }
+
+    public void setValues(LoginMethodDocJson loginMethodDocJson){
+        this.loginMethod = loginMethodDocJson.getLoginMethod();
+        this.email = loginMethodDocJson.getEmail();
+        this.creationTimestamp = loginMethodDocJson.getCreationTimestamp();
+        this.state = loginMethodDocJson.getState();
     }
 
     public LoginMethodEnum getLoginMethod() {
@@ -31,11 +37,11 @@ public class LoginMethodModel {
         this.email = email;
     }
 
-    public Date getCreationTimestamp() {
+    public String getCreationTimestamp() {
         return creationTimestamp;
     }
 
-    public void setCreationTimestamp(Date creationTimestamp) {
+    public void setCreationTimestamp(String creationTimestamp) {
         this.creationTimestamp = creationTimestamp;
     }
 

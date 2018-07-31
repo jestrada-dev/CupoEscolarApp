@@ -3,6 +3,8 @@ package co.jestrada.cupoescolarapp.login.contract;
 import android.widget.EditText;
 
 import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
+import co.jestrada.cupoescolarapp.login.model.bo.LoginMethodBO;
+import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public interface ILoginContract {
 
@@ -23,13 +25,11 @@ public interface ILoginContract {
         void signInFacebookCredentials();
         void forgetMyPassword(final EditText etEmail);
 
+        void getUser(UserBO userBO);
+
         void onStart();
         void onStop();
         void onDestroy();
-    }
-
-    interface ILoginInteractor extends IBaseContract.IBaseInteractor{
-        
     }
 
 }

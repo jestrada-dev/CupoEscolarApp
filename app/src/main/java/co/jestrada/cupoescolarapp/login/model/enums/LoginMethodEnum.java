@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.model;
+package co.jestrada.cupoescolarapp.login.model.enums;
 
 public enum LoginMethodEnum {
 
