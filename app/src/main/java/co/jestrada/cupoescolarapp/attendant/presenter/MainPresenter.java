@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.presenter;
+package co.jestrada.cupoescolarapp.attendant.presenter;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -7,7 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.contract.IMainContract;
+import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
 import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 

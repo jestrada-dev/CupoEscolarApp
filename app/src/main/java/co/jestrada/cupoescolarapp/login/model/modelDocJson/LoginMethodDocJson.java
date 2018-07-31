@@ -1,6 +1,6 @@
 package co.jestrada.cupoescolarapp.login.model.modelDocJson;
 
-import co.jestrada.cupoescolarapp.login.enums.StateUserEnum;
+import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.login.model.bo.LoginMethodBO;
 import co.jestrada.cupoescolarapp.login.model.enums.LoginMethodEnum;
 
@@ -9,6 +9,7 @@ public class LoginMethodDocJson {
     private LoginMethodEnum loginMethod;
     private String email;
     private String creationTimestamp;
+    private String activateTimestamp;
     private StateUserEnum state;
 
     public LoginMethodDocJson() {
@@ -19,6 +20,7 @@ public class LoginMethodDocJson {
         this.email = loginMethodBO.getEmail();
         this.creationTimestamp = loginMethodBO.getCreationTimestamp();
         this.state = loginMethodBO.getState();
+        this.activateTimestamp = loginMethodBO.getActivateTimestamp();
     }
 
     public LoginMethodEnum getLoginMethod() {
@@ -53,4 +55,11 @@ public class LoginMethodDocJson {
         this.state = state;
     }
 
+    public String getActivateTimestamp() {
+        return activateTimestamp;
+    }
+
+    public void setActivateTimestamp(String activateTimestamp) {
+        this.activateTimestamp = activateTimestamp;
+    }
 }

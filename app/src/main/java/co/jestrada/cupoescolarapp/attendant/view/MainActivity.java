@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.view;
+package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,9 +11,10 @@ import android.widget.FrameLayout;
 import butterknife.ButterKnife;
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
-import co.jestrada.cupoescolarapp.login.contract.IMainContract;
+import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.login.presenter.MainPresenter;
+import co.jestrada.cupoescolarapp.attendant.presenter.MainPresenter;
+import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 
 public class MainActivity extends BaseActivity implements
         IMainContract.IMainView{

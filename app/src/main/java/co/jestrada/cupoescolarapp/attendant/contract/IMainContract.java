@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.contract;
+package co.jestrada.cupoescolarapp.attendant.contract;
 
 import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;

@@ -17,11 +17,9 @@ import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
-import co.jestrada.cupoescolarapp.login.enums.StateUserEnum;
+import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
-import co.jestrada.cupoescolarapp.login.model.bo.LoginMethodBO;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.login.model.enums.LoginMethodEnum;
 
 public class LoginPresenter extends BasePresenter implements
         ILoginContract.ILoginPresenter {
@@ -39,32 +37,18 @@ public class LoginPresenter extends BasePresenter implements
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
             if (firebaseUser != null) {
                 mUserInteractor.getUser(firebaseUser.getUid());
-                UserBO userBOApp = UserBO.getInstance();
                 if (firebaseUser.isEmailVerified()){
-                    if (userBOApp.getState().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())){
-                        userBOApp.setState(StateUserEnum.ACTIVE);
-                        LoginMethodBO loginMethodBO = new LoginMethodBO();
-                        //TODO: Corregir el manejo de la fecha.
-                        loginMethodBO.setCreationTimestamp("");
-                        loginMethodBO.setLoginMethod(LoginMethodEnum.EMAIL_AND_PASSWORD);
-                        loginMethodBO.setEmail(firebaseUser.getEmail());
-                        loginMethodBO.setState(StateUserEnum.ACTIVE);
-                        mUserInteractor.saveUser( userBOApp, loginMethodBO);
-                    }
                     mLoginView.goToMain();
                 }
             }
         }
     };
 
-
     public LoginPresenter(final Context mContext) {
         this.mLoginView = (ILoginContract.ILoginView) mContext;
         this.mContext = mContext;
-
-        mUserInteractor = new UserInteractor(this);
-
-        mFirebaseAuth = FirebaseAuth.getInstance();
+        this.mUserInteractor = new UserInteractor(this);
+        this.mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
     private boolean isValidEmail(String email){
@@ -98,25 +82,30 @@ public class LoginPresenter extends BasePresenter implements
             final String email = etEmail.getText().toString().trim().toLowerCase();
             String password = etPassword.getText().toString();
 
-            mLoginView.enableFields(false);
-            mLoginView.showProgressBar(true);
-
             mFirebaseAuth.signInWithEmailAndPassword(email, password).
                     addOnCompleteListener((Activity)mLoginView, new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
-                    mLoginView.showProgressBar(false);
                     if (task.isSuccessful()){
                         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                         if(mFirebaseUser.isEmailVerified()){
+                            UserBO userBO = UserBO.getInstance();
+                            if ( (userBO.getState() != null) &&
+                                    (userBO.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
+                                userBO.setState(StateUserEnum.ACTIVE);
+                            }
+                            mUserInteractor.activateUser();
                             mLoginView.goToMain();
                         } else {
+                            mLoginView.showProgressBar(false);
+                            mLoginView.enableFields(true);
                             mLoginView.showVerifyEmailDialog(email,
                                     mContext.getString(R.string.firebase_user_already_registered_es),
                                     mContext.getString(R.string.resend_verify_email),
                                     mContext.getString(R.string.check_my_email));
                         }
                     }else {
+                        mLoginView.showProgressBar(false);
                         mLoginView.enableFields(true);
                         mLoginView.showNeutralDialog(email,
                                 mContext.getString(R.string.email_password_incorrects),
@@ -124,33 +113,10 @@ public class LoginPresenter extends BasePresenter implements
                     }
                 }
             });
+        } else {
+            mLoginView.enableFields(true);
+            mLoginView.showProgressBar(false);
         }
-    }
-
-    @Override
-    public void signInGoogleCredentials() {
-
-    }
-
-    @Override
-    public void signInFacebookCredentials() {
-
-    }
-
-    @Override
-    public void forgetMyPassword(EditText etEmail) {
-        String email = etEmail.getText().toString().trim();
-        if(!isValidEmail(email)){
-            mLoginView.showErrorValidateEditText(etEmail, Fields.FORGET_EMAIL);
-            etEmail.requestFocus();
-        }else {
-            sendRestorePasswordEmail(email);
-        }
-    }
-
-    @Override
-    public void getUser(UserBO userBO) {
-
     }
 
     public void sendVerificationEmail() {
@@ -174,20 +140,41 @@ public class LoginPresenter extends BasePresenter implements
     private void sendRestorePasswordEmail(final String email) {
         mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(
                 new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    mLoginView.showNeutralDialog(email,
-                            mContext.getString(R.string.sent_email_restore_password),
-                            mContext.getString(R.string.check_my_email));
-                } else {
-                    mLoginView.showNeutralDialog(email,
-                            mContext.getString(R.string.failed_send_password_reset_email),
-                            mContext.getString(R.string.verify_my_email));
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()){
+                            mLoginView.showNeutralDialog(email,
+                                    mContext.getString(R.string.sent_email_restore_password),
+                                    mContext.getString(R.string.check_my_email));
+                        } else {
+                            mLoginView.showNeutralDialog(email,
+                                    mContext.getString(R.string.failed_send_password_reset_email),
+                                    mContext.getString(R.string.verify_my_email));
 
-                }
-            }
-        });
+                        }
+                    }
+                });
+    }
+
+    @Override
+    public void signInGoogleCredentials() {
+
+    }
+
+    @Override
+    public void signInFacebookCredentials() {
+
+    }
+
+    @Override
+    public void forgetMyPassword(EditText etEmail) {
+        String email = etEmail.getText().toString().trim();
+        if(!isValidEmail(email)){
+            mLoginView.showErrorValidateEditText(etEmail, Fields.FORGET_EMAIL);
+            etEmail.requestFocus();
+        }else {
+            sendRestorePasswordEmail(email);
+        }
     }
 
     @Override

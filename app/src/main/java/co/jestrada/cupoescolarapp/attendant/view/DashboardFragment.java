@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.view;
+package co.jestrada.cupoescolarapp.attendant.view;
 
 
 import android.os.Bundle;

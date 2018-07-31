@@ -2,7 +2,7 @@ package co.jestrada.cupoescolarapp.login.model.bo;
 
 import java.util.ArrayList;
 
-import co.jestrada.cupoescolarapp.login.enums.StateUserEnum;
+import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.login.model.modelDocJson.UserDocJson;
 import co.jestrada.cupoescolarapp.login.model.modelDocJson.LoginMethodDocJson;
 
@@ -36,18 +36,22 @@ public class UserBO {
     }
 
     public void setValues(UserDocJson userDocJson, ArrayList<LoginMethodDocJson> loginMethodDocJsons){
-        this.uId = userDocJson.getuId();
-        this.email = userDocJson.getEmail();
-        this.firstName = userDocJson.getFirstName();
-        this.lastName = userDocJson.getLastName();
-        this.state = userDocJson.getState();
-        ArrayList<LoginMethodBO> loginMethodBOS = new ArrayList<>();
-        LoginMethodBO loginMethodBO = new LoginMethodBO();
-        for (LoginMethodDocJson loginMethod : loginMethodDocJsons){
-            loginMethodBO.setValues(loginMethod);
-            loginMethodBOS.add(loginMethodBO);
+        if (userDocJson != null){
+            this.uId = userDocJson.getuId();
+            this.email = userDocJson.getEmail();
+            this.firstName = userDocJson.getFirstName();
+            this.lastName = userDocJson.getLastName();
+            this.state = userDocJson.getState();
+            if (loginMethodDocJsons != null){
+                ArrayList<LoginMethodBO> loginMethodBOS = new ArrayList<>();
+                LoginMethodBO loginMethodBO = new LoginMethodBO();
+                for (LoginMethodDocJson loginMethod : loginMethodDocJsons){
+                    loginMethodBO.setValues(loginMethod);
+                    loginMethodBOS.add(loginMethodBO);
+                }
+                this.logins = loginMethodBOS;
+            }
         }
-        this.logins = loginMethodBOS;
     }
 
     public String getuId() {
@@ -98,5 +102,12 @@ public class UserBO {
         this.state = state;
     }
 
+    public ArrayList<LoginMethodBO> getLogins() {
+        return logins;
+    }
+
+    public void setLogins(ArrayList<LoginMethodBO> logins) {
+        this.logins = logins;
+    }
 }
 

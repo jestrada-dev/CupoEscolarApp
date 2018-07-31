@@ -1,6 +1,6 @@
 package co.jestrada.cupoescolarapp.login.model.modelDocJson;
 
-import co.jestrada.cupoescolarapp.login.enums.StateUserEnum;
+import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public class UserDocJson {

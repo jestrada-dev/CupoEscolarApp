@@ -9,12 +9,12 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.attendant.view.MainActivity;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
@@ -94,6 +94,8 @@ ILoginContract.ILoginView{
 
     @OnClick(R.id.btn_sign_in_email_password)
     public void signInEmailPassword(){
+        enableFields(false);
+        showProgressBar(true);
         mLoginPresenter.signInEmailPassword(etEmail, etPassword);
     }
 
@@ -109,7 +111,7 @@ ILoginContract.ILoginView{
 
     private void goToSignUpEmailPassword() {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-        finish();
+        //finish();
         startActivity(intent);
     }
 

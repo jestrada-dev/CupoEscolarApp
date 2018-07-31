@@ -25,8 +25,6 @@ public interface ILoginContract {
         void signInFacebookCredentials();
         void forgetMyPassword(final EditText etEmail);
 
-        void getUser(UserBO userBO);
-
         void onStart();
         void onStop();
         void onDestroy();
