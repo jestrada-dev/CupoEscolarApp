@@ -16,7 +16,6 @@ public class BaseActivity extends AppCompatActivity
     @BindView(R.id.pb)
     ProgressBar pb;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

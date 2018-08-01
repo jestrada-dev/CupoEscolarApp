@@ -7,7 +7,6 @@ public interface IMainContract extends IBaseContract {
 
     interface IMainView{
         void goToLogin();
-
         void setUIToolbar();
     }
 

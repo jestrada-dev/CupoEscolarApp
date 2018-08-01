@@ -2,10 +2,17 @@ package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.FrameLayout;
 
 import butterknife.ButterKnife;
@@ -19,11 +26,11 @@ import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 public class MainActivity extends BaseActivity implements
         IMainContract.IMainView{
 
-//    private BottomNavigationView mBottomNavigationView;
-
+    private BottomNavigationView mBottomNavigationView;
+    private DrawerLayout mDrawerLayout;
     private FrameLayout mFrameLayout;
 
-    private android.support.v7.widget.Toolbar mToolbar;
+    private Toolbar mToolbar;
 
     private DashboardFragment mDashboardFragment;
     private SearchSchoolsFragment mSearchSchoolsFragment;
@@ -39,26 +46,26 @@ public class MainActivity extends BaseActivity implements
 
         mMainPresenter = new MainPresenter(MainActivity.this);
 
-        mToolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.toolbar);
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mToolbar);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_avatar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        getData();
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 
-
-//        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav_bar);
+        mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav_bar);
 
         mDashboardFragment = new DashboardFragment();
         mSearchSchoolsFragment = new SearchSchoolsFragment();
 
         setFragment(mDashboardFragment);
 
-/*
         mBottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 switch (menuItem.getItemId()){
                     case R.id.menu_nav_menu:
-
                         return true;
 
                     case R.id.menu_nav_dashboard:
@@ -75,16 +82,18 @@ public class MainActivity extends BaseActivity implements
 
             }
         });
-*/
     }
 
 
-    private void getData(){
-        getAttendant();
-    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
 
-    private void getAttendant(){
-
+        switch (item.getItemId()){
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

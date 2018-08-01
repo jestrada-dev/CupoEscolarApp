@@ -33,17 +33,16 @@ import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 public class SignUpPresenter extends BasePresenter implements
         ISignUpContract.ISignUpPresenter{
 
-    private ISignUpContract.ISignUpView mSignUpView;
     private Context mContext;
+    private ISignUpContract.ISignUpView mSignUpView;
     private FirebaseAuth mFirebaseAuth;
-
     private UserInteractor mUserInteractor;
 
     private UserBO userBOApp;
 
     public SignUpPresenter(final Context mContext) {
-        this.mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mContext = mContext;
+        this.mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mFirebaseAuth = FirebaseAuth.getInstance();
         this.mUserInteractor = new UserInteractor(null,this,null);
     }
@@ -171,7 +170,6 @@ public class SignUpPresenter extends BasePresenter implements
             mUserInteractor.saveUser(userBOApp);
         }
     }
-
 
     @Override
     public void sendVerificationEmail(String email) {

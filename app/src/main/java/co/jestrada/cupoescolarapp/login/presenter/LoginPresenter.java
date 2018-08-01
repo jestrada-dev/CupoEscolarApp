@@ -24,22 +24,21 @@ import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 public class LoginPresenter extends BasePresenter implements
         ILoginContract.ILoginPresenter {
 
-    private ILoginContract.ILoginView mLoginView;
-
-    private UserInteractor mUserInteractor;
-
     private Context mContext;
+    private ILoginContract.ILoginView mLoginView;
+    private UserInteractor mUserInteractor;
+    private FirebaseAuth mFirebaseAuth;
 
     private UserBO userBOApp;
-
-    private FirebaseAuth mFirebaseAuth;
 
     public LoginPresenter(final Context mContext) {
         this.mContext = mContext;
         this.mLoginView = (ILoginContract.ILoginView) mContext;
-        this.mUserInteractor = new UserInteractor(this, null, null);
+        this.mUserInteractor = new UserInteractor(
+                this,
+                null,
+                null);
         this.mFirebaseAuth = FirebaseAuth.getInstance();
-
     }
 
     private boolean isValidEmail(String email){
@@ -110,6 +109,14 @@ public class LoginPresenter extends BasePresenter implements
         }
     }
 
+    @Override
+    public void signInGoogleCredentials() {
+    }
+
+    @Override
+    public void signInFacebookCredentials() {
+    }
+
     private void login() {
         userBOApp = UserBO.getInstance();
         userBOApp.setOnSession(true);
@@ -142,6 +149,17 @@ public class LoginPresenter extends BasePresenter implements
         }
     }
 
+    @Override
+    public void forgetMyPassword(EditText etEmail) {
+        String email = etEmail.getText().toString().trim();
+        if(!isValidEmail(email)){
+            mLoginView.showErrorValidateEditText(etEmail, Fields.FORGET_EMAIL);
+            etEmail.requestFocus();
+        }else {
+            sendRestorePasswordEmail(email);
+        }
+    }
+
     private void sendRestorePasswordEmail(final String email) {
         mFirebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(
                 new OnCompleteListener<Void>() {
@@ -159,25 +177,6 @@ public class LoginPresenter extends BasePresenter implements
                         }
                     }
                 });
-    }
-
-    @Override
-    public void signInGoogleCredentials() {
-    }
-
-    @Override
-    public void signInFacebookCredentials() {
-    }
-
-    @Override
-    public void forgetMyPassword(EditText etEmail) {
-        String email = etEmail.getText().toString().trim();
-        if(!isValidEmail(email)){
-            mLoginView.showErrorValidateEditText(etEmail, Fields.FORGET_EMAIL);
-            etEmail.requestFocus();
-        }else {
-            sendRestorePasswordEmail(email);
-        }
     }
 
     @Override
