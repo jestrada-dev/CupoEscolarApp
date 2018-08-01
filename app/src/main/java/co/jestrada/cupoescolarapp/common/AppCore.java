@@ -8,19 +8,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.attendant.view.MainActivity;
+import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
 import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 
-public class AppCore extends Application {
+public class AppCore extends Application implements ILoginContract.IAppCore {
 
-    private UserInteractor mUserInteractor;
+    UserBO userBOApp;
 
-    private UserBO userBOApp;
-
-    private FirebaseAuth mFirebaseAuth;
-    private FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
+    FirebaseAuth mFirebaseAuth;
+    FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -28,43 +27,28 @@ public class AppCore extends Application {
             if (firebaseUser != null) {
                 if (firebaseUser.isEmailVerified()){
                     if(!userBOApp.isOnSession()){
-                        goToMain();
                         userBOApp.setOnSession(true);
-                        verifiedUserState();
                     }
                 }
             } else {
                 userBOApp.setOnSession(false);
-                goToLogin();
             }
         }
     };
 
-    public void verifiedUserState() {
-/*        userBOApp = UserBO.getInstance();
-        if ( (userBOApp.getState() != null) &&
-                (userBOApp.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
-            mUserInteractor.activateUser();
-        }*/
-    }
-
-    private void goToLogin() {
+    private void startLogin() {
         Intent intent = new Intent(AppCore.this, LoginActivity.class);
-        startActivity(intent);
-    }
-
-    private void goToMain() {
-        Intent intent = new Intent(AppCore.this, MainActivity.class);
         startActivity(intent);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
+        startLogin();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseAuth.addAuthStateListener(mAuthListener);
 
-        mUserInteractor = new UserInteractor();
     }
+
 }

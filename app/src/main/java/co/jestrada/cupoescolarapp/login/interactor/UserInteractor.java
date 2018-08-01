@@ -2,6 +2,7 @@ package co.jestrada.cupoescolarapp.login.interactor;
 
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -15,6 +16,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.Date;
 
+import co.jestrada.cupoescolarapp.attendant.view.MainActivity;
 import co.jestrada.cupoescolarapp.common.AppCore;
 import co.jestrada.cupoescolarapp.common.constant.CustomDateUtils;
 import co.jestrada.cupoescolarapp.common.constant.Firebase;
@@ -28,44 +30,34 @@ import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.login.model.enums.LoginMethodEnum;
 import co.jestrada.cupoescolarapp.login.model.modelDocJson.LoginMethodDocJson;
 import co.jestrada.cupoescolarapp.login.model.modelDocJson.UserDocJson;
+import co.jestrada.cupoescolarapp.login.view.LoginActivity;
+import co.jestrada.cupoescolarapp.login.view.SignUpActivity;
 
 public class UserInteractor implements
-        IBaseContract.IBaseInteractor{
-
-    private FirebaseDatabase mFirebaseDB;
-    private DatabaseReference dbRefUsers;
-
-    private AppCore mAppCore;
+        IBaseContract.IBaseInteractor,
+        ILoginContract.IUserInteractor,
+        ISignUpContract.IUserInteractor{
 
     private ILoginContract.ILoginPresenter mLoginPresenter;
     private ISignUpContract.ISignUpPresenter mSignUpPresenter;
     private IMainContract.IMainPresenter mMainPresenter;
 
+    private FirebaseDatabase mFirebaseDB;
+    private DatabaseReference dbRefUsers;
+
     private UserBO userBOApp;
 
-    public UserInteractor() {
-        this.mFirebaseDB = FirebaseDatabase.getInstance();
-        this.dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
-    }
-
-    public UserInteractor(ILoginContract.ILoginPresenter mLoginPresenter) {
-        this.mFirebaseDB = FirebaseDatabase.getInstance();
+    public UserInteractor(@Nullable ILoginContract.ILoginPresenter mLoginPresenter,
+                          @Nullable ISignUpContract.ISignUpPresenter mSignUpPresenter,
+                          @Nullable IMainContract.IMainPresenter mMainPresenter) {
         this.mLoginPresenter = mLoginPresenter;
-        this.dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
-    }
-
-    public UserInteractor(ISignUpContract.ISignUpPresenter mSignUpPresenter) {
-        this.mFirebaseDB = FirebaseDatabase.getInstance();
         this.mSignUpPresenter = mSignUpPresenter;
-        this.dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
-    }
-
-    public UserInteractor(IMainContract.IMainPresenter mMainPresenter) {
-        this.mFirebaseDB = FirebaseDatabase.getInstance();
         this.mMainPresenter = mMainPresenter;
+        this.mFirebaseDB = FirebaseDatabase.getInstance();
         this.dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
     }
 
+    @Override
     public void getUser(final String userUid) {
         dbRefUsers.child(userUid).addValueEventListener(new ValueEventListener() {
             @Override
@@ -82,7 +74,7 @@ public class UserInteractor implements
                         }
                         userBOApp = UserBO.getInstance();
                         userBOApp.setValues(userDocJson, loginMethodDocJsons);
-                        notifyUserChanges();
+                        //notifyUserChanges();
                     }
 
                     @Override
@@ -100,11 +92,16 @@ public class UserInteractor implements
     }
 
     private void notifyUserChanges() {
+        if(mLoginPresenter != null){
+        }
+        if(mSignUpPresenter != null){
+        }
         if(mMainPresenter != null){
             mMainPresenter.getUser(userBOApp);
         }
     }
 
+    @Override
     public void saveUser(UserBO userBO) {
         final DatabaseReference dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
         UserDocJson userDocJson = new UserDocJson();
@@ -126,17 +123,27 @@ public class UserInteractor implements
 
     }
 
+    @Override
     public void activateUser() {
         userBOApp = UserBO.getInstance();
-        userBOApp.setState(StateUserEnum.ACTIVE);
-        for(LoginMethodBO loginMethod : userBOApp.getLogins()){
-            if (loginMethod.getLoginMethod().equals(LoginMethodEnum.EMAIL_AND_PASSWORD)){
-                String strFecha = DateFormat.format(CustomDateUtils.LONG_DATE, new Date()).toString();
-                loginMethod.setActivateTimestamp(strFecha);
-                loginMethod.setState(StateUserEnum.EMAIL_VERIFIED);
-            }
-        }
-        saveUser(userBOApp);
+        //userBOApp.setState(StateUserEnum.ACTIVE);
+        final DatabaseReference dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
+        dbRefUsers.child(userBOApp.getuId())
+                .child(Firebase.FIELD_STATE)
+                .setValue(StateUserEnum.ACTIVE);
+
+        dbRefUsers.child(userBOApp.getuId())
+                .child(Firebase.USERS_LOGINS)
+                .child(Firebase.LOGIN_METHOD_EMAIL_PASSWORD)
+                .child(Firebase.FIELD_STATE)
+                .setValue(StateUserEnum.EMAIL_VERIFIED);
+
+        String strFecha = DateFormat.format(CustomDateUtils.LONG_DATE, new Date()).toString();
+        dbRefUsers.child(userBOApp.getuId())
+                .child(Firebase.USERS_LOGINS)
+                .child(Firebase.LOGIN_METHOD_EMAIL_PASSWORD)
+                .child(Firebase.FIELD_ACTIVATE_TIMESTAMP)
+                .setValue(strFecha);
     }
 
 }

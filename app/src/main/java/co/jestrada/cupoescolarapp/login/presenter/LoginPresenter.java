@@ -14,7 +14,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.R;
-import co.jestrada.cupoescolarapp.common.AppCore;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
@@ -26,22 +25,21 @@ public class LoginPresenter extends BasePresenter implements
         ILoginContract.ILoginPresenter {
 
     private ILoginContract.ILoginView mLoginView;
-    private Context mContext;
-
-    private AppCore mAppCore;
 
     private UserInteractor mUserInteractor;
+
+    private Context mContext;
+
     private UserBO userBOApp;
 
     private FirebaseAuth mFirebaseAuth;
 
     public LoginPresenter(final Context mContext) {
-        this.mLoginView = (ILoginContract.ILoginView) mContext;
         this.mContext = mContext;
-        this.mUserInteractor = new UserInteractor(this);
+        this.mLoginView = (ILoginContract.ILoginView) mContext;
+        this.mUserInteractor = new UserInteractor(this, null, null);
         this.mFirebaseAuth = FirebaseAuth.getInstance();
 
-        mAppCore = new AppCore();
     }
 
     private boolean isValidEmail(String email){
@@ -81,17 +79,23 @@ public class LoginPresenter extends BasePresenter implements
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (task.isSuccessful()){
                         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-                        if(mFirebaseUser.isEmailVerified()){
-                            login();
-                        } else {
-                            mLoginView.showProgressBar(false);
-                            mLoginView.enableFields(true);
-                            mLoginView.showVerifyEmailDialog(email,
-                                    mContext.getString(R.string.firebase_user_already_registered_es),
-                                    mContext.getString(R.string.resend_verify_email),
-                                    mContext.getString(R.string.check_my_email));
+                        if(mFirebaseUser != null){
+                            if(mFirebaseUser.isEmailVerified()){
+                                userBOApp = UserBO.getInstance();
+                                userBOApp.setuId(mFirebaseUser.getUid());
+                                validatedUserState();
+                                login();
+                            } else {
+                                mLoginView.showProgressBar(false);
+                                mLoginView.enableFields(true);
+                                mLoginView.showVerifyEmailDialog(email,
+                                        mContext.getString(R.string.firebase_user_already_registered_es),
+                                        mContext.getString(R.string.resend_verify_email),
+                                        mContext.getString(R.string.check_my_email));
+                            }
                         }
                     }else {
+                        // TODO: pendiente validar motivos de log in no exitoso.
                         mLoginView.showProgressBar(false);
                         mLoginView.enableFields(true);
                         mLoginView.showNeutralDialog(email,
@@ -101,7 +105,6 @@ public class LoginPresenter extends BasePresenter implements
                 }
             });
         } else {
-
             mLoginView.enableFields(true);
             mLoginView.showProgressBar(false);
         }
@@ -111,6 +114,10 @@ public class LoginPresenter extends BasePresenter implements
         userBOApp = UserBO.getInstance();
         userBOApp.setOnSession(true);
         mLoginView.goToMain();
+    }
+
+    private void validatedUserState() {
+        userBOApp = UserBO.getInstance();
         if ( (userBOApp.getState() != null) &&
                 (userBOApp.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
             mUserInteractor.activateUser();
@@ -187,6 +194,7 @@ public class LoginPresenter extends BasePresenter implements
 
     @Override
     public void onDestroy() {
+
     }
 
 }

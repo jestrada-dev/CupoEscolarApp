@@ -31,5 +31,9 @@ public interface ISignUpContract extends IBaseContract {
         void onDestroy();
     }
 
+    interface IUserInteractor extends IBaseContract.IBaseInteractor{
+        void getUser(final String userUid);
+        void saveUser(UserBO userBO);
+    }
 
 }

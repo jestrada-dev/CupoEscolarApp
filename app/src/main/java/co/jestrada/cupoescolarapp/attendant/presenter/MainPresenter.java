@@ -23,7 +23,7 @@ public class MainPresenter extends BasePresenter implements
 
     public MainPresenter(final Context mContext) {
         this.mMainView = (IMainContract.IMainView) mContext;
-        this.mUserInteractor = new UserInteractor(this);
+        this.mUserInteractor = new UserInteractor(null, null, this);
         this.mContext = mContext;
     }
 
