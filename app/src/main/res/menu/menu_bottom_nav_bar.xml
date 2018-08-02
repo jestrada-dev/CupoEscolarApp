@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_nav_menu"
-        android:icon="@drawable/ic_account_circle"
-        android:title="@string/menu_nav_menu" />
+        android:id="@+id/menu_nav_enrolls"
+        android:icon="@drawable/ic_enrolls"
+        android:title="@string/menu_nav_enrolls" />
 
     <item
         android:id="@+id/menu_nav_dashboard"

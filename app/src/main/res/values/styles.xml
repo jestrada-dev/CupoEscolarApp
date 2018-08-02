@@ -8,6 +8,7 @@
         <item name="android:textColorSecondary">@color/mColorSecondaryText</item>
         <item name="android:colorButtonNormal">@color/mColorPrimaryLight</item>
         <item name="android:windowContentTransitions">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">

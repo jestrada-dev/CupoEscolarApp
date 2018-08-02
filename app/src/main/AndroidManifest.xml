@@ -25,6 +25,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".attendant.view.MainActivity" />
+        <activity android:name=".student.StudentsActivity" />
+        <activity android:name=".attendant.view.AttendantProfileActivity" />
+        <activity android:name=".login.view.AccountActivity" />
+        <activity android:name=".social.SocialActivity" />
+        <activity android:name=".social.SendSuggestionsActivity"></activity>
     </application>
 
 </manifest>

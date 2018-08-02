@@ -4,31 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_nav_view_header_custom"
     android:background="@color/mColorPrimaryLight">
+
     <ImageView
         android:id="@+id/iv_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:contentDescription="OK"
-        android:src="@drawable/ic_launcher_background"
+        android:layout_width="@dimen/iv_avatar_width_and_height"
+        android:layout_height="@dimen/iv_avatar_width_and_height"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="@dimen/margin_vertical_cuadruple"
+        android:contentDescription="@string/click_to_change_avatar"
+        android:src="@drawable/ic_attendant_avatar"
         android:layout_centerHorizontal="true"/>
+
+    <!--Iconos diseñados por Freepik desde www.flaticon.com con licencia CC 3.0 BY -->
+
     <TextView
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_vertical"
+        android:layout_marginTop="@dimen/margin_vertical_double"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         style="@style/TextBodyInvert1"
-        android:text="Jorge Estrada"
+        android:text="@string/first_and_last_name"
         android:layout_below="@id/iv_avatar"
         android:layout_alignParentEnd="true"/>
+
     <TextView
         android:id="@+id/tv_user_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginBottom="@dimen/margin_vertical_double"
         style="@style/TextBodyInvert2"
-        android:text="jorgeestradafrases@hotmail.com"
+        android:text="@string/email"
         android:layout_below="@id/tv_user_name"
         android:layout_alignParentEnd="true"/>
 
