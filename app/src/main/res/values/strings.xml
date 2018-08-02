@@ -57,6 +57,7 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
     <string name="menu_nav_dashboard">Dashboard</string>
+    <string name="menu_nav_notifications">Notificaciones</string>
     <string name="menu_nav_search_schools">Buscar Colegios</string>
     <string name="menu_nav_enrolls">Inscripciones</string>
     <string name="students">Estudiantes</string>

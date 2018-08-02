@@ -89,7 +89,8 @@ public class AttendantInteractor implements
 /*        ArrayList<LoginMethodBO> loginMethodBOS = new ArrayList<>();
         loginMethodBOS.addAll(userBO.getLogins());*/
 
-        dbRefUsers.child(attendantDocJson.getuId())
+        dbRefUsers.child(attendantDocJson.getUserUid()
+        )
                 .setValue(attendantDocJson);
 
 /*        for (LoginMethodBO loginMethod : loginMethodBOS){

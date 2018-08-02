@@ -26,11 +26,11 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_bottom_bar"
             android:layout_alignParentBottom="true"
-            android:animateLayoutChanges="true"
             android:background="@android:color/transparent"
             app:itemIconTint="@color/mColorNavIcon"
             app:itemTextColor="@color/mColorNavText"
-            app:menu="@menu/menu_bottom_nav_bar"/>
+            app:itemHorizontalTranslationEnabled="true"
+            app:menu="@menu/menu_bottom_nav_bar" />
     </RelativeLayout>
 
     <ProgressBar

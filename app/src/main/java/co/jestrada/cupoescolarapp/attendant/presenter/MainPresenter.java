@@ -27,6 +27,7 @@ public class MainPresenter extends BasePresenter implements
         this.mMainView = (IMainContract.IMainView) mContext;
         this.mUserInteractor = new UserInteractor(null, null, this);
         this.mContext = mContext;
+        mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
 
@@ -36,9 +37,9 @@ public class MainPresenter extends BasePresenter implements
 
     @Override
     public void signOut() {
-        mFirebaseAuth.signOut();
         userBOApp = UserBO.getInstance();
         userBOApp.setOnSession(false);
+        mFirebaseAuth.signOut();
         mMainView.goToLogin();
     }
 

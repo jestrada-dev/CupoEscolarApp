@@ -4,12 +4,17 @@
     <item
         android:id="@+id/menu_nav_enrolls"
         android:icon="@drawable/ic_enrolls"
-        android:title="@string/menu_nav_enrolls" />
+        android:title="@string/menu_nav_enrolls"/>
 
     <item
         android:id="@+id/menu_nav_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="@string/menu_nav_dashboard" />
+
+    <item
+        android:id="@+id/menu_nav_notifications"
+        android:icon="@drawable/ic_notifications"
+        android:title="@string/menu_nav_notifications" />
 
     <item
         android:id="@+id/menu_nav_search_schools"

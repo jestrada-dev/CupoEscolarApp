@@ -35,6 +35,7 @@ public class MainActivity extends BaseActivity implements
 
     private EnrollsStudentsFragment mEnrollsStudentsFragment;
     private DashboardFragment mDashboardFragment;
+    private NotificationsFragment mNotificationsFragment;
     private SearchSchoolsFragment mSearchSchoolsFragment;
 
     private MainPresenter mMainPresenter;
@@ -55,6 +56,7 @@ public class MainActivity extends BaseActivity implements
 
         mEnrollsStudentsFragment = new EnrollsStudentsFragment();
         mDashboardFragment = new DashboardFragment();
+        mNotificationsFragment = new NotificationsFragment();
         mSearchSchoolsFragment = new SearchSchoolsFragment();
         setFragment(mDashboardFragment);
 
@@ -106,6 +108,11 @@ public class MainActivity extends BaseActivity implements
 
                     case R.id.menu_nav_dashboard:
                         setFragment(mDashboardFragment);
+                        return true;
+
+                    case R.id.menu_nav_notifications:
+                        setFragment(mNotificationsFragment);
+
                         return true;
 
                     case R.id.menu_nav_search_schools:
