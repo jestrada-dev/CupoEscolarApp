@@ -5,6 +5,7 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mColorBackground"
     android:fitsSystemWindows="true">
 
     <RelativeLayout
@@ -26,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_bottom_bar"
             android:layout_alignParentBottom="true"
-            android:background="@android:color/transparent"
+            android:background="@android:color/white"
             app:itemIconTint="@color/mColorNavIcon"
             app:itemTextColor="@color/mColorNavText"
             app:itemHorizontalTranslationEnabled="true"

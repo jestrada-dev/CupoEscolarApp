@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.common.constant.CustomDateUtils;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
@@ -37,6 +39,7 @@ public class SignUpPresenter extends BasePresenter implements
     private ISignUpContract.ISignUpView mSignUpView;
     private FirebaseAuth mFirebaseAuth;
     private UserInteractor mUserInteractor;
+    private AttendantInteractor mAttendantInteractor;
 
     private UserBO userBOApp;
 
@@ -45,6 +48,7 @@ public class SignUpPresenter extends BasePresenter implements
         this.mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mFirebaseAuth = FirebaseAuth.getInstance();
         this.mUserInteractor = new UserInteractor(null,this,null);
+        this.mAttendantInteractor = new AttendantInteractor(this,null, null);
     }
 
     private boolean isValidEmail(String email){

@@ -12,10 +12,10 @@ import co.jestrada.cupoescolarapp.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SearchSchoolsFragment extends Fragment {
+public class ClosestSchoolsFragment extends Fragment {
 
 
-    public SearchSchoolsFragment() {
+    public ClosestSchoolsFragment() {
         // Required empty public constructor
     }
 
@@ -24,7 +24,7 @@ public class SearchSchoolsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_search_schools, container, false);
+        return inflater.inflate(R.layout.fragment_closest_schools, container, false);
     }
 
 }

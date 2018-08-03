@@ -10,13 +10,15 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
 import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
@@ -25,6 +27,12 @@ import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 
 public class MainActivity extends BaseActivity implements
         IMainContract.IMainView{
+
+/*    @BindView(R.id.tv_user_name)
+    TextView tvUserName;
+
+    @BindView(R.id.tv_user_email)
+    TextView tvUserEmail;*/
 
     private BottomNavigationView mBottomNavigationView;
     private NavigationView mNavigationView;
@@ -36,7 +44,7 @@ public class MainActivity extends BaseActivity implements
     private EnrollsStudentsFragment mEnrollsStudentsFragment;
     private DashboardFragment mDashboardFragment;
     private NotificationsFragment mNotificationsFragment;
-    private SearchSchoolsFragment mSearchSchoolsFragment;
+    private ClosestSchoolsFragment mClosestSchoolsFragment;
 
     private MainPresenter mMainPresenter;
 
@@ -57,8 +65,7 @@ public class MainActivity extends BaseActivity implements
         mEnrollsStudentsFragment = new EnrollsStudentsFragment();
         mDashboardFragment = new DashboardFragment();
         mNotificationsFragment = new NotificationsFragment();
-        mSearchSchoolsFragment = new SearchSchoolsFragment();
-        setFragment(mDashboardFragment);
+        mClosestSchoolsFragment = new ClosestSchoolsFragment();
 
         mNavigationView = (NavigationView) findViewById(R.id.left_nav_view);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -104,19 +111,22 @@ public class MainActivity extends BaseActivity implements
                 switch (menuItem.getItemId()){
                     case R.id.menu_nav_enrolls:
                         setFragment(mEnrollsStudentsFragment);
+                        setTitleToolbar(getString(R.string.enroll_students));
                         return true;
 
                     case R.id.menu_nav_dashboard:
                         setFragment(mDashboardFragment);
+                        setTitleToolbar(getString(R.string.dashboard));
                         return true;
 
                     case R.id.menu_nav_notifications:
                         setFragment(mNotificationsFragment);
-
+                        setTitleToolbar(getString(R.string.notifications));
                         return true;
 
                     case R.id.menu_nav_search_schools:
-                        setFragment(mSearchSchoolsFragment);
+                        setFragment(mClosestSchoolsFragment);
+                        setTitleToolbar(getString(R.string.closest_schools));
                         return true;
 
                     default:
@@ -125,6 +135,10 @@ public class MainActivity extends BaseActivity implements
 
             }
         });
+
+        mBottomNavigationView.setSelectedItemId(R.id.menu_nav_dashboard);
+        setFragment(mDashboardFragment);
+        setTitleToolbar(getString(R.string.dashboard));
     }
 
     private void goToMyAccount() {
@@ -145,11 +159,17 @@ public class MainActivity extends BaseActivity implements
     private void setToolbar() {
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_avatar);
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_avatar);
+            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+            mToolbar.setNavigationIcon(R.drawable.ic_avatar);
         }
     }
 
+
+    private void setTitleToolbar(String title){
+        getSupportActionBar().setTitle(title);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -160,13 +180,6 @@ public class MainActivity extends BaseActivity implements
                 return true;
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater mMenuInflater = getMenuInflater();
-        mMenuInflater.inflate(R.menu.menu_top_toolbar, menu);
-        return true;
     }
 
     private void setFragment(Fragment fragment){
@@ -189,14 +202,11 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void setUIToolbar() {
-        if(mToolbar != null){
-            UserBO userBOApp = UserBO.getInstance();
-            mToolbar.setTitle(userBOApp.getEmail());
-            mToolbar.setSubtitle(userBOApp.getFirstName());
-            mToolbar.setLogo(getDrawable(R.drawable.ic_account_circle));
-        }
+    public void setNavViewUI(AttendantBO attendantBO) {
+        Toast.makeText(MainActivity.this, attendantBO.getEmail(),Toast.LENGTH_SHORT).show();
+        //tvUserName.setText(attendantBO.getFirstName());
     }
+
 
     @Override
     protected void onStart() {

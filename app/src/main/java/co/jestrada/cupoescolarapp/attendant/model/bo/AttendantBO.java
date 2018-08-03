@@ -24,20 +24,25 @@ public class AttendantBO {
     }
 
     public void setValues(AttendantDocJson attendantDocJson, RefPointDocJson refPointDocJson){
-        this.userUid = attendantDocJson.getUserUid();
-        this.docId = attendantDocJson.getDocId();
-        this.docIdType = attendantDocJson.getDocIdType();
-        this.lastName = attendantDocJson.getLastName();
-        this.firstName = attendantDocJson.getFirstName();
-        this.genre = attendantDocJson.getGenre();
-        this.birthdate = attendantDocJson.getBirthdate();
-        this.address = attendantDocJson.getAddress();
-        this.email = attendantDocJson.getEmail();
-        this.localPhone = attendantDocJson.getLocalPhone();
-        this.mobilePhone = attendantDocJson.getMobilePhone();
-        RefPointBO mRefPointBO = new RefPointBO();
-        mRefPointBO.setValues(refPointDocJson);
-        this.refPoint = mRefPointBO;
+        if (attendantDocJson != null){
+            this.userUid = attendantDocJson.getUserUid();
+            this.docId = attendantDocJson.getDocId();
+            this.docIdType = attendantDocJson.getDocIdType();
+            this.lastName = attendantDocJson.getLastName();
+            this.firstName = attendantDocJson.getFirstName();
+            this.genre = attendantDocJson.getGenre();
+            this.birthdate = attendantDocJson.getBirthdate();
+            this.address = attendantDocJson.getAddress();
+            this.email = attendantDocJson.getEmail();
+            this.localPhone = attendantDocJson.getLocalPhone();
+            this.mobilePhone = attendantDocJson.getMobilePhone();
+            if (refPointDocJson != null){
+                RefPointBO mRefPointBO = new RefPointBO();
+                mRefPointBO.setValues(refPointDocJson);
+                this.refPoint = mRefPointBO;
+            }
+        }
+
     }
 
     public String getUserUid() {

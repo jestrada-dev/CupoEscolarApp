@@ -1,5 +1,7 @@
 package co.jestrada.cupoescolarapp.attendant.model.modelDocJson;
 
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
+
 public class RefPointDocJson {
 
     private long lat;
@@ -8,6 +10,15 @@ public class RefPointDocJson {
     private String locality;
 
     public RefPointDocJson() {
+    }
+
+    public void setValues(AttendantBO attendantBO){
+        if(attendantBO.getRefPoint() != null){
+            this.lat = attendantBO.getRefPoint().getLat();
+            this.lng = attendantBO.getRefPoint().getLng();
+            this.address = attendantBO.getRefPoint().getAddress();
+            this.locality = attendantBO.getRefPoint().getLocality();
+        }
     }
 
     public long getLat() {

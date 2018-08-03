@@ -14,6 +14,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
@@ -27,6 +29,7 @@ public class LoginPresenter extends BasePresenter implements
     private Context mContext;
     private ILoginContract.ILoginView mLoginView;
     private UserInteractor mUserInteractor;
+    private AttendantInteractor mAttendantInteractor;
     private FirebaseAuth mFirebaseAuth;
 
     private UserBO userBOApp;
@@ -38,6 +41,10 @@ public class LoginPresenter extends BasePresenter implements
                 this,
                 null,
                 null);
+        this.mAttendantInteractor = new AttendantInteractor(
+                null,
+                null,
+                this);
         this.mFirebaseAuth = FirebaseAuth.getInstance();
     }
 
@@ -128,6 +135,17 @@ public class LoginPresenter extends BasePresenter implements
         if ( (userBOApp.getState() != null) &&
                 (userBOApp.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
             mUserInteractor.activateUser();
+            saveAttendant();
+        }
+    }
+
+    private void saveAttendant() {
+        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+        if (mFirebaseUser != null){
+            AttendantBO attendantBO = new AttendantBO();
+            attendantBO.setUserUid(mFirebaseUser.getUid());
+            attendantBO.setEmail(mFirebaseUser.getEmail());
+            mAttendantInteractor.saveAttendant(attendantBO);
         }
     }
 

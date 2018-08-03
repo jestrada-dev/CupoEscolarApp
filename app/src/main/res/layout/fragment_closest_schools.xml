@@ -3,11 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".attendant.view.SearchSchoolsFragment">
-
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Buscar Colegios" />
+    tools:context=".attendant.view.ClosestSchoolsFragment">
 
 </FrameLayout>
