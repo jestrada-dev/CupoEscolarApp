@@ -52,7 +52,6 @@
     <string name="sign_out">Cerrar Sesión</string>
     <string name="resend_verify_email">Reenviar correo de verificación</string>
     <string name="sent_verify_email">En breve recibirás nuevamente un correo electrónico para verificar tu cuenta.</string>
-    <string name="title_activity_main2">Main2Activity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
@@ -69,13 +68,21 @@
     <string name="send_suggestions">Enviar comentarios</string>
     <string name="share_app">Comparte Cupo Escolar App</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="start">Inicio</string>
     <string name="enroll_students">Estudiantes Inscritos</string>
     <string name="dashboard">Dashboard</string>
     <string name="notifications">Notificaciones</string>
     <string name="closest_schools">Colegios más Cercanos</string>
+    <string name="doc_id">Documento No</string>
+    <string name="address">Dirección</string>
+    <string name="local_phone">Teléfono Fijo Local</string>
+    <string name="mobile_phone">Teléfono Móvil</string>
+    <string name="btn_save_attendant_profile">Guardar</string>
+    <string name="doc_id_type">Tipo Documento</string>
+    <string name="genre_male">M</string>
+    <string name="genre_female">F</string>
+    <string name="birthdate">Fecha de Nacimiento</string>
+    <string name="sex">Sexo</string>
 
 
 </resources>

@@ -1,6 +1,7 @@
 package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,18 +25,17 @@ import co.jestrada.cupoescolarapp.common.view.BaseActivity;
 import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.attendant.presenter.MainPresenter;
+import co.jestrada.cupoescolarapp.login.view.AccountActivity;
 import co.jestrada.cupoescolarapp.login.view.LoginActivity;
+import co.jestrada.cupoescolarapp.social.SendSuggestionsActivity;
+import co.jestrada.cupoescolarapp.social.SocialActivity;
+import co.jestrada.cupoescolarapp.student.StudentsActivity;
 
 public class MainActivity extends BaseActivity implements
         IMainContract.IMainView{
 
-/*    @BindView(R.id.tv_user_name)
-    TextView tvUserName;
-
-    @BindView(R.id.tv_user_email)
-    TextView tvUserEmail;*/
-
     private BottomNavigationView mBottomNavigationView;
+    private View leftNavViewHeader;
     private NavigationView mNavigationView;
     private DrawerLayout mDrawerLayout;
     private FrameLayout mFrameLayout;
@@ -48,12 +49,17 @@ public class MainActivity extends BaseActivity implements
 
     private MainPresenter mMainPresenter;
 
+    private TextView tvAttendantName;
+    private TextView tvAttendantEmail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
+        tvAttendantName = (TextView) findViewById(R.id.tv_user_name);
+        tvAttendantEmail = (TextView) findViewById(R.id.tv_user_email);
 
         mMainPresenter = new MainPresenter(MainActivity.this);
 
@@ -68,6 +74,9 @@ public class MainActivity extends BaseActivity implements
         mClosestSchoolsFragment = new ClosestSchoolsFragment();
 
         mNavigationView = (NavigationView) findViewById(R.id.left_nav_view);
+        leftNavViewHeader = mNavigationView.getHeaderView(0);
+        tvAttendantName = (TextView) leftNavViewHeader.findViewById(R.id.tv_user_name);
+        tvAttendantEmail = (TextView) leftNavViewHeader.findViewById(R.id.tv_user_email);
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
@@ -142,27 +151,34 @@ public class MainActivity extends BaseActivity implements
     }
 
     private void goToMyAccount() {
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+        startActivity(intent);
     }
 
     private void goToSendSuggestions() {
+        Intent intent = new Intent(MainActivity.this, SendSuggestionsActivity.class);
+        startActivity(intent);
     }
 
     private void goToShareApp() {
+        Intent intent = new Intent(MainActivity.this, SocialActivity.class);
+        startActivity(intent);
     }
 
     private void goToMyProfile() {
+        Intent intent = new Intent(MainActivity.this, AttendantProfileActivity.class);
+        startActivity(intent);
     }
 
     private void goToStudents() {
+        Intent intent = new Intent(MainActivity.this, StudentsActivity.class);
+        startActivity(intent);
     }
 
     private void setToolbar() {
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
-            //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_avatar);
-            //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-            mToolbar.setNavigationIcon(R.drawable.ic_avatar);
+            mToolbar.setNavigationIcon(R.drawable.ic_account_circle);
         }
     }
 
@@ -203,8 +219,8 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void setNavViewUI(AttendantBO attendantBO) {
-        Toast.makeText(MainActivity.this, attendantBO.getEmail(),Toast.LENGTH_SHORT).show();
-        //tvUserName.setText(attendantBO.getFirstName());
+        tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
+        tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
     }
 
 
@@ -224,5 +240,13 @@ public class MainActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         mMainPresenter.onDestroy();
+    }
+
+    static class IncludedLayout {
+        @BindView(R.id.tv_user_name)
+        TextView tvUserName;
+
+        @BindView(R.id.tv_user_email)
+        TextView tvUserEmail;
     }
 }

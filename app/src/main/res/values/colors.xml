@@ -9,6 +9,7 @@
     <color name="mColorPrimaryText">#232F34</color>
     <color name="mColorSecondaryText">#344955</color>
 
+    <color name="mColorHint">#CFD8DC</color>
     <color name="mColorIcons">#232F34</color>
     <color name="mColorNavIcon">#416572</color>
     <color name="mColorNavText">#416572</color>

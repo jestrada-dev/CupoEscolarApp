@@ -8,7 +8,7 @@
         <item name="android:textColorSecondary">@color/mColorSecondaryText</item>
         <item name="android:colorButtonNormal">@color/mColorPrimaryLight</item>
         <item name="android:windowContentTransitions">true</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
+
     </style>
 
     <style name="SplashScreen" parent="Theme.AppCompat.NoActionBar">
@@ -79,6 +79,13 @@
         <item name="android:textColor">@color/mColorPrimary</item>
         <item name="android:fontFamily">@font/worksans_light</item>
         <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextInputField" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/mColorPrimary</item>
+        <item name="android:textColorHint">@color/mColorHint</item>
+        <item name="android:fontFamily">@font/worksans_bold</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextButton" parent="TextAppearance.AppCompat">

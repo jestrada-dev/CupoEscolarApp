@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/left_nav_view_header"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_nav_view_header_custom"
     android:background="@color/mColorPrimaryLight">
@@ -10,10 +11,10 @@
         android:layout_width="@dimen/iv_avatar_width_and_height"
         android:layout_height="@dimen/iv_avatar_width_and_height"
         android:scaleType="centerCrop"
-        android:layout_marginTop="@dimen/margin_vertical_cuadruple"
+        android:layout_marginTop="@dimen/margin_vertical_quintuple"
         android:contentDescription="@string/click_to_change_avatar"
         android:src="@drawable/ic_attendant_avatar"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"/>
 
     <!--Iconos diseñados por Freepik desde www.flaticon.com con licencia CC 3.0 BY -->
 
@@ -21,11 +22,11 @@
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_vertical_double"
+        android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
         style="@style/TextBodyInvert1"
         android:text="@string/first_and_last_name"
-        android:layout_below="@id/iv_avatar"
+        android:layout_above="@id/tv_user_email"
         android:layout_alignParentEnd="true"/>
 
     <TextView
@@ -33,10 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/activity_horizontal_margin"
-        android:layout_marginBottom="@dimen/margin_vertical_double"
+        android:layout_marginBottom="@dimen/margin_vertical"
         style="@style/TextBodyInvert2"
         android:text="@string/email"
-        android:layout_below="@id/tv_user_name"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"/>
 
 </RelativeLayout>
