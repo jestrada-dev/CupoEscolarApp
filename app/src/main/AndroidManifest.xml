@@ -2,8 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.jestrada.cupoescolarapp">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:name=".common.AppCore"
@@ -26,8 +27,8 @@
         </activity>
         <activity android:name=".attendant.view.MainActivity" />
         <activity android:name=".student.StudentsActivity" />
-        <activity android:name=".attendant.view.AttendantProfileActivity" />
-        <activity android:name=".login.view.AccountActivity" />
+        <activity android:name=".attendant.view.EditProfileActivity" />
+        <activity android:name=".login.view.ConfigAccountActivity" />
         <activity android:name=".social.SocialActivity" />
         <activity android:name=".social.SendSuggestionsActivity"></activity>
     </application>

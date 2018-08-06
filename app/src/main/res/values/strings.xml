@@ -60,10 +60,10 @@
     <string name="menu_nav_search_schools">Buscar Colegios</string>
     <string name="menu_nav_enrolls">Inscripciones</string>
     <string name="students">Estudiantes</string>
-    <string name="my_account">Mi Cuenta</string>
+    <string name="config_account">Configurar Cuenta</string>
     <string name="click_to_change_avatar">Haz click para cambiar tu Avatar</string>
     <string name="first_and_last_name">Nombre y Apellido</string>
-    <string name="my_profile">Mi Perfil</string>
+    <string name="edit_profile">Editar Perfil</string>
     <string name="recommends_app">Recomienda Cupo Escolar App</string>
     <string name="send_suggestions">Enviar comentarios</string>
     <string name="share_app">Comparte Cupo Escolar App</string>
@@ -75,14 +75,25 @@
     <string name="closest_schools">Colegios más Cercanos</string>
     <string name="doc_id">Documento No</string>
     <string name="address">Dirección</string>
-    <string name="local_phone">Teléfono Fijo Local</string>
-    <string name="mobile_phone">Teléfono Móvil</string>
-    <string name="btn_save_attendant_profile">Guardar</string>
-    <string name="doc_id_type">Tipo Documento</string>
-    <string name="genre_male">M</string>
-    <string name="genre_female">F</string>
+    <string name="local_phone">Fijo Local</string>
+    <string name="mobile_phone">Móvil</string>
+    <string name="btn_save_attendant_profile_personal_info">Guardar</string>
+    <string name="doc_id_type">Tipo Doc</string>
+    <string name="genre_male">Hombre</string>
+    <string name="genre_female">Mujer</string>
     <string name="birthdate">Fecha de Nacimiento</string>
     <string name="sex">Sexo</string>
+    <string name="btn_edit_attendant_profile_personal_info">Editar</string>
+    <string name="personal_info">Información Personal</string>
+    <string name="contact_info">Información de Contacto</string>
+    <string name="ref_point">Punto de Referencia</string>
+    <string name="ref_point_summary">Este Punto de Referencia será utilizado para la Georreferenciación de los Colegios</string>
+    <string name="ref_point_description">Descripción</string>
+    <string name="btn_get_coords_current_position">Obtener Coordenadas</string>
+    <string name="lat">Latitud</string>
+    <string name="lng">Longitud</string>
+    <string name="save">Guardar</string>
+    <string name="edit">Editar</string>
 
 
 </resources>

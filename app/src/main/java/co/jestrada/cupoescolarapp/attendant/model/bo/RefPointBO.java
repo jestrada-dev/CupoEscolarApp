@@ -4,8 +4,9 @@ import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.RefPointDocJson;
 
 public class RefPointBO {
 
-    private long lat;
-    private long lng;
+    private String description;
+    private Double lat;
+    private Double lng;
     private String address;
     private String locality;
 
@@ -13,25 +14,34 @@ public class RefPointBO {
     }
 
     public void setValues(RefPointDocJson refPointDocJson){
+        this.description = refPointDocJson.getDescription();
         this.lat = refPointDocJson.getLat();
         this.lng = refPointDocJson.getLng();
         this.address = refPointDocJson.getAddress();
         this.locality = refPointDocJson.getLocality();
     }
 
-    public long getLat() {
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getLat() {
         return lat;
     }
 
-    public void setLat(long lat) {
+    public void setLat(Double lat) {
         this.lat = lat;
     }
 
-    public long getLng() {
+    public Double getLng() {
         return lng;
     }
 
-    public void setLng(long lng) {
+    public void setLng(Double lng) {
         this.lng = lng;
     }
 

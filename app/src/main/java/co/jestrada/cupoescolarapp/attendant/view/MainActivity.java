@@ -1,7 +1,6 @@
 package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -15,17 +14,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
 import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.attendant.presenter.MainPresenter;
-import co.jestrada.cupoescolarapp.login.view.AccountActivity;
+import co.jestrada.cupoescolarapp.login.view.ConfigAccountActivity;
 import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 import co.jestrada.cupoescolarapp.social.SendSuggestionsActivity;
 import co.jestrada.cupoescolarapp.social.SocialActivity;
@@ -58,8 +54,6 @@ public class MainActivity extends BaseActivity implements
         setContentView(R.layout.activity_main);
 
         ButterKnife.bind(this);
-        tvAttendantName = (TextView) findViewById(R.id.tv_user_name);
-        tvAttendantEmail = (TextView) findViewById(R.id.tv_user_email);
 
         mMainPresenter = new MainPresenter(MainActivity.this);
 
@@ -86,8 +80,8 @@ public class MainActivity extends BaseActivity implements
                         goToStudents();
                         return true;
 
-                    case R.id.menu_item_my_profile:
-                        goToMyProfile();
+                    case R.id.menu_item_edit_profile:
+                        goToEditProfile();
                         return true;
 
                     case R.id.menu_item_share_app:
@@ -98,8 +92,8 @@ public class MainActivity extends BaseActivity implements
                         goToSendSuggestions();
                         return true;
 
-                    case R.id.menu_item_my_account:
-                        goToMyAccount();
+                    case R.id.menu_item_config_account:
+                        goToConfigAccount();
                         return true;
 
                     case R.id.menu_item_sign_out:
@@ -150,28 +144,33 @@ public class MainActivity extends BaseActivity implements
         setTitleToolbar(getString(R.string.dashboard));
     }
 
-    private void goToMyAccount() {
-        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+    private void goToConfigAccount() {
+        Intent intent = new Intent(MainActivity.this, ConfigAccountActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToSendSuggestions() {
         Intent intent = new Intent(MainActivity.this, SendSuggestionsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToShareApp() {
         Intent intent = new Intent(MainActivity.this, SocialActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
-    private void goToMyProfile() {
-        Intent intent = new Intent(MainActivity.this, AttendantProfileActivity.class);
+    private void goToEditProfile() {
+        Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToStudents() {
         Intent intent = new Intent(MainActivity.this, StudentsActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
@@ -213,6 +212,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void goToLogin() {
         Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         finish();
         startActivity(intent);
     }
@@ -240,13 +240,5 @@ public class MainActivity extends BaseActivity implements
     protected void onDestroy() {
         super.onDestroy();
         mMainPresenter.onDestroy();
-    }
-
-    static class IncludedLayout {
-        @BindView(R.id.tv_user_name)
-        TextView tvUserName;
-
-        @BindView(R.id.tv_user_email)
-        TextView tvUserEmail;
     }
 }

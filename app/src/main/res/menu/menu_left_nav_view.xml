@@ -8,9 +8,9 @@
         android:title="@string/students"/>
 
     <item
-        android:id="@+id/menu_item_my_profile"
+        android:id="@+id/menu_item_edit_profile"
         android:icon="@drawable/ic_account_circle"
-        android:title="@string/my_profile"/>
+        android:title="@string/edit_profile"/>
 
     <item
         android:id="@+id/menu_item_share_app"
@@ -23,9 +23,9 @@
         android:title="@string/send_suggestions"/>
 
     <item
-        android:id="@+id/menu_item_my_account"
+        android:id="@+id/menu_item_config_account"
         android:icon="@drawable/ic_my_account"
-        android:title="@string/my_account"/>
+        android:title="@string/config_account"/>
 
     <item
         android:id="@+id/menu_item_sign_out"

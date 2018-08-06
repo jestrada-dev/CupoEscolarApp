@@ -47,8 +47,15 @@ public class SignUpPresenter extends BasePresenter implements
         this.mContext = mContext;
         this.mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mFirebaseAuth = FirebaseAuth.getInstance();
-        this.mUserInteractor = new UserInteractor(null,this,null);
-        this.mAttendantInteractor = new AttendantInteractor(this,null, null);
+        this.mUserInteractor = new UserInteractor(
+                null,
+                this,
+                null);
+        this.mAttendantInteractor = new AttendantInteractor(
+                this,
+                null,
+                null,
+                null);
     }
 
     private boolean isValidEmail(String email){

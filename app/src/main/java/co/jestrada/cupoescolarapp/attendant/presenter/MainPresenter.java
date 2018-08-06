@@ -29,7 +29,11 @@ public class MainPresenter extends BasePresenter implements
     public MainPresenter(final Context mContext) {
         this.mMainView = (IMainContract.IMainView) mContext;
         this.mUserInteractor = new UserInteractor(null, null, this);
-        this.mAttendantInteractor = new AttendantInteractor(null,this, null);
+        this.mAttendantInteractor = new AttendantInteractor(
+                null,
+                this,
+                null,
+                null);
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
     }

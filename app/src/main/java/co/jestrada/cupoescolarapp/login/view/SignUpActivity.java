@@ -96,6 +96,7 @@ public class SignUpActivity extends BaseActivity implements
     @Override
     public void goToMain() {
         Intent intent = new Intent(SignUpActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         finish();
         startActivity(intent);
     }
@@ -103,6 +104,7 @@ public class SignUpActivity extends BaseActivity implements
     @Override
     public void goToLogin() {
         Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         finish();
         startActivity(intent);
     }

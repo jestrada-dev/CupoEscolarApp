@@ -38,6 +38,7 @@ public class AppCore extends Application implements ILoginContract.IAppCore {
 
     private void startLogin() {
         Intent intent = new Intent(AppCore.this, LoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 

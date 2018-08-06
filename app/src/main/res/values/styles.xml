@@ -75,17 +75,19 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="TextField" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/mColorPrimary</item>
-        <item name="android:fontFamily">@font/worksans_light</item>
-        <item name="android:textSize">16sp</item>
-    </style>
-
     <style name="TextInputField" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/mColorPrimary</item>
-        <item name="android:textColorHint">@color/mColorHint</item>
-        <item name="android:fontFamily">@font/worksans_bold</item>
+        <item name="android:fontFamily">@font/worksans_medium</item>
         <item name="android:textSize">14sp</item>
+        <item name="android:padding">@dimen/padding_text</item>
+        <item name="android:textAlignment">textEnd</item>
+    </style>
+
+    <style name="ImageInputField">
+        <item name="android:textAlignment">center</item>
+        <item name="android:tint">@color/mColorPrimaryLight</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">24dp</item>
     </style>
 
     <style name="TextButton" parent="TextAppearance.AppCompat">
@@ -93,7 +95,20 @@
         <item name="android:fontFamily">@font/worksans_semibold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:paddingTop">@dimen/padding_button_double</item>
+        <item name="android:paddingBottom">@dimen/padding_button_double</item>
+        <item name="android:paddingStart">@dimen/padding_button_cuadruple</item>
+        <item name="android:paddingEnd">@dimen/padding_button_cuadruple</item>
+        <item name="android:drawableTint">@android:color/white</item>
     </style>
+
+    <style name="RelativeLayoutInput" >
+        <item name="android:padding">@dimen/margin_vertical_double</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_sextuple</item>
+        <item name="android:layout_marginEnd">@dimen/margin_horizontal_cuadruple</item>
+        <item name="android:background">@drawable/layout_background</item>
+    </style>
+
 
     <style name="TextButtonSocial" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/worksans_semibold</item>

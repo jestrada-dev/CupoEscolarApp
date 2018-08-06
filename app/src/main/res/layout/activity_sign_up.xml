@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mColorBackground"
     tools:context=".login.view.SignUpActivity">
 
     <RelativeLayout
@@ -35,33 +34,24 @@
         android:id="@+id/rl_inputs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_vertical"
-        android:layout_marginLeft="@dimen/margin_horizontal"
-        android:layout_marginRight="@dimen/margin_horizontal"
+        style="@style/RelativeLayoutInput"
         android:layout_below="@id/rl_logo">
         <EditText
             android:id="@+id/et_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/et_background"
-            style="@style/TextField"
-            android:padding="@dimen/padding_text_double"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginLeft="@dimen/margin_horizontal_double"
-            android:layout_marginRight="@dimen/margin_horizontal_double"
+            android:background="@drawable/et_input_top_background"
+            style="@style/TextInputField"
             android:inputType="textEmailAddress"
             android:hint="@string/email"/>
         <EditText
             android:id="@+id/et_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/et_background"
-            style="@style/TextField"
+            android:background="@drawable/et_input_bottom_background"
+            style="@style/TextInputField"
             android:longClickable="false"
-            android:padding="@dimen/padding_text_double"
-            android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginLeft="@dimen/margin_horizontal_double"
-            android:layout_marginRight="@dimen/margin_horizontal_double"
+            android:layout_marginTop="@dimen/margin_vertical_middle"
             android:inputType="textPassword"
             android:hint="@string/password"
             android:layout_below="@id/et_email"/>
@@ -88,10 +78,6 @@
         android:layout_marginTop="@dimen/margin_vertical"
         android:layout_marginStart="@dimen/margin_horizontal_double"
         android:layout_marginBottom="@dimen/margin_vertical_double"
-        android:paddingTop="@dimen/padding_button_double"
-        android:paddingBottom="@dimen/padding_button_double"
-        android:paddingLeft="@dimen/padding_button_cuadruple"
-        android:paddingRight="@dimen/padding_button_cuadruple"
         android:layout_alignEnd="@id/rl_inputs"
         android:layout_alignParentBottom="true"
         style="@style/TextButton"

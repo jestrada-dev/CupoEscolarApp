@@ -111,7 +111,7 @@ ILoginContract.ILoginView{
 
     private void goToSignUpEmailPassword() {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-        //finish();
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
@@ -170,6 +170,7 @@ ILoginContract.ILoginView{
     @Override
     public void goToMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();
     }
