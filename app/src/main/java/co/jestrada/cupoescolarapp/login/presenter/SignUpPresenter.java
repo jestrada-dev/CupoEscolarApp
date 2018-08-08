@@ -52,6 +52,7 @@ public class SignUpPresenter extends BasePresenter implements
                 this,
                 null);
         this.mAttendantInteractor = new AttendantInteractor(
+                null,
                 this,
                 null,
                 null,

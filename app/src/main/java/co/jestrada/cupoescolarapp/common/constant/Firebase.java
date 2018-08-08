@@ -10,4 +10,6 @@ public class Firebase {
 
     public static final String ATTENDANTS = "Attendants";
     public static final String ATTENDANTS_REF_POINT = "RefPoint";
+
+    public static final String DOC_ID_TYPES = "DocIdTypes";
 }

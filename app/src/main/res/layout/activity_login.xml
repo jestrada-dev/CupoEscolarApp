@@ -41,14 +41,14 @@
             <ImageView
                 android:id="@+id/iv_email"
                 android:layout_width="0dp"
-                android:layout_weight="0.2"
+                android:layout_weight="0.1"
                 style="@style/ImageInputField"
                 android:contentDescription="@string/first_name"
                 android:src="@drawable/ic_email"/>
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="0dp"
-                android:layout_weight="0.8"
+                android:layout_weight="0.9"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_vertical_middle"
                 android:background="@drawable/et_input_background"
@@ -69,14 +69,14 @@
             <ImageView
                 android:id="@+id/iv_password"
                 android:layout_width="0dp"
-                android:layout_weight="0.2"
+                android:layout_weight="0.1"
                 style="@style/ImageInputField"
                 android:contentDescription="@string/first_name"
                 android:src="@drawable/ic_password"/>
             <EditText
                 android:id="@+id/et_password"
                 android:layout_width="0dp"
-                android:layout_weight="0.8"
+                android:layout_weight="0.9"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/margin_vertical_middle"
                 android:background="@drawable/et_input_background"

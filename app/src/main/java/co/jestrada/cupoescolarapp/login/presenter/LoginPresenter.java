@@ -44,6 +44,7 @@ public class LoginPresenter extends BasePresenter implements
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
                 null,
+                null,
                 this,
                 null);
         this.mFirebaseAuth = FirebaseAuth.getInstance();

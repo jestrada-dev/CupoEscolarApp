@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
-import android.location.LocationManager;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
@@ -17,21 +16,24 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import co.jestrada.cupoescolarapp.attendant.contract.IAttendantProfileContract;
+import java.util.ArrayList;
+
+import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
+import co.jestrada.cupoescolarapp.attendant.interactor.DocIdTypeInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.RefPointBO;
+import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public class EditProfilePresenter extends BasePresenter implements
-        IAttendantProfileContract.IAttendantProfilePresenter, GoogleApiClient.OnConnectionFailedListener {
+        IEditProfileContract.IEditProfilePresenter, GoogleApiClient.OnConnectionFailedListener {
 
     private static final int REQUEST_FINE_LOCATION = 123;
-    private IAttendantProfileContract.IAttendantProfileView mAttendantProfileView;
+    private IEditProfileContract.IEditProfileView mEditProfileView;
     private Context mContext;
 
+    private DocIdTypeInteractor mDocIdTypeInteractor;
     private AttendantInteractor mAttendantInteractor;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -41,8 +43,10 @@ public class EditProfilePresenter extends BasePresenter implements
     private UserBO userBOApp;
 
     public EditProfilePresenter(final Context mContext) {
-        this.mAttendantProfileView = (IAttendantProfileContract.IAttendantProfileView) mContext;
+        this.mEditProfileView = (IEditProfileContract.IEditProfileView) mContext;
+        this.mDocIdTypeInteractor = new DocIdTypeInteractor(this);
         this.mAttendantInteractor = new AttendantInteractor(
+                null,
                 null,
                 null,
                 null,
@@ -50,26 +54,36 @@ public class EditProfilePresenter extends BasePresenter implements
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient((Activity) mContext);
-
+        userBOApp = UserBO.getInstance();
     }
 
     private void getData() {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null) {
+            mDocIdTypeInteractor.getDocIdTypes();
             mAttendantInteractor.getAttendant(mFirebaseUser.getUid());
         }
     }
 
     @Override
     public void getAttendant(AttendantBO attendantBO) {
-        mAttendantProfileView.setAttendantUI(attendantBO);
+        mEditProfileView.setAttendantUI(attendantBO);
     }
 
     @Override
     public void saveAttendant(AttendantBO attendantBO) {
         userBOApp = UserBO.getInstance();
-        attendantBO.setUserUid(userBOApp.getuId());
-        mAttendantInteractor.saveAttendant(attendantBO);
+        if (userBOApp != null){
+            attendantBO.setUserUid(userBOApp.getuId());
+            mAttendantInteractor.saveAttendant(attendantBO);
+        }
+    }
+
+    @Override
+    public void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS) {
+        if (!docIdTypeBOS.isEmpty()){
+            mEditProfileView.setDocIdTypesList(docIdTypeBOS);
+        }
     }
 
     @Override
@@ -86,7 +100,7 @@ public class EditProfilePresenter extends BasePresenter implements
                         @Override
                         public void onSuccess(Location location) {
                             if (location != null) {
-                                mAttendantProfileView.setCoordsCurrentPositionUI(location);
+                                mEditProfileView.setCoordsCurrentPositionUI(location);
                             }
                         }
                     });
@@ -99,7 +113,7 @@ public class EditProfilePresenter extends BasePresenter implements
         userBOApp = UserBO.getInstance();
         userBOApp.setOnSession(false);
         mFirebaseAuth.signOut();
-        mAttendantProfileView.goToLogin();
+        mEditProfileView.goToLogin();
     }
 
     @Override

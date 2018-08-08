@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ ILoginContract.ILoginView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        Log.d("LoginActivity","LoginActivity -> Cargando Login Activity");
 
         ButterKnife.bind(this);
 
@@ -111,6 +113,8 @@ ILoginContract.ILoginView{
 
     private void goToSignUpEmailPassword() {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        Log.d("SignUpActivity","LoginActivity -> Iniciando SignUp Activity");
+
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
@@ -170,6 +174,8 @@ ILoginContract.ILoginView{
     @Override
     public void goToMain() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        Log.d("MainActivity","LoginActivity -> Iniciando Main Activity");
+
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();

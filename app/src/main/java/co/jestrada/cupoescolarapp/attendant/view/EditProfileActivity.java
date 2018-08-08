@@ -1,27 +1,47 @@
 package co.jestrada.cupoescolarapp.attendant.view;
 
+import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
-import co.jestrada.cupoescolarapp.attendant.contract.IAttendantProfileContract;
+import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
+import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.RefPointBO;
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.presenter.EditProfilePresenter;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
 
 public class EditProfileActivity extends BaseActivity implements
-        IAttendantProfileContract.IAttendantProfileView{
+        IEditProfileContract.IEditProfileView{
 
     private EditProfilePresenter mEditProfilePresenter;
+
+    private static final String ZERO = "0";
+    private static final String SEPARATOR = "-";
+
+    public final Calendar mCalendar = Calendar.getInstance();
+    final int month = mCalendar.get(Calendar.MONTH);
+    final int day = mCalendar.get(Calendar.DAY_OF_MONTH);
+    final int year = mCalendar.get(Calendar.YEAR);
+
+    private ArrayList<String> docIdTypeArrayList;
 
     @BindView(R.id.tv_attendant_email)
     TextView tvAttendantEmail;
@@ -75,16 +95,130 @@ public class EditProfileActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         mEditProfilePresenter = new EditProfilePresenter(EditProfileActivity.this);
-        etDocIdType.requestFocus();
-
+        docIdTypeArrayList = new ArrayList<>();
     }
 
     @OnClick(R.id.btn_save)
     public void save(){
-        saveAttendant();
+        if(validateInputs()){
+            showProgressBar(true);
+            enableFields(false);
+            saveAttendant();
+        }
+
     }
 
+    private boolean validateInputs() {
+        boolean validInputs = true;
 
+        if(!isValidLatLng(etRefPointLng.getText().toString().trim())){
+            validInputs = false;
+            etRefPointLng.setError(getString(R.string.validate_input_lng));
+            etRefPointLng.requestFocus();
+        }
+
+        if(!isValidLatLng(etRefPointLat.getText().toString().trim())){
+            validInputs = false;
+            etRefPointLat.setError(getString(R.string.validate_input_lat));
+            etRefPointLat.requestFocus();
+        }
+
+        if(!isValidPhone(etMobilPhone.getText().toString().trim())){
+            validInputs = false;
+            etMobilPhone.setError(getString(R.string.validate_input_mobile_phone));
+            etMobilPhone.requestFocus();
+        }
+
+        if(!isValidPhone(etLocalPhone.getText().toString().trim())){
+            validInputs = false;
+            etLocalPhone.setError(getString(R.string.validate_input_local_phone));
+            etLocalPhone.requestFocus();
+        }
+
+        if(!isValidDocId(etDocId.getText().toString().trim())){
+            validInputs = false;
+            etLocalPhone.setError(getString(R.string.validate_input_doc_id));
+            etLocalPhone.requestFocus();
+        } else {
+            if(!isValidDocIdType(etDocIdType.getText().toString().trim())){
+                validInputs = false;
+                etDocIdType.setError(getString(R.string.validate_input_doc_id_type));
+                etDocIdType.requestFocus();
+            }
+        }
+
+        return  validInputs;
+    }
+
+    private boolean isValidPhone(String phone){
+        boolean err = false;
+        if (!TextUtils.isEmpty(phone)){
+            if (!Patterns.PHONE.matcher(phone).matches()){
+                err = true;
+            }
+        }
+        return !err;
+    }
+
+    private boolean isValidLatLng(String latLng){
+        boolean err = false;
+        // TODO: Pendiente implementar validación para latitud y longitud
+/*        if (!TextUtils.isEmpty(latLng)){
+            if (!TextUtils.isDigitsOnly(latLng)){
+                err = true;
+            }
+        }*/
+        return !err;
+    }
+
+    private boolean isValidDocId(String docId){
+        boolean err = false;
+        if (!TextUtils.isEmpty(docId)){
+            if (!TextUtils.isDigitsOnly(docId)){
+                err = true;
+            }
+        }
+        return !err;
+    }
+
+    private boolean isValidDocIdType(String docIdType){
+        boolean err = false;
+        if (TextUtils.isEmpty(docIdType)){
+            err = true;
+        }
+        return !err;
+    }
+
+    @OnClick(R.id.et_doc_id_type)
+    public void nose(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
+        builder.setTitle("Make your selection");
+        builder.setItems( docIdTypeArrayList, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int item) {
+
+                etDocIdType.setText(docIdTypeArrayList.get(item).toString());
+                dialog.dismiss();
+
+            }
+        }).show();
+    }
+
+    @OnClick(R.id.et_birthdate)
+    public void getDate(){
+        DatePickerDialog mDatePickerDialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                final int currentMonth = month + 1;
+                String currentDay = (dayOfMonth < 10)? ZERO + String.valueOf(dayOfMonth):String.valueOf(dayOfMonth);
+                String buildCurrentMonth = (currentMonth < 10)? ZERO + String.valueOf(currentMonth):String.valueOf(currentMonth);
+                etBirthday.setText(currentDay + SEPARATOR + buildCurrentMonth + SEPARATOR + year);
+            }
+        },year, month, day);
+        mDatePickerDialog.show();
+
+    }
+    
     @OnClick(R.id.btn_get_coords_current_position)
     public void getCoordsCurrentPosition(){
         showProgressBar(true);
@@ -118,6 +252,7 @@ public class EditProfileActivity extends BaseActivity implements
     }
 
     void enableFields(boolean enable){
+        btnSave.setEnabled(enable);
         enableFieldsPersonalInfo(enable);
         enableFieldsContactInfo(enable);
         enableFieldsRefPoint(enable);
@@ -185,7 +320,17 @@ public class EditProfileActivity extends BaseActivity implements
             etRefPointLat.setText("");
             etRefPointLng.setText("");
         }
+        showProgressBar(false);
+        enableFields(true);
+    }
 
+    @Override
+    public void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS) {
+        if (!docIdTypeBOS.isEmpty()){
+            for(DocIdTypeBO docIdTypeBO: docIdTypeBOS){
+                docIdTypeBOArrayList.add(docIdTypeBO);
+            }
+        }
     }
 
     @Override

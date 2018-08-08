@@ -31,6 +31,7 @@ public class MainPresenter extends BasePresenter implements
         this.mUserInteractor = new UserInteractor(null, null, this);
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
+                null,
                 this,
                 null,
                 null);

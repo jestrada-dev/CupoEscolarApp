@@ -9,6 +9,12 @@
 
     <string name="validate_input_email">Escribe una cuenta de correo válida</string>
     <string name="validate_input_password">La contraseña debe tener mínimo 8 caracteres</string>
+    <string name="validate_input_lng">La latitud debe tener dígitos únicamente</string>
+    <string name="validate_input_lat">La longitud debe tener dígitos únicamente</string>
+    <string name="validate_input_mobile_phone">Número de teléfono móvil incorrecto</string>
+    <string name="validate_input_local_phone">Número de teléfono local incorrecto</string>
+    <string name="validate_input_doc_id">El número de identificación de tener dígitos únicamente</string>
+    <string name="validate_input_doc_id_type">Este campo es obligatorio si desea actualizar el número de identificación</string>
     <string name="validate_input_first_name">Escribe un nombre válido</string>
     <string name="validate_input_last_name">Escribe un apellido válido</string>
     <string name="validate_input_unidentify">Error diligenciando el campo</string>

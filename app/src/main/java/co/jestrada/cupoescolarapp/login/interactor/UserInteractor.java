@@ -4,7 +4,10 @@ package co.jestrada.cupoescolarapp.login.interactor;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.format.DateFormat;
+import android.util.Log;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -63,10 +66,13 @@ public class UserInteractor implements
             @Override
             public void onDataChange(DataSnapshot userDS) {
                 final UserDocJson userDocJson = userDS.getValue(UserDocJson.class);
+                Log.d("User","UserInteractor -> Se ejecutó el onDataChange para " + Firebase.USERS + "/" + userUid);
 
                 dbRefUsers.child(userUid).child(Firebase.USERS_LOGINS).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot loginMethodDS) {
+                        Log.d("User","UserInteractor -> Se ejecutó el onDataChange para " + Firebase.USERS + "/" + Firebase.USERS_LOGINS);
+
                         ArrayList<LoginMethodDocJson> loginMethodDocJsons = new ArrayList<>();
                         for( DataSnapshot loginMethodChildDS : loginMethodDS.getChildren()){
                             LoginMethodDocJson loginMethodDocJson = loginMethodChildDS.getValue(LoginMethodDocJson.class);
@@ -74,7 +80,7 @@ public class UserInteractor implements
                         }
                         userBOApp = UserBO.getInstance();
                         userBOApp.setValues(userDocJson, loginMethodDocJsons);
-                        //notifyUserChanges();
+                        notifyUserChanges();
                     }
 
                     @Override
@@ -104,46 +110,91 @@ public class UserInteractor implements
     @Override
     public void saveUser(UserBO userBO) {
         final DatabaseReference dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
-        UserDocJson userDocJson = new UserDocJson();
-        ArrayList<LoginMethodBO> loginMethodBOS = new ArrayList<>();
+        final UserDocJson userDocJson = new UserDocJson();
+        final ArrayList<LoginMethodBO> loginMethodBOS = new ArrayList<>();
         userDocJson.setValues(userBO);
         loginMethodBOS.addAll(userBO.getLogins());
 
         dbRefUsers.child(userDocJson.getuId())
-                .setValue(userDocJson);
+                .setValue(userDocJson).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Log.d("User","UserInteractor -> Usuario: email:" + userDocJson.getEmail() + " grabado exitosamente");
+                    for (LoginMethodBO loginMethod : loginMethodBOS){
+                        final LoginMethodDocJson loginMethodDocJson = new LoginMethodDocJson();
 
-        for (LoginMethodBO loginMethod : loginMethodBOS){
-            LoginMethodDocJson loginMethodDocJson = new LoginMethodDocJson();
-            loginMethodDocJson.setValues(loginMethod);
-            dbRefUsers.child(userDocJson.getuId())
-                    .child(Firebase.USERS_LOGINS)
-                    .child(loginMethodDocJson.getLoginMethod().toString())
-                    .setValue(loginMethodDocJson);
-        }
+                        loginMethodDocJson.setValues(loginMethod);
+
+                        dbRefUsers.child(userDocJson.getuId())
+                                .child(Firebase.USERS_LOGINS)
+                                .child(loginMethodDocJson.getLoginMethod().toString())
+                                .setValue(loginMethodDocJson).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()){
+                                    Log.d("User","UserInteractor -> Usuario: email:" + userDocJson.getEmail() +
+                                            " LoginMethod: " + loginMethodDocJson.getLoginMethod() + " grabado exitosamente");
+                                }
+                            }
+                        });
+                    }
+                }
+            }
+        });
+
+
 
     }
 
     @Override
     public void activateUser() {
         userBOApp = UserBO.getInstance();
-        //userBOApp.setState(StateUserEnum.ACTIVE);
+
         final DatabaseReference dbRefUsers = mFirebaseDB.getReference(Firebase.USERS);
         dbRefUsers.child(userBOApp.getuId())
                 .child(Firebase.FIELD_STATE)
-                .setValue(StateUserEnum.ACTIVE);
+                .setValue(StateUserEnum.ACTIVE).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Log.d("User","UserInteractor -> Usuario: email:" + userBOApp.getEmail() +
+                            " activado exitosamente");
+
+                }
+            }
+        });
 
         dbRefUsers.child(userBOApp.getuId())
                 .child(Firebase.USERS_LOGINS)
                 .child(Firebase.LOGIN_METHOD_EMAIL_PASSWORD)
                 .child(Firebase.FIELD_STATE)
-                .setValue(StateUserEnum.EMAIL_VERIFIED);
+                .setValue(StateUserEnum.EMAIL_VERIFIED).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d("User","UserInteractor -> Usuario: email:" + userBOApp.getEmail() +
+                            " LoginMethod: " + Firebase.LOGIN_METHOD_EMAIL_PASSWORD + " grabado exitosamente");
 
-        String strFecha = DateFormat.format(CustomDateUtils.LONG_DATE, new Date()).toString();
+                }
+            }
+        });
+
+        final String strFecha = DateFormat.format(CustomDateUtils.LONG_DATE, new Date()).toString();
         dbRefUsers.child(userBOApp.getuId())
                 .child(Firebase.USERS_LOGINS)
                 .child(Firebase.LOGIN_METHOD_EMAIL_PASSWORD)
                 .child(Firebase.FIELD_ACTIVATE_TIMESTAMP)
-                .setValue(strFecha);
+                .setValue(strFecha).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Log.d("User","UserInteractor -> Usuario: email:" + userBOApp.getEmail() +
+                            " LoginMethod: " + Firebase.LOGIN_METHOD_EMAIL_PASSWORD + " fecha:" +
+                            strFecha + " grabado exitosamente");
+                }
+            }
+        });
     }
 
 }

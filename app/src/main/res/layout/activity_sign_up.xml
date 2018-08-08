@@ -36,25 +36,61 @@
         android:layout_height="wrap_content"
         style="@style/RelativeLayoutInput"
         android:layout_below="@id/rl_logo">
-        <EditText
-            android:id="@+id/et_email"
+
+        <LinearLayout
+            android:id="@+id/ll_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/et_input_top_background"
-            style="@style/TextInputField"
-            android:inputType="textEmailAddress"
-            android:hint="@string/email"/>
-        <EditText
-            android:id="@+id/et_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/et_input_bottom_background"
-            style="@style/TextInputField"
-            android:longClickable="false"
             android:layout_marginTop="@dimen/margin_vertical_middle"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:layout_below="@id/et_email"/>
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <ImageView
+                android:id="@+id/iv_email"
+                android:layout_width="0dp"
+                android:layout_weight="0.1"
+                style="@style/ImageInputField"
+                android:contentDescription="@string/first_name"
+                android:src="@drawable/ic_email"/>
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="0dp"
+                android:layout_weight="0.9"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_vertical_middle"
+                android:background="@drawable/et_input_background"
+                style="@style/TextInputField"
+                android:inputType="textEmailAddress"
+                android:hint="@string/email"
+                android:nextFocusForward="@id/et_password"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_vertical_middle"
+            android:layout_below="@id/ll_email"
+            android:orientation="horizontal"
+            android:weightSum="1">
+            <ImageView
+                android:id="@+id/iv_password"
+                android:layout_width="0dp"
+                android:layout_weight="0.1"
+                style="@style/ImageInputField"
+                android:contentDescription="@string/first_name"
+                android:src="@drawable/ic_password"/>
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="0dp"
+                android:layout_weight="0.9"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/margin_vertical_middle"
+                android:background="@drawable/et_input_background"
+                style="@style/TextInputField"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:nextFocusForward="@id/btn_sign_in_email_password"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/tv_accept_terms"
@@ -65,11 +101,12 @@
             android:layout_marginRight="@dimen/margin_horizontal_double"
             android:textAlignment="center"
             android:layout_marginBottom="@dimen/margin_vertical"
-            android:layout_below="@id/et_password"
+            android:layout_below="@id/ll_password"
             style="@style/TextBody2"
             android:text="@string/accept_terms"/>
 
     </RelativeLayout>
+
 
     <Button
         android:id="@+id/btn_sign_up_email_password"

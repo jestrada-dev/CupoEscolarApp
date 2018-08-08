@@ -2,6 +2,7 @@ package co.jestrada.cupoescolarapp.login.model.bo;
 
 import java.util.ArrayList;
 
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.login.model.modelDocJson.UserDocJson;
 import co.jestrada.cupoescolarapp.login.model.modelDocJson.LoginMethodDocJson;
@@ -53,6 +54,15 @@ public class UserBO {
             }
         }
     }
+    public void setValues(AttendantBO attendantBO){
+        if (attendantBO != null){
+            this.uId = attendantBO.getUserUid();
+            this.email = attendantBO.getEmail();
+            this.firstName = attendantBO.getFirstName();
+            this.lastName = attendantBO.getLastName();
+        }
+    }
+
 
     public String getuId() {
         return uId;

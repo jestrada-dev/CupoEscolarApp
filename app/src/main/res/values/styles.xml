@@ -99,13 +99,12 @@
         <item name="android:paddingBottom">@dimen/padding_button_double</item>
         <item name="android:paddingStart">@dimen/padding_button_cuadruple</item>
         <item name="android:paddingEnd">@dimen/padding_button_cuadruple</item>
-        <item name="android:drawableTint">@android:color/white</item>
     </style>
 
     <style name="RelativeLayoutInput" >
         <item name="android:padding">@dimen/margin_vertical_double</item>
-        <item name="android:layout_marginStart">@dimen/margin_horizontal_sextuple</item>
-        <item name="android:layout_marginEnd">@dimen/margin_horizontal_cuadruple</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_triple</item>
+        <item name="android:layout_marginEnd">@dimen/margin_horizontal_double</item>
         <item name="android:background">@drawable/layout_background</item>
     </style>
 

@@ -36,8 +36,4 @@ public interface ILoginContract {
         void activateUser();
     }
 
-    interface IAppCore{
-
-    }
-
 }
