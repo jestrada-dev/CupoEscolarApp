@@ -527,6 +527,12 @@
         style="@style/TextButton"
         android:text="@string/save"/>
 
+    <ListView
+        android:id="@+id/lv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="@color/mColorDivider"/>
+
     <ProgressBar
         android:id="@+id/pb"
         style="?android:attr/progressBarStyleLarge"

@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -41,6 +43,7 @@ public class EditProfileActivity extends BaseActivity implements
     final int day = mCalendar.get(Calendar.DAY_OF_MONTH);
     final int year = mCalendar.get(Calendar.YEAR);
 
+    private ListView mListView;
     private ArrayList<String> docIdTypeArrayList;
 
     @BindView(R.id.tv_attendant_email)
@@ -96,6 +99,8 @@ public class EditProfileActivity extends BaseActivity implements
 
         mEditProfilePresenter = new EditProfilePresenter(EditProfileActivity.this);
         docIdTypeArrayList = new ArrayList<>();
+/*        mListView = (ListView) findViewById(R.id.lv);
+        mListView.setAdapter();*/
     }
 
     @OnClick(R.id.btn_save)
@@ -194,12 +199,14 @@ public class EditProfileActivity extends BaseActivity implements
 
         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
         builder.setTitle("Make your selection");
-        builder.setItems( docIdTypeArrayList, new DialogInterface.OnClickListener() {
+        final ArrayAdapter<String> docIdTypeBOArrayAdapter = new ArrayAdapter<>(
+                EditProfileActivity.this, android.support.design.R.layout.select_dialog_singlechoice_material);
+        docIdTypeBOArrayAdapter.addAll(docIdTypeArrayList);
+        builder.setAdapter(docIdTypeBOArrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
             public void onClick(DialogInterface dialog, int item) {
-
                 etDocIdType.setText(docIdTypeArrayList.get(item).toString());
                 dialog.dismiss();
-
             }
         }).show();
     }
@@ -327,9 +334,10 @@ public class EditProfileActivity extends BaseActivity implements
     @Override
     public void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS) {
         if (!docIdTypeBOS.isEmpty()){
-            for(DocIdTypeBO docIdTypeBO: docIdTypeBOS){
-                docIdTypeBOArrayList.add(docIdTypeBO);
+            for (DocIdTypeBO docIdTypeBO : docIdTypeBOS){
+                docIdTypeArrayList.add(docIdTypeBO.getLongName());
             }
+
         }
     }
 
