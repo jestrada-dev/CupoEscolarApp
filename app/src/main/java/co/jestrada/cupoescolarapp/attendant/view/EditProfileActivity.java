@@ -2,6 +2,7 @@ package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
@@ -43,8 +44,8 @@ public class EditProfileActivity extends BaseActivity implements
     final int day = mCalendar.get(Calendar.DAY_OF_MONTH);
     final int year = mCalendar.get(Calendar.YEAR);
 
-    private ListView mListView;
     private ArrayList<String> docIdTypeArrayList;
+    private ArrayList<String> docIdTypeShortNameArrayList;
 
     @BindView(R.id.tv_attendant_email)
     TextView tvAttendantEmail;
@@ -99,8 +100,8 @@ public class EditProfileActivity extends BaseActivity implements
 
         mEditProfilePresenter = new EditProfilePresenter(EditProfileActivity.this);
         docIdTypeArrayList = new ArrayList<>();
-/*        mListView = (ListView) findViewById(R.id.lv);
-        mListView.setAdapter();*/
+        docIdTypeShortNameArrayList = new ArrayList<>();
+
     }
 
     @OnClick(R.id.btn_save)
@@ -195,17 +196,16 @@ public class EditProfileActivity extends BaseActivity implements
     }
 
     @OnClick(R.id.et_doc_id_type)
-    public void nose(){
-
+    public void showDocIdTypeList(){
         AlertDialog.Builder builder = new AlertDialog.Builder(EditProfileActivity.this);
-        builder.setTitle("Make your selection");
+        builder.setTitle(R.string.select_doc_id);
         final ArrayAdapter<String> docIdTypeBOArrayAdapter = new ArrayAdapter<>(
                 EditProfileActivity.this, android.support.design.R.layout.select_dialog_singlechoice_material);
         docIdTypeBOArrayAdapter.addAll(docIdTypeArrayList);
         builder.setAdapter(docIdTypeBOArrayAdapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
-                etDocIdType.setText(docIdTypeArrayList.get(item).toString());
+                etDocIdType.setText(docIdTypeShortNameArrayList.get(item));
                 dialog.dismiss();
             }
         }).show();
@@ -229,12 +229,14 @@ public class EditProfileActivity extends BaseActivity implements
     @OnClick(R.id.btn_get_coords_current_position)
     public void getCoordsCurrentPosition(){
         showProgressBar(true);
-        mEditProfilePresenter.getCoordsCurrentPosition();
+        Intent intent = new Intent(EditProfileActivity.this, CurrentPositionMapActivity.class);
+        startActivity(intent);
+        //mEditProfilePresenter.getCoordsCurrentPosition();
     }
 
     private void saveAttendant() {
         AttendantBO attendantBO = new AttendantBO();
-        attendantBO.setDocId(etDocIdType.getText() != null ? etDocIdType.getText().toString() : "");
+        attendantBO.setDocIdType(etDocIdType.getText() != null ? etDocIdType.getText().toString() : "");
         attendantBO.setDocId(etDocId.getText() != null ? etDocId.getText().toString() : "");
         attendantBO.setFirstName(etFirstName.getText() != null ? etFirstName.getText().toString() : "");
         attendantBO.setLastName(etLastName.getText() != null ? etLastName.getText().toString() : "");
@@ -298,7 +300,7 @@ public class EditProfileActivity extends BaseActivity implements
     public void setAttendantUI(AttendantBO attendantBO) {
         tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
         tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
-        etDocIdType.setText((attendantBO.getDocIdType() != null) ? attendantBO.getDocIdType().toString() : "");
+        etDocIdType.setText((attendantBO.getDocIdType() != null) ? attendantBO.getDocIdType() : "");
         etDocId.setText((attendantBO.getDocId() != null) ? attendantBO.getDocId() : "");
         etFirstName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
         etLastName.setText((attendantBO.getLastName() != null) ? attendantBO.getLastName() : "");
@@ -334,10 +336,12 @@ public class EditProfileActivity extends BaseActivity implements
     @Override
     public void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS) {
         if (!docIdTypeBOS.isEmpty()){
+            docIdTypeArrayList.clear();
+            docIdTypeShortNameArrayList.clear();
             for (DocIdTypeBO docIdTypeBO : docIdTypeBOS){
-                docIdTypeArrayList.add(docIdTypeBO.getLongName());
+                docIdTypeArrayList.add(docIdTypeBO.getShortName() + " " + docIdTypeBO.getLongName());
+                docIdTypeShortNameArrayList.add(docIdTypeBO.getShortName());
             }
-
         }
     }
 

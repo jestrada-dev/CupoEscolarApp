@@ -9,7 +9,7 @@ public class AttendantBO {
 
     private String userUid;
     private String docId;
-    private DocIdTypeEnum docIdType;
+    private String docIdType;
     private String lastName;
     private String firstName;
     private GenreEnum genre;
@@ -61,11 +61,11 @@ public class AttendantBO {
         this.docId = docId;
     }
 
-    public DocIdTypeEnum getDocIdType() {
+    public String getDocIdType() {
         return docIdType;
     }
 
-    public void setDocIdType(DocIdTypeEnum docIdType) {
+    public void setDocIdType(String docIdType) {
         this.docIdType = docIdType;
     }
 

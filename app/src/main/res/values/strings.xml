@@ -100,6 +100,9 @@
     <string name="lng">Longitud</string>
     <string name="save">Guardar</string>
     <string name="edit">Editar</string>
+    <string name="select_doc_id">Selecciona el Tipo de Documento:</string>
+    <string name="title_activity_current_position_map">Map</string>
+    <string name="current_position">Mi Ubicación Actual</string>
 
 
 </resources>
