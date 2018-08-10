@@ -19,24 +19,25 @@ import com.google.firebase.auth.FirebaseUser;
 import java.util.ArrayList;
 
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
+import co.jestrada.cupoescolarapp.attendant.contract.IRefPositionContract;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.interactor.DocIdTypeInteractor;
+import co.jestrada.cupoescolarapp.attendant.interactor.RefPositionInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
-public class EditProfilePresenter extends BasePresenter implements
-        IEditProfileContract.IEditProfilePresenter,
+public class RefPositionPresenter extends BasePresenter implements
+        IRefPositionContract.IRefPositionPresenter,
         GoogleApiClient.OnConnectionFailedListener {
 
     private static final int REQUEST_FINE_LOCATION = 123;
-    private IEditProfileContract.IEditProfileView mEditProfileView;
+    private IRefPositionContract.IRefPositionView mRefPositionView;
     private Context mContext;
 
-    private DocIdTypeInteractor mDocIdTypeInteractor;
-    private AttendantInteractor mAttendantInteractor;
+    private RefPositionInteractor mRefPositionInteractor;
 
     private FusedLocationProviderClient mFusedLocationClient;
 
@@ -44,15 +45,11 @@ public class EditProfilePresenter extends BasePresenter implements
 
     private UserBO userBOApp;
 
-    public EditProfilePresenter(final Context mContext) {
-        this.mEditProfileView = (IEditProfileContract.IEditProfileView) mContext;
-        this.mDocIdTypeInteractor = new DocIdTypeInteractor(this);
-        this.mAttendantInteractor = new AttendantInteractor(
+    public RefPositionPresenter(final Context mContext) {
+        this.mRefPositionView = (IRefPositionContract.IRefPositionView) mContext;
+        this.mRefPositionInteractor = new RefPositionInteractor(
                 null,
                 null,
-                null,
-                null,
-                this,
                 null
         );
         this.mContext = mContext;
@@ -64,46 +61,46 @@ public class EditProfilePresenter extends BasePresenter implements
     private void getData() {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null) {
-            mDocIdTypeInteractor.getDocIdTypes();
-            mAttendantInteractor.getAttendant(mFirebaseUser.getUid());
-        }
-    }
-
-    @Override
-    public void getAttendant(AttendantBO attendantBO) {
-        mEditProfileView.setAttendantUI(attendantBO);
-    }
-
-    @Override
-    public void saveAttendant(AttendantBO attendantBO) {
-        userBOApp = UserBO.getInstance();
-        if (userBOApp != null){
-            attendantBO.setUserUid(userBOApp.getuId());
-            mAttendantInteractor.saveAttendant(attendantBO);
-        }
-    }
-
-    @Override
-    public void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS) {
-        if (!docIdTypeBOS.isEmpty()){
-            mEditProfileView.setDocIdTypesList(docIdTypeBOS);
+            mRefPositionInteractor.getRefPosition(mFirebaseUser.getUid());
         }
     }
 
 
+/*    public void getCoordsCurrentPosition() {
+        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission((Activity)mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions((Activity) mContext,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
+
+        }else{
+            mFusedLocationClient.getLastLocation()
+                    .addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                mRefPositionView.setRefPositionUI(location);
+                            }
+                        }
+                    });
+
+        }
+    }*/
+
     @Override
-    public void signOut() {
-        userBOApp = UserBO.getInstance();
-        userBOApp.setOnSession(false);
-        mFirebaseAuth.signOut();
-        mEditProfileView.goToLogin();
+    public void getRefPosition(RefPositionBO refPositionBO) {
+
+    }
+
+    @Override
+    public void saveRefPosition(RefPositionBO refPositionBO) {
+
     }
 
     @Override
     public void onStart() {
         userBOApp = UserBO.getInstance();
         if (!userBOApp.isOnSession()){
-            signOut();
         } else {
             getData();
         }

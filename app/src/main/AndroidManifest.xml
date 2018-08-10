@@ -46,7 +46,8 @@
 
         <activity
             android:name=".attendant.view.CurrentPositionMapActivity"
-            android:label="@string/title_activity_current_position_map"></activity>
+            android:label="@string/title_activity_current_position_map" />
+        <activity android:name=".attendant.view.RefPositionActivity"></activity>
     </application>
 
 </manifest>

@@ -78,18 +78,6 @@ public class EditProfileActivity extends BaseActivity implements
     @BindView(R.id.et_mobile_phone)
     EditText etMobilPhone;
 
-    @BindView(R.id.et_ref_point_description)
-    EditText etRefPointDescription;
-    @BindView(R.id.et_ref_point_address)
-    EditText etRefPointAddress;
-    @BindView(R.id.et_ref_point_lat)
-    EditText etRefPointLat;
-    @BindView(R.id.et_ref_point_lng)
-    EditText etRefPointLng;
-
-    @BindView(R.id.btn_get_coords_current_position)
-    Button btnGetCoordsCurrentPosition;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,18 +103,6 @@ public class EditProfileActivity extends BaseActivity implements
 
     private boolean validateInputs() {
         boolean validInputs = true;
-
-        if(!isValidLatLng(etRefPointLng.getText().toString().trim())){
-            validInputs = false;
-            etRefPointLng.setError(getString(R.string.validate_input_lng));
-            etRefPointLng.requestFocus();
-        }
-
-        if(!isValidLatLng(etRefPointLat.getText().toString().trim())){
-            validInputs = false;
-            etRefPointLat.setError(getString(R.string.validate_input_lat));
-            etRefPointLat.requestFocus();
-        }
 
         if(!isValidPhone(etMobilPhone.getText().toString().trim())){
             validInputs = false;
@@ -165,16 +141,6 @@ public class EditProfileActivity extends BaseActivity implements
         return !err;
     }
 
-    private boolean isValidLatLng(String latLng){
-        boolean err = false;
-        // TODO: Pendiente implementar validación para latitud y longitud
-/*        if (!TextUtils.isEmpty(latLng)){
-            if (!TextUtils.isDigitsOnly(latLng)){
-                err = true;
-            }
-        }*/
-        return !err;
-    }
 
     private boolean isValidDocId(String docId){
         boolean err = false;
@@ -250,11 +216,6 @@ public class EditProfileActivity extends BaseActivity implements
         attendantBO.setAddress(etAddress.getText() != null ? etAddress.getText().toString() : "");
         attendantBO.setLocalPhone(etLocalPhone.getText() != null ? etLocalPhone.getText().toString() : "");
         attendantBO.setMobilePhone(etMobilPhone.getText() != null ? etMobilPhone.getText().toString() : "");
-        RefPositionBO refPositionBO = new RefPositionBO();
-        refPositionBO.setDescription(etRefPointDescription.getText() != null ? etRefPointDescription.getText().toString() : "");
-        refPositionBO.setAddress(etRefPointAddress.getText() != null ? etRefPointAddress.getText().toString() : "");
-        refPositionBO.setLat(etRefPointLat.getText() != null && !etRefPointLat.getText().toString().isEmpty() ? Double.parseDouble(etRefPointLat.getText().toString()) : 0);
-        refPositionBO.setLng(etRefPointLng.getText() != null && !etRefPointLng.getText().toString().isEmpty() ? Double.parseDouble(etRefPointLng.getText().toString()) : 0);
         mEditProfilePresenter.saveAttendant(attendantBO);
     }
 
@@ -262,7 +223,6 @@ public class EditProfileActivity extends BaseActivity implements
         btnSave.setEnabled(enable);
         enableFieldsPersonalInfo(enable);
         enableFieldsContactInfo(enable);
-        enableFieldsRefPoint(enable);
     }
 
     void enableFieldsPersonalInfo(boolean enable){
@@ -280,13 +240,6 @@ public class EditProfileActivity extends BaseActivity implements
         etAddress.setEnabled(enable);
         etLocalPhone.setEnabled(enable);
         etMobilPhone.setEnabled(enable);
-    }
-
-    void enableFieldsRefPoint (boolean enable){
-        etRefPointDescription.setEnabled(enable);
-        etRefPointAddress.setEnabled(enable);
-        etRefPointLat.setEnabled(enable);
-        etRefPointLng.setEnabled(enable);
     }
 
     @Override
@@ -330,13 +283,6 @@ public class EditProfileActivity extends BaseActivity implements
                 docIdTypeShortNameArrayList.add(docIdTypeBO.getShortName());
             }
         }
-    }
-
-    @Override
-    public void setCoordsCurrentPositionUI(Location location) {
-        etRefPointLat.setText(String.valueOf(location.getLatitude()));
-        etRefPointLng.setText(String.valueOf(location.getLongitude()));
-        showProgressBar(false);
     }
 
     @Override

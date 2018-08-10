@@ -66,8 +66,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements OnMa
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
         }
-
-        mCurrentPositionMapPresenter = new CurrentPositionMapPresenter(CurrentPositionMapActivity.this);
+        
         refPositionBO = new RefPositionBO();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);

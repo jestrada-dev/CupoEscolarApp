@@ -93,9 +93,9 @@
     <string name="personal_info">Información Personal</string>
     <string name="contact_info">Información de Contacto</string>
     <string name="ref_point">Punto de Referencia</string>
-    <string name="ref_point_summary">Este Punto de Referencia será utilizado para la Georreferenciación de los Colegios</string>
+    <string name="ref_point_summary">Estos valores se obtienen automáticamente del Mapa. Haz click en Obtener Ubicación</string>
     <string name="ref_point_description">Descripción</string>
-    <string name="btn_get_coords_current_position">Obtener Coordenadas</string>
+    <string name="btn_get_coords_current_location">Obtener Ubicación</string>
     <string name="lat">Latitud</string>
     <string name="lng">Longitud</string>
     <string name="save">Guardar</string>
@@ -104,6 +104,9 @@
     <string name="title_activity_current_position_map">Map</string>
     <string name="current_position">Mi Ubicación Actual</string>
     <string name="set_current_position">Establecer Ubicación</string>
+    <string name="postal_code">Código Postal</string>
+    <string name="city">Ciudad</string>
+    <string name="description_ref_position">Asigna un nombre para identificar el Punto de Referencia. Ej: Mi Casa.</string>
 
 
 </resources>

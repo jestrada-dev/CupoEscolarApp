@@ -1,7 +1,5 @@
 package co.jestrada.cupoescolarapp.attendant.contract;
 
-import android.location.Location;
-
 import java.util.ArrayList;
 
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
@@ -9,24 +7,20 @@ import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
 
-public interface IEditProfileContract extends IBaseContract {
+public interface IRefPositionContract extends IBaseContract {
 
-    interface IEditProfileView{
-        void goToLogin();
-        void setAttendantUI(AttendantBO attendantBO);
-        void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS);
+    interface IRefPositionView{
+        void setRefPositionUI(RefPositionBO refPositionBO);
         void onStart();
         void onStop();
         void onDestroy();
     }
 
-    interface IEditProfilePresenter{
+    interface IRefPositionPresenter{
 
-        void getAttendant(AttendantBO attendantBO);
-        void saveAttendant(AttendantBO attendantBO);
-        void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS);
+        void getRefPosition(RefPositionBO refPositionBO);
+        void saveRefPosition(RefPositionBO refPositionBO);
 
-        void signOut();
         void onStart();
         void onStop();
         void onDestroy();

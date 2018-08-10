@@ -17,6 +17,7 @@ import java.sql.Ref;
 import co.jestrada.cupoescolarapp.attendant.contract.ICurrentPositionMapContract;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
+import co.jestrada.cupoescolarapp.attendant.contract.IRefPositionContract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
@@ -31,18 +32,18 @@ public class RefPositionInteractor implements
         IBaseContract.IBaseInteractor{
 
     private IMainContract.IMainPresenter mMainPresenter;
-    private IEditProfileContract.IEditProfilePresenter mEditProfilePresenter;
+    private IRefPositionContract.IRefPositionPresenter mRefPositionPresenter;
     private ICurrentPositionMapContract.ICurrentPositionMapPresenter mCurrentPositionMapPresenter;
 
     private FirebaseDatabase mFirebaseDB;
     private DatabaseReference dbRefRefPositions;
 
     public RefPositionInteractor(@Nullable IMainContract.IMainPresenter mMainPresenter,
-                                 @Nullable IEditProfileContract.IEditProfilePresenter mEditProfilePresenter,
+                                 @Nullable IRefPositionContract.IRefPositionPresenter mRefPositionPresenter,
                                  @Nullable ICurrentPositionMapContract.ICurrentPositionMapPresenter mCurrentPositionMapPresenter) {
 
         this.mMainPresenter = mMainPresenter;
-        this.mEditProfilePresenter = mEditProfilePresenter;
+        this.mRefPositionPresenter = mRefPositionPresenter;
         this.mCurrentPositionMapPresenter = mCurrentPositionMapPresenter;
 
         this.mFirebaseDB = FirebaseDatabase.getInstance();
@@ -72,8 +73,8 @@ public class RefPositionInteractor implements
         if(mMainPresenter != null){
             mMainPresenter.getRefPosition(refPositionBO);
         }
-        if(mEditProfilePresenter != null){
-            mEditProfilePresenter.getRefPosition(refPositionBO);
+        if(mRefPositionPresenter != null){
+            mRefPositionPresenter.getRefPosition(refPositionBO);
         }
 
         if (mCurrentPositionMapPresenter != null){
