@@ -9,7 +9,8 @@ public class Firebase {
     public static final String FIELD_ACTIVATE_TIMESTAMP = "activateTimestamp";
 
     public static final String ATTENDANTS = "Attendants";
-    public static final String ATTENDANTS_REF_POINT = "RefPoint";
+
+    public static final String REF_POSITIONS = "RefPositions";
 
     public static final String DOC_ID_TYPES = "DocIdTypes";
 }

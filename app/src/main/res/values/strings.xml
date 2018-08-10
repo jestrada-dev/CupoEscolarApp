@@ -103,6 +103,7 @@
     <string name="select_doc_id">Selecciona el Tipo de Documento:</string>
     <string name="title_activity_current_position_map">Map</string>
     <string name="current_position">Mi Ubicación Actual</string>
+    <string name="set_current_position">Establecer Ubicación</string>
 
 
 </resources>

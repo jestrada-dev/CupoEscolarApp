@@ -10,15 +10,11 @@ import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
-import co.jestrada.cupoescolarapp.attendant.view.MainActivity;
 import co.jestrada.cupoescolarapp.common.contract.IAppCoreContract;
-import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
-import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 
-public class AppCore extends Application implements IAppCoreContract.IAppCore {
+public class AppCore extends Application implements IAppCoreContract.IAppCore{
 
     UserBO userBOApp;
 
@@ -66,13 +62,13 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore {
                 null,
                 null,
                 null,
-                null
-                );
-
+                null,
+                null);
     }
 
     @Override
     public void getAttendant(AttendantBO attendantBO) {
         userBOApp.setValues(attendantBO);
     }
+
 }

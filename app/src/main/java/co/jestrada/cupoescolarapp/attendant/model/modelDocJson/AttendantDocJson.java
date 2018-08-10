@@ -1,8 +1,6 @@
 package co.jestrada.cupoescolarapp.attendant.model.modelDocJson;
 
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.RefPointBO;
-import co.jestrada.cupoescolarapp.attendant.model.enums.DocIdTypeEnum;
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
 
 public class AttendantDocJson {

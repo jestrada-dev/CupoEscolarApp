@@ -1,9 +1,8 @@
 package co.jestrada.cupoescolarapp.attendant.model.bo;
 
-import co.jestrada.cupoescolarapp.attendant.model.enums.DocIdTypeEnum;
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
-import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.RefPointDocJson;
+import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.RefPositionDocJson;
 
 public class AttendantBO {
 
@@ -18,12 +17,11 @@ public class AttendantBO {
     private String email;
     private String localPhone;
     private String mobilePhone;
-    private RefPointBO refPoint;
 
     public AttendantBO() {
     }
 
-    public void setValues(AttendantDocJson attendantDocJson, RefPointDocJson refPointDocJson){
+    public void setValues(AttendantDocJson attendantDocJson){
         if (attendantDocJson != null){
             this.userUid = attendantDocJson.getUserUid();
             this.docId = attendantDocJson.getDocId();
@@ -36,11 +34,6 @@ public class AttendantBO {
             this.email = attendantDocJson.getEmail();
             this.localPhone = attendantDocJson.getLocalPhone();
             this.mobilePhone = attendantDocJson.getMobilePhone();
-            if (refPointDocJson != null){
-                RefPointBO mRefPointBO = new RefPointBO();
-                mRefPointBO.setValues(refPointDocJson);
-                this.refPoint = mRefPointBO;
-            }
         }
 
     }
@@ -131,13 +124,5 @@ public class AttendantBO {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
-    }
-
-    public RefPointBO getRefPoint() {
-        return refPoint;
-    }
-
-    public void setRefPoint(RefPointBO refPoint) {
-        this.refPoint = refPoint;
     }
 }

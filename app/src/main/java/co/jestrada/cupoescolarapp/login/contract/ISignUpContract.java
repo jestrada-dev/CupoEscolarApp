@@ -37,8 +37,4 @@ public interface ISignUpContract extends IBaseContract {
         void saveUser(UserBO userBO);
     }
 
-    interface IAttendantInteractor extends IBaseContract.IBaseInteractor{
-        void getAttendant(final String userUid);
-        void saveAttendant(AttendantBO attendantBO);
-    }
 }

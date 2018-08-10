@@ -43,10 +43,12 @@ public class LoginPresenter extends BasePresenter implements
                 null);
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
-                null,
-                null,
                 this,
-                null);
+                null,
+                null,
+                null,
+                null
+        );
         this.mFirebaseAuth = FirebaseAuth.getInstance();
     }
 

@@ -3,25 +3,20 @@ package co.jestrada.cupoescolarapp.attendant.contract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
-public interface IMainContract extends IBaseContract {
+public interface ICurrentPositionMapContract extends IBaseContract {
 
-    interface IMainView{
-        void goToLogin();
-        void setNavViewUI(AttendantBO attendantBO);
+    interface ICurrentPositionMapView{
+
     }
 
-    interface IMainPresenter{
-        void signOut();
+    interface ICurrentPositionMapPresenter{
 
-        void getUser(UserBO userBO);
-        void getAttendant(AttendantBO attendantBO);
         void getRefPosition(RefPositionBO refPositionBO);
+        void saveRefPosition(RefPositionBO refPositionBO);
 
         void onStart();
         void onStop();
         void onDestroy();
     }
-
 }

@@ -12,7 +12,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -26,7 +25,7 @@ import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.RefPointBO;
+import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.presenter.EditProfilePresenter;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
@@ -251,12 +250,11 @@ public class EditProfileActivity extends BaseActivity implements
         attendantBO.setAddress(etAddress.getText() != null ? etAddress.getText().toString() : "");
         attendantBO.setLocalPhone(etLocalPhone.getText() != null ? etLocalPhone.getText().toString() : "");
         attendantBO.setMobilePhone(etMobilPhone.getText() != null ? etMobilPhone.getText().toString() : "");
-        RefPointBO refPointBO = new RefPointBO();
-        refPointBO.setDescription(etRefPointDescription.getText() != null ? etRefPointDescription.getText().toString() : "");
-        refPointBO.setAddress(etRefPointAddress.getText() != null ? etRefPointAddress.getText().toString() : "");
-        refPointBO.setLat(etRefPointLat.getText() != null && !etRefPointLat.getText().toString().isEmpty() ? Double.parseDouble(etRefPointLat.getText().toString()) : 0);
-        refPointBO.setLng(etRefPointLng.getText() != null && !etRefPointLng.getText().toString().isEmpty() ? Double.parseDouble(etRefPointLng.getText().toString()) : 0);
-        attendantBO.setRefPoint(refPointBO);
+        RefPositionBO refPositionBO = new RefPositionBO();
+        refPositionBO.setDescription(etRefPointDescription.getText() != null ? etRefPointDescription.getText().toString() : "");
+        refPositionBO.setAddress(etRefPointAddress.getText() != null ? etRefPointAddress.getText().toString() : "");
+        refPositionBO.setLat(etRefPointLat.getText() != null && !etRefPointLat.getText().toString().isEmpty() ? Double.parseDouble(etRefPointLat.getText().toString()) : 0);
+        refPositionBO.setLng(etRefPointLng.getText() != null && !etRefPointLng.getText().toString().isEmpty() ? Double.parseDouble(etRefPointLng.getText().toString()) : 0);
         mEditProfilePresenter.saveAttendant(attendantBO);
     }
 
@@ -318,17 +316,6 @@ public class EditProfileActivity extends BaseActivity implements
         etAddress.setText((attendantBO.getAddress() != null) ? attendantBO.getAddress() : "");
         etLocalPhone.setText((attendantBO.getLocalPhone() != null) ? attendantBO.getLocalPhone() : "");
         etMobilPhone.setText((attendantBO.getMobilePhone() != null) ? attendantBO.getMobilePhone() : "");
-        if(attendantBO.getRefPoint() != null ){
-            etRefPointDescription.setText((attendantBO.getRefPoint().getDescription() != null) ? attendantBO.getRefPoint().getDescription() : "");
-            etRefPointAddress.setText((attendantBO.getRefPoint().getAddress() != null) ? attendantBO.getRefPoint().getAddress() : "");
-            etRefPointLat.setText(( attendantBO.getRefPoint().getLat() != 0) ? String.valueOf(attendantBO.getRefPoint().getLat()) : "");
-            etRefPointLng.setText(( attendantBO.getRefPoint().getLng() != 0) ? String.valueOf(attendantBO.getRefPoint().getLng()) : "");
-        } else {
-            etRefPointDescription.setText("");
-            etRefPointAddress.setText("");
-            etRefPointLat.setText("");
-            etRefPointLng.setText("");
-        }
         showProgressBar(false);
         enableFields(true);
     }

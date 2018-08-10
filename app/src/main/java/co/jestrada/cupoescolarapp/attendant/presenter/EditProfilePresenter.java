@@ -23,11 +23,13 @@ import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.interactor.DocIdTypeInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public class EditProfilePresenter extends BasePresenter implements
-        IEditProfileContract.IEditProfilePresenter, GoogleApiClient.OnConnectionFailedListener {
+        IEditProfileContract.IEditProfilePresenter,
+        GoogleApiClient.OnConnectionFailedListener {
 
     private static final int REQUEST_FINE_LOCATION = 123;
     private IEditProfileContract.IEditProfileView mEditProfileView;
@@ -50,7 +52,9 @@ public class EditProfilePresenter extends BasePresenter implements
                 null,
                 null,
                 null,
-                this);
+                this,
+                null
+        );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient((Activity) mContext);
@@ -87,6 +91,11 @@ public class EditProfilePresenter extends BasePresenter implements
     }
 
     @Override
+    public void getRefPosition(RefPositionBO refPositionBO) {
+
+    }
+
+
     public void getCoordsCurrentPosition() {
         if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission((Activity)mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {

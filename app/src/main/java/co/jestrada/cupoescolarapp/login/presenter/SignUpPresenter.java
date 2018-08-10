@@ -21,7 +21,6 @@ import java.util.Date;
 
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
-import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.common.constant.CustomDateUtils;
 import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
@@ -53,10 +52,12 @@ public class SignUpPresenter extends BasePresenter implements
                 null);
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
+                null,
                 this,
                 null,
                 null,
-                null);
+                null
+        );
     }
 
     private boolean isValidEmail(String email){

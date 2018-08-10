@@ -1,13 +1,13 @@
 package co.jestrada.cupoescolarapp.attendant.presenter;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
+import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
 import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
@@ -28,13 +28,18 @@ public class MainPresenter extends BasePresenter implements
 
     public MainPresenter(final Context mContext) {
         this.mMainView = (IMainContract.IMainView) mContext;
-        this.mUserInteractor = new UserInteractor(null, null, this);
+        this.mUserInteractor = new UserInteractor(
+                null,
+                null,
+                this);
         this.mAttendantInteractor = new AttendantInteractor(
+                null,
                 null,
                 null,
                 this,
                 null,
-                null);
+                null
+        );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
     }
@@ -64,6 +69,11 @@ public class MainPresenter extends BasePresenter implements
     @Override
     public void getAttendant(AttendantBO attendantBO) {
         mMainView.setNavViewUI(attendantBO);
+    }
+
+    @Override
+    public void getRefPosition(RefPositionBO refPositionBO) {
+
     }
 
     @Override

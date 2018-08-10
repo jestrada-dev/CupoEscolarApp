@@ -6,9 +6,8 @@ import java.util.ArrayList;
 
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.RefPointBO;
+import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public interface IEditProfileContract extends IBaseContract {
 
@@ -27,7 +26,7 @@ public interface IEditProfileContract extends IBaseContract {
         void getAttendant(AttendantBO attendantBO);
         void saveAttendant(AttendantBO attendantBO);
         void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS);
-        void getCoordsCurrentPosition();
+        void getRefPosition(RefPositionBO refPositionBO);
 
         void signOut();
         void onStart();
