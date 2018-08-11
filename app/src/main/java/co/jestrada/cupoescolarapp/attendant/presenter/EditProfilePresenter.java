@@ -38,8 +38,6 @@ public class EditProfilePresenter extends BasePresenter implements
     private DocIdTypeInteractor mDocIdTypeInteractor;
     private AttendantInteractor mAttendantInteractor;
 
-    private FusedLocationProviderClient mFusedLocationClient;
-
     private FirebaseAuth mFirebaseAuth;
 
     private UserBO userBOApp;
@@ -57,7 +55,6 @@ public class EditProfilePresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient((Activity) mContext);
         userBOApp = UserBO.getInstance();
     }
 

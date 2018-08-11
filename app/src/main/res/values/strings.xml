@@ -107,6 +107,7 @@
     <string name="postal_code">Código Postal</string>
     <string name="city">Ciudad</string>
     <string name="description_ref_position">Asigna un nombre para identificar el Punto de Referencia. Ej: Mi Casa.</string>
+    <string name="set_current_location">Establecer Ubicación</string>
 
 
 </resources>

@@ -76,12 +76,16 @@ public class MainActivity extends BaseActivity implements
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
                 switch (menuItem.getItemId()){
-                    case R.id.menu_item_students:
-                        goToStudents();
-                        return true;
-
                     case R.id.menu_item_edit_profile:
                         goToEditProfile();
+                        return true;
+
+                    case R.id.menu_item_ref_position:
+                        goToRefPosition();
+                        return true;
+
+                    case R.id.menu_item_students:
+                        goToStudents();
                         return true;
 
                     case R.id.menu_item_share_app:
@@ -142,6 +146,12 @@ public class MainActivity extends BaseActivity implements
         mBottomNavigationView.setSelectedItemId(R.id.menu_nav_dashboard);
         setFragment(mDashboardFragment);
         setTitleToolbar(getString(R.string.dashboard));
+    }
+
+    private void goToRefPosition() {
+        Intent intent = new Intent(MainActivity.this, RefPositionActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 
     private void goToConfigAccount() {

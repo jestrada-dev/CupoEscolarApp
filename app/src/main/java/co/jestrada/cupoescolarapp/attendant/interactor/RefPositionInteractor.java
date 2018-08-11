@@ -104,5 +104,29 @@ public class RefPositionInteractor implements
 
     }
 
+
+    public void saveDescriptionRefPosition(final RefPositionBO refPositionBO) {
+        if(refPositionBO.getUserUid() != null){
+            final DatabaseReference dbRefRefPositions = mFirebaseDB.getReference(Firebase.REF_POSITIONS);
+            final RefPositionDocJson refPositionDocJson = new RefPositionDocJson();
+            refPositionDocJson.setValues(refPositionBO);
+            Log.d("RefPosition","RefPositionInteractor -> Usuario: " + refPositionDocJson.getUserUid());
+            dbRefRefPositions.child(refPositionDocJson.getUserUid())
+                    .child(Firebase.REF_POSITIONS_DESCRIPTION)
+                    .setValue(refPositionDocJson.getDescription()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
+                                " grabado exitosamente");
+                    }
+                }
+            });
+        } else {
+            Log.d("RefPosition","RefPositionInteractor -> Usuario null");
+        }
+
+    }
+
 }
 

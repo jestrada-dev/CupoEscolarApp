@@ -6,8 +6,8 @@ public class RefPositionBO {
 
     private String userUid;
     private String description;
-    private Double lat;
-    private Double lng;
+    private double lat;
+    private double lng;
     private String address;
     private String city;
     private String adminArea;
@@ -43,19 +43,19 @@ public class RefPositionBO {
         this.description = description;
     }
 
-    public Double getLat() {
+    public double getLat() {
         return lat;
     }
 
-    public void setLat(Double lat) {
+    public void setLat(double lat) {
         this.lat = lat;
     }
 
-    public Double getLng() {
+    public double getLng() {
         return lng;
     }
 
-    public void setLng(Double lng) {
+    public void setLng(double lng) {
         this.lng = lng;
     }
 

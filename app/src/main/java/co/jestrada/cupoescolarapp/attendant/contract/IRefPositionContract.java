@@ -20,6 +20,7 @@ public interface IRefPositionContract extends IBaseContract {
 
         void getRefPosition(RefPositionBO refPositionBO);
         void saveRefPosition(RefPositionBO refPositionBO);
+        void saveDescriptionRefPosition(RefPositionBO refPositionBO);
 
         void onStart();
         void onStop();

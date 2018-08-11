@@ -11,6 +11,7 @@ public class Firebase {
     public static final String ATTENDANTS = "Attendants";
 
     public static final String REF_POSITIONS = "RefPositions";
+    public static final String REF_POSITIONS_DESCRIPTION = "description";
 
     public static final String DOC_ID_TYPES = "DocIdTypes";
 }

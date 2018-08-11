@@ -3,14 +3,19 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_item_students"
-        android:icon="@drawable/ic_students"
-        android:title="@string/students"/>
-
-    <item
         android:id="@+id/menu_item_edit_profile"
         android:icon="@drawable/ic_account_circle"
         android:title="@string/edit_profile"/>
+
+    <item
+        android:id="@+id/menu_item_ref_position"
+        android:icon="@drawable/ic_coords"
+        android:title="@string/set_current_location"/>
+
+    <item
+        android:id="@+id/menu_item_students"
+        android:icon="@drawable/ic_students"
+        android:title="@string/students"/>
 
     <item
         android:id="@+id/menu_item_share_app"

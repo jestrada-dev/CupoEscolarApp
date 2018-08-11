@@ -18,6 +18,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:drawableTint="@android:color/white"
+        android:drawableStart="@drawable/ic_person_pin_circle"
+        android:drawablePadding="@dimen/margin_vertical"
         style="@style/TextButton"
         android:text="@string/set_current_position"/>
 

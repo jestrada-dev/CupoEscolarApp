@@ -190,14 +190,6 @@ public class EditProfileActivity extends BaseActivity implements
         mDatePickerDialog.show();
 
     }
-    
-    @OnClick(R.id.btn_get_coords_current_position)
-    public void getCoordsCurrentPosition(){
-        showProgressBar(true);
-        Intent intent = new Intent(EditProfileActivity.this, CurrentPositionMapActivity.class);
-        startActivity(intent);
-        //mEditProfilePresenter.getCoordsCurrentPosition();
-    }
 
     private void saveAttendant() {
         AttendantBO attendantBO = new AttendantBO();
