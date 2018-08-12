@@ -86,7 +86,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
     @OnClick(R.id.btn_set_current_position)
     public void saveCurrentPosition() {
         pb.setVisibility(View.VISIBLE);
-        mCurrentPositionMapPresenter.saveRefPosition(refPositionBO);
+        mCurrentPositionMapPresenter.saveRefPositionNoDescription(refPositionBO);
     }
 
     @Override
@@ -182,7 +182,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
             MarkerOptions mMarkerOptions = new MarkerOptions();
             mMarkerOptions
                     .position(currentPosition)
-                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_person_pin_circle))
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_current_position_bold_blue_96))
                     .draggable(true)
                     .title(getString(R.string.current_position))
                     .snippet(refPositionBO.getAddress());
@@ -190,6 +190,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         }else{
             mMarker.setPosition(currentPosition);
             mMarker.setSnippet(refPositionBO.getAddress());
+            mMarker.showInfoWindow();
         }
     }
 

@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="mColorPrimary">#2196F3</color>
+    <color name="mColorPrimaryDark">#1976D2</color>
+    <color name="mColorPrimaryLight">#1976D2</color>
+
+    <color name="mColorAccent">#F57C00
+    </color>
+
+    <color name="mColorPrimaryText">#212121</color>
+    <color name="mColorSecondaryText">#757575</color>
+
+    <color name="mColorHint">#B2EBF2</color>
+    <color name="mColorIcons">#232F34</color>
+    <color name="mColorNavIcon">#FFFFFF</color>
+    <color name="mColorNavText">#FFFFFF</color>
+
+    <color name="mColorBackground">#FFFFFF</color>
+    <color name="mColorBackgroundSection">#2196F3</color>
+
+    <color name="mColorDivider">#CFD8DC</color>
+    <color name="mColorBorder">#CFD8DC</color>
+
+</resources>
+
+
+<!--<?xml version="1.0" encoding="utf-8"?>
+<resources>
     <color name="mColorPrimary">#344955</color>
     <color name="mColorPrimaryDark">#232F34</color>
     <color name="mColorPrimaryLight">#416572</color>
@@ -14,8 +40,8 @@
     <color name="mColorNavIcon">#416572</color>
     <color name="mColorNavText">#416572</color>
 
-    <color name="mColorBackground">#F5F5F5</color>
+    <color name="mColorBackground">#FFFFFF</color>
     <color name="mColorDivider">#F5F5F5</color>
     <color name="mColorBorder">#9E9E9E</color>
 
-</resources>
+</resources>-->

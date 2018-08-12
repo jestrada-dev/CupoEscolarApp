@@ -89,6 +89,13 @@ public class CurrentPositionMapPresenter extends BasePresenter implements
     }
 
     @Override
+    public void saveRefPositionNoDescription(RefPositionBO refPositionBO) {
+        userBOApp = UserBO.getInstance();
+        refPositionBO.setUserUid(userBOApp.getuId());
+        mRefPositionInteractor.saveRefPositionNoDescription(refPositionBO);
+    }
+
+    @Override
     public void onStart() {
         userBOApp = UserBO.getInstance();
         userBOApp = UserBO.getInstance();

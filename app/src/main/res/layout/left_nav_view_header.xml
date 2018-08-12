@@ -4,17 +4,18 @@
     android:id="@+id/left_nav_view_header"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_nav_view_header_custom"
-    android:background="@color/mColorPrimaryLight">
+    android:background="@color/mColorBackgroundSection">
 
     <ImageView
         android:id="@+id/iv_avatar"
         android:layout_width="@dimen/iv_avatar_width_and_height"
         android:layout_height="@dimen/iv_avatar_width_and_height"
         android:scaleType="centerCrop"
-        android:layout_marginTop="@dimen/margin_vertical_quintuple"
+        style="@style/ImageAvatar"
+        android:layout_marginTop="@dimen/margin_vertical_cuadruple"
         android:contentDescription="@string/click_to_change_avatar"
-        android:src="@drawable/ic_attendant_avatar"
-        android:layout_centerInParent="true"/>
+        android:src="@drawable/ic_account_circle"
+        android:layout_centerHorizontal="true"/>
 
     <!--Iconos diseñados por Freepik desde www.flaticon.com con licencia CC 3.0 BY -->
 
@@ -22,12 +23,11 @@
         android:id="@+id/tv_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_vertical"
-        android:layout_marginEnd="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/margin_vertical_middle"
         style="@style/TextBodyInvert1"
         android:text="@string/first_and_last_name"
-        android:layout_above="@id/tv_user_email"
-        android:layout_alignParentEnd="true"/>
+        android:layout_below="@id/iv_avatar"
+        android:layout_centerHorizontal="true"/>
 
     <TextView
         android:id="@+id/tv_user_email"
@@ -37,7 +37,7 @@
         android:layout_marginBottom="@dimen/margin_vertical"
         style="@style/TextBodyInvert2"
         android:text="@string/email"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"/>
+        android:layout_below="@id/tv_user_name"
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>

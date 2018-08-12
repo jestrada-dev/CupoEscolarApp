@@ -5,7 +5,7 @@
         <item name="colorPrimaryDark">@color/mColorPrimaryDark</item>
         <item name="colorAccent">@color/mColorAccent</item>
         <item name="android:textColorPrimary">@color/mColorPrimaryText</item>
-        <item name="android:textColorSecondary">@color/mColorSecondaryText</item>
+        <item name="android:textColorSecondary">@color/mColorPrimaryLight</item>
         <item name="android:colorButtonNormal">@color/mColorPrimaryLight</item>
         <item name="android:windowContentTransitions">true</item>
 
@@ -16,7 +16,6 @@
     </style>
 
     <style name="MainToolbar" parent="Theme.MaterialComponents.Light">
-        <item name="android:textColor">@color/mColorPrimaryLight</item>
         <item name="android:fontFamily">@font/worksans_medium</item>
         <item name="android:textSize">14sp</item>
     </style>
@@ -40,7 +39,7 @@
     </style>
 
     <style name="TextBody1" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/mColorPrimary</item>
+        <item name="android:textColor">@color/mColorPrimaryText</item>
         <item name="android:fontFamily">@font/worksans_regular</item>
         <item name="android:textSize">16sp</item>
     </style>
@@ -52,31 +51,32 @@
     </style>
 
     <style name="TextBodyInvert1" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/mColorNavText</item>
         <item name="android:fontFamily">@font/worksans_regular</item>
         <item name="android:textSize">16sp</item>
     </style>
 
     <style name="TextBodyInvert2" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/mColorNavText</item>
         <item name="android:fontFamily">@font/worksans_light</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextLabel1" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/mColorPrimary</item>
+        <item name="android:textColor">@color/mColorPrimaryText</item>
         <item name="android:fontFamily">@font/worksans_light</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextLabel2" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/mColorPrimary</item>
+        <item name="android:textColor">@color/mColorPrimaryText</item>
         <item name="android:fontFamily">@font/worksans_light</item>
         <item name="android:textSize">14sp</item>
     </style>
 
     <style name="TextInputField" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/mColorPrimary</item>
+        <item name="android:textColor">@color/mColorPrimaryText</item>
+        <item name="android:buttonTint">@color/mColorPrimaryText</item>
         <item name="android:fontFamily">@font/worksans_medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:padding">@dimen/padding_text</item>
@@ -90,8 +90,24 @@
         <item name="android:layout_height">24dp</item>
     </style>
 
+    <style name="ImageBulletPoint">
+        <item name="android:textAlignment">center</item>
+        <item name="android:tint">@color/mColorBackgroundSection</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
+    <style name="ImageAvatar">
+        <item name="android:textAlignment">center</item>
+        <item name="android:tint">@android:color/white</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_height">24dp</item>
+    </style>
+
     <style name="TextButton" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:drawableTint">@android:color/white</item>
+        <item name="android:drawablePadding">@dimen/margin_vertical</item>
         <item name="android:fontFamily">@font/worksans_semibold</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textAllCaps">false</item>
@@ -102,8 +118,8 @@
     </style>
 
     <style name="RelativeLayoutInput" >
-        <item name="android:padding">@dimen/margin_vertical_double</item>
-        <item name="android:layout_marginStart">@dimen/margin_horizontal_triple</item>
+        <item name="android:padding">@dimen/margin_vertical_middle</item>
+        <item name="android:layout_marginStart">@dimen/margin_horizontal_double</item>
         <item name="android:layout_marginEnd">@dimen/margin_horizontal_double</item>
         <item name="android:background">@drawable/layout_background</item>
     </style>

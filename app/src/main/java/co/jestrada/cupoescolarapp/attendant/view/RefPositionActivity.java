@@ -87,6 +87,7 @@ public class RefPositionActivity extends BaseActivity implements
     @Override
     public void onStart() {
         super.onStart();
+        showProgressBar(true);
         mRefPositionPresenter.onStart();
     }
 

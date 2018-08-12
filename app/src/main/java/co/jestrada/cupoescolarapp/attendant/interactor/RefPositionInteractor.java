@@ -60,7 +60,7 @@ public class RefPositionInteractor implements
                 if(refPositionDocJson != null){
                     RefPositionBO refPositionBO = new RefPositionBO();
                     refPositionBO.setValues(refPositionDocJson);
-                    notifyAttandantChanges(refPositionBO);
+                    notifyRefPositionChanges(refPositionBO);
                 }
             }
             @Override
@@ -69,7 +69,7 @@ public class RefPositionInteractor implements
         });
     }
 
-    private void notifyAttandantChanges(RefPositionBO refPositionBO) {
+    private void notifyRefPositionChanges(RefPositionBO refPositionBO) {
         if(mMainPresenter != null){
             mMainPresenter.getRefPosition(refPositionBO);
         }
@@ -95,6 +95,7 @@ public class RefPositionInteractor implements
                     if(task.isSuccessful()){
                         Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
                                 " grabado exitosamente");
+                        notifyRefPositionChanges(refPositionBO);
                     }
                 }
             });
@@ -119,6 +120,7 @@ public class RefPositionInteractor implements
                     if(task.isSuccessful()){
                         Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
                                 " grabado exitosamente");
+                        getRefPosition(refPositionBO.getUserUid());
                     }
                 }
             });
@@ -126,6 +128,93 @@ public class RefPositionInteractor implements
             Log.d("RefPosition","RefPositionInteractor -> Usuario null");
         }
 
+    }
+
+    public void saveRefPositionNoDescription(final RefPositionBO refPositionBO) {
+        if(refPositionBO.getUserUid() != null){
+            final DatabaseReference dbRefRefPositions = mFirebaseDB.getReference(Firebase.REF_POSITIONS);
+            Log.d("RefPosition","RefPositionInteractor -> Usuario: " + refPositionBO.getUserUid());
+            dbRefRefPositions.child(refPositionBO.getUserUid())
+                    .child(Firebase.REF_POSITIONS_ADDRESS)
+                    .setValue(refPositionBO.getAddress()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        saveRefPositionLat(refPositionBO);
+                    }
+                }
+            });
+        } else {
+            Log.d("RefPosition","RefPositionInteractor -> Usuario null");
+        }
+
+    }
+
+    private void saveRefPositionLat(final RefPositionBO refPositionBO) {
+        dbRefRefPositions.child(refPositionBO.getUserUid())
+                .child(Firebase.REF_POSITIONS_LAT)
+                .setValue(refPositionBO.getLat()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    saveRefPositionLng(refPositionBO);
+                }
+            }
+        });
+    }
+
+    private void saveRefPositionLng(final RefPositionBO refPositionBO) {
+        dbRefRefPositions.child(refPositionBO.getUserUid())
+                .child(Firebase.REF_POSITIONS_LNG)
+                .setValue(refPositionBO.getLng()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    saveRefPositionPostalCode(refPositionBO);
+                }
+            }
+        });
+    }
+
+    private void saveRefPositionPostalCode(final RefPositionBO refPositionBO) {
+        dbRefRefPositions.child(refPositionBO.getUserUid())
+                .child(Firebase.REF_POSITIONS_POSTAL_CODE)
+                .setValue(refPositionBO.getPostalCode()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    saveRefPositionCity(refPositionBO);
+                }
+            }
+        });
+    }
+
+    private void saveRefPositionCity(final RefPositionBO refPositionBO) {
+        dbRefRefPositions.child(refPositionBO.getUserUid())
+                .child(Firebase.REF_POSITIONS_CITY)
+                .setValue(refPositionBO.getCity()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    saveRefPositionAdminArea(refPositionBO);
+                }
+            }
+        });
+    }
+
+    private void saveRefPositionAdminArea(final RefPositionBO refPositionBO) {
+        dbRefRefPositions.child(refPositionBO.getUserUid())
+                .child(Firebase.REF_POSITIONS_ADMIN_AREA)
+                .setValue(refPositionBO.getAdminArea()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
+                            " grabado exitosamente");
+                    notifyRefPositionChanges(refPositionBO);
+                }
+            }
+        });
     }
 
 }

@@ -13,8 +13,6 @@ public class UserBO {
 
     private String uId;
     private String email;
-    private String firstName;
-    private String lastName;
     private StateUserEnum state;
     private boolean onSession;
     private ArrayList<LoginMethodBO> logins;
@@ -40,8 +38,6 @@ public class UserBO {
         if (userDocJson != null){
             this.uId = userDocJson.getuId();
             this.email = userDocJson.getEmail();
-            this.firstName = userDocJson.getFirstName();
-            this.lastName = userDocJson.getLastName();
             this.state = userDocJson.getState();
             if (loginMethodDocJsons != null){
                 ArrayList<LoginMethodBO> loginMethodBOS = new ArrayList<>();
@@ -58,8 +54,6 @@ public class UserBO {
         if (attendantBO != null){
             this.uId = attendantBO.getUserUid();
             this.email = attendantBO.getEmail();
-            this.firstName = attendantBO.getFirstName();
-            this.lastName = attendantBO.getLastName();
         }
     }
 
@@ -78,22 +72,6 @@ public class UserBO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public boolean isOnSession() {

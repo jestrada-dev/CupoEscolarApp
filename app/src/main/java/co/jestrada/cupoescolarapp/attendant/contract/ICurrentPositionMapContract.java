@@ -23,6 +23,7 @@ public interface ICurrentPositionMapContract extends IBaseContract {
 
         void getRefPosition(RefPositionBO refPositionBO);
         void saveRefPosition(RefPositionBO refPositionBO);
+        void saveRefPositionNoDescription(RefPositionBO refPositionBO);
 
         void onStart();
         void onStop();

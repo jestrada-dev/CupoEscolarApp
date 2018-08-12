@@ -12,6 +12,12 @@ public class Firebase {
 
     public static final String REF_POSITIONS = "RefPositions";
     public static final String REF_POSITIONS_DESCRIPTION = "description";
+    public static final String REF_POSITIONS_ADDRESS = "address";
+    public static final String REF_POSITIONS_LAT = "lat";
+    public static final String REF_POSITIONS_LNG = "lng";
+    public static final String REF_POSITIONS_POSTAL_CODE = "postalCode";
+    public static final String REF_POSITIONS_CITY = "city";
+    public static final String REF_POSITIONS_ADMIN_AREA = "adminArea";
 
     public static final String DOC_ID_TYPES = "DocIdTypes";
 }

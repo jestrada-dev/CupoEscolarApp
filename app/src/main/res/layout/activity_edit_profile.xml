@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mColorBackground"
     tools:context=".attendant.view.EditProfileActivity">
 
     <include
@@ -14,35 +15,35 @@
     <RelativeLayout
         android:id="@+id/rl_header_attendant_profile"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/height_nav_view_header_custom"
-        android:background="@color/mColorPrimaryLight">
+        android:layout_height="wrap_content"
+        android:background="@color/mColorBackgroundSection">
         <ImageView
             android:id="@+id/iv_attendant_photo_profile"
             android:layout_width="@dimen/iv_avatar_width_and_height"
             android:layout_height="@dimen/iv_avatar_width_and_height"
-            android:src="@drawable/ic_attendant_avatar"
+            android:layout_marginTop="@dimen/margin_vertical"
+            style="@style/ImageAvatar"
+            android:src="@drawable/ic_account_circle"
             android:contentDescription="@string/click_to_change_avatar"
-            android:layout_centerInParent="true"/>
+            android:layout_centerHorizontal="true"/>
         <TextView
             android:id="@+id/tv_attendant_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_vertical"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             style="@style/TextBodyInvert1"
             android:text="@string/first_and_last_name"
-            android:layout_above="@id/tv_attendant_email"
-            android:layout_alignParentEnd="true"/>
+            android:layout_below="@id/iv_attendant_photo_profile"
+            android:layout_centerHorizontal="true"/>
         <TextView
             android:id="@+id/tv_attendant_email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/activity_horizontal_margin"
             android:layout_marginBottom="@dimen/margin_vertical"
+            android:layout_below="@id/tv_attendant_name"
             style="@style/TextBodyInvert2"
             android:text="@string/email"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentEnd="true"/>
+            android:layout_centerHorizontal="true"/>
     </RelativeLayout>
 
     <ScrollView
@@ -58,7 +59,8 @@
             <ImageView
                 android:id="@+id/iv_label_personal_info"
                 android:layout_width="wrap_content"
-                style="@style/ImageInputField"
+                style="@style/ImageBulletPoint"
+                android:tint="@color/mColorBackgroundSection"
                 android:layout_marginTop="@dimen/margin_vertical_double"
                 android:contentDescription="@string/doc_id"
                 android:src="@drawable/ic_label"/>
@@ -87,12 +89,12 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/doc_id"
-                        android:src="@drawable/ic_doc_id"/>
+                        android:src="@drawable/ic_doc_id_light_96"/>
                     <EditText
                         android:id="@+id/et_doc_id_type"
                         android:layout_width="0dp"
                         android:layout_weight="0.3"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:layout_height="wrap_content"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
@@ -106,7 +108,7 @@
                         android:layout_width="0dp"
                         android:layout_weight="0.6"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
                         android:inputType="number"
@@ -128,13 +130,13 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/first_name"
-                        android:src="@drawable/ic_account_circle"/>
+                        android:src="@drawable/ic_avatar_light_96"/>
                     <EditText
                         android:id="@+id/et_first_name"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
                         android:inputType="textPersonName"
@@ -155,13 +157,13 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/first_name"
-                        android:src="@drawable/ic_account_circle"/>
+                        android:src="@drawable/ic_avatar_light_96"/>
                     <EditText
                         android:id="@+id/et_last_name"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
                         android:longClickable="false"
@@ -181,13 +183,13 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/genre_male"
-                        android:src="@drawable/ic_genre"/>
+                        android:src="@drawable/ic_genre_light_96"/>
                     <RadioGroup
                         android:id="@+id/rg_genre"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:background="@drawable/et_input_background"
                         android:gravity="end"
                         android:orientation="horizontal">
@@ -219,7 +221,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/birthdate"
-                        android:src="@drawable/ic_date"/>
+                        android:src="@drawable/ic_date_light_96"/>
                     <EditText
                         android:id="@+id/et_birthdate"
                         android:layout_width="0dp"
@@ -229,7 +231,7 @@
                         style="@style/TextInputField"
                         android:longClickable="false"
                         android:focusable="false"
-                        android:layout_marginStart="@dimen/margin_horizontal_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:inputType="date"
                         android:hint="@string/birthdate" />
                 </LinearLayout>
@@ -239,7 +241,7 @@
             <ImageView
                 android:id="@+id/iv_label_contact"
                 android:layout_width="wrap_content"
-                style="@style/ImageInputField"
+                style="@style/ImageBulletPoint"
                 android:layout_marginTop="@dimen/margin_vertical_double"
                 android:contentDescription="@string/doc_id"
                 android:src="@drawable/ic_label"
@@ -257,7 +259,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@id/iv_label_contact"
-                android:layout_marginBottom="@dimen/margin_vertical_quintuple"
+                android:layout_marginBottom="@dimen/margin_vertical_double"
                 style="@style/RelativeLayoutInput">
 
                 <LinearLayout
@@ -271,7 +273,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/address"
-                        android:src="@drawable/ic_email"/>
+                        android:src="@drawable/ic_email_light_96"/>
                     <EditText
                         android:id="@+id/et_email"
                         android:layout_width="0dp"
@@ -279,7 +281,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:focusable="false"
                         android:enabled="false"
@@ -300,7 +302,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/address"
-                        android:src="@drawable/ic_marker"/>
+                        android:src="@drawable/ic_address_light_96"/>
                     <EditText
                         android:id="@+id/et_address"
                         android:layout_width="0dp"
@@ -308,7 +310,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="text"
                         android:hint="@string/address"
@@ -328,7 +330,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/local_phone"
-                        android:src="@drawable/ic_call"/>
+                        android:src="@drawable/ic_phone_light_96"/>
                     <EditText
                         android:id="@+id/et_local_phone"
                         android:layout_width="0dp"
@@ -336,7 +338,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="phone"
                         android:hint="@string/local_phone"
@@ -349,29 +351,26 @@
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
                         android:longClickable="false"
-                        android:layout_marginStart="@dimen/margin_horizontal_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:inputType="phone"
                         android:hint="@string/mobile_phone" />
                 </LinearLayout>
 
             </RelativeLayout>
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_contact"
+                android:layout_marginEnd="@dimen/margin_horizontal"
+                android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_save_bold_48"
+                style="@style/TextButton"
+                android:text="@string/save"/>
 
         </RelativeLayout>
 
     </ScrollView>
-
-    <Button
-        android:id="@+id/btn_save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_vertical_middle"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@id/rl_header_attendant_profile"
-        android:drawableTint="@android:color/white"
-        android:drawableStart="@drawable/ic_save"
-        android:drawablePadding="@dimen/margin_vertical"
-        style="@style/TextButton"
-        android:text="@string/save"/>
 
     <ProgressBar
         android:id="@+id/pb"

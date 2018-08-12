@@ -30,15 +30,16 @@
 
     <!-- Shapes -->
     <dimen name="et_shape_stroke_width">1dp</dimen>
-    <dimen name="et_shape_corner_radius">5dp</dimen>
+    <dimen name="et_shape_corner_radius">10dp</dimen>
 
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 
     <dimen name="height_bottom_bar">56dp</dimen>
-    <dimen name="height_nav_view_header_custom">250dp</dimen>
+    <dimen name="height_nav_view_header_custom">180dp</dimen>
     <dimen name="width_nav_view_custom">300dp</dimen>
-    <dimen name="iv_avatar_width_and_height">108dp</dimen>
+    <dimen name="iv_avatar_width_and_height">90dp</dimen>
     <dimen name="margin_horizontal_middle">4dp</dimen>
+    <dimen name="height_edit_profile_header_custom">150dp</dimen>
 </resources>

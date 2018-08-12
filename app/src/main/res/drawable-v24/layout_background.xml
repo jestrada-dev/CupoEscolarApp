@@ -7,7 +7,7 @@
                 android:color="@color/mColorBackground"/>
             <stroke
                 android:width="@dimen/et_shape_stroke_width"
-                android:color="@color/mColorDivider"/>
+                android:color="@color/mColorBackground"/>
             <corners
                 android:topRightRadius="@dimen/et_shape_corner_radius"
                 android:topLeftRadius="@dimen/et_shape_corner_radius"
@@ -15,5 +15,20 @@
                 android:bottomLeftRadius="@dimen/et_shape_corner_radius" />
         </shape>
     </item>
+
+<!--    <item>
+        <shape>
+            <solid
+                android:color="@color/mColorBackground"/>
+            <stroke
+                android:width="@dimen/et_shape_stroke_width"
+                android:color="@color/mColorDivider"/>
+            <corners
+                android:topRightRadius="@dimen/et_shape_corner_radius"
+                android:topLeftRadius="@dimen/et_shape_corner_radius"
+                android:bottomRightRadius="@dimen/et_shape_corner_radius"
+                android:bottomLeftRadius="@dimen/et_shape_corner_radius" />
+        </shape>
+    </item>-->
 
 </selector>

@@ -187,7 +187,7 @@ public class MainActivity extends BaseActivity implements
     private void setToolbar() {
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
-            mToolbar.setNavigationIcon(R.drawable.ic_account_circle);
+            mToolbar.setNavigationIcon(R.drawable.ic_avatar_bold_48);
         }
     }
 

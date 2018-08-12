@@ -7,7 +7,7 @@
                 android:color="@android:color/white"/>
             <stroke
                 android:width="@dimen/et_shape_stroke_width"
-                android:color="@color/mColorAccent"/>
+                android:color="@color/mColorPrimaryLight"/>
             <corners
                 android:topLeftRadius="@dimen/et_shape_corner_radius"
                 android:topRightRadius="@dimen/et_shape_corner_radius"
@@ -37,7 +37,7 @@
                 android:color="@android:color/white"/>
             <stroke
                 android:width="@dimen/et_shape_stroke_width"
-                android:color="@android:color/white"/>
+                android:color="@color/mColorBorder"/>
             <corners
                 android:topLeftRadius="@dimen/et_shape_corner_radius"
                 android:topRightRadius="@dimen/et_shape_corner_radius"

@@ -58,6 +58,9 @@ public class AttendantInteractor implements
         dbRefAttendants.child(userUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot attendantDS) {
+                if(!attendantDS.exists()){
+                    Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + Firebase.ATTENDANTS + "/" + userUid + " pero el attendantDS vino null");
+                }
                 final AttendantDocJson attendantDocJson = attendantDS.getValue(AttendantDocJson.class);
                 Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + Firebase.ATTENDANTS + "/" + userUid);
 
@@ -69,11 +72,16 @@ public class AttendantInteractor implements
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                Log.d("Attendant","AttendantInteractor -> Se ejecutó el onCancelled " + Firebase.ATTENDANTS + "/" + userUid);
+
             }
         });
     }
 
     private void notifyAttandantChanges(AttendantBO attendantBO) {
+        if(mAppCore != null){
+            mAppCore.getAttendant(attendantBO);
+        }
         if(mMainPresenter != null){
             mMainPresenter.getAttendant(attendantBO);
         }
@@ -95,6 +103,7 @@ public class AttendantInteractor implements
                     if(task.isSuccessful()){
                         Log.d("Attendant","AttendantInteractor -> Usuario: email:" + attendantBO.getEmail() +
                                 " grabado exitosamente");
+                        notifyAttandantChanges(attendantBO);
                     }
                 }
             });

@@ -2,12 +2,5 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:drawable="@color/mColorPrimary"/>
-    <item>
-        <bitmap
-            android:gravity="center"
-            android:src="@mipmap/ic_launcher">
-        </bitmap>
-
-    </item>
 
 </layer-list>

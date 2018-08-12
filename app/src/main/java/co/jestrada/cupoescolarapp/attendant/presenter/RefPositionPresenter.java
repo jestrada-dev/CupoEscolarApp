@@ -33,7 +33,7 @@ public class RefPositionPresenter extends BasePresenter implements
         this.mRefPositionView = (IRefPositionContract.IRefPositionView) mContext;
         this.mRefPositionInteractor = new RefPositionInteractor(
                 null,
-                null,
+                this,
                 null
         );
         this.mContext = mContext;

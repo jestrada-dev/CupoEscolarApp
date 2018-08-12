@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/mColorBackground"
     tools:context=".attendant.view.RefPositionActivity">
 
     <include
@@ -61,7 +62,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/ref_point_description"
-                        android:src="@drawable/ic_description"/>
+                        android:src="@drawable/ic_description_light_96"/>
                     <EditText
                         android:id="@+id/et_description"
                         android:layout_width="0dp"
@@ -69,35 +70,38 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="text"
                         android:hint="@string/ref_point_description"
                         android:nextFocusForward="@id/btn_save"/>
 
                 </LinearLayout>
-                <Button
-                    android:id="@+id/btn_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical"
-                    android:layout_below="@id/ll_description"
-                    android:layout_alignParentEnd="true"
-                    android:drawableTint="@android:color/white"
-                    android:drawableStart="@drawable/ic_save"
-                    android:drawablePadding="@dimen/margin_vertical"
-                    style="@style/TextButton"
-                    android:nextFocusForward="@id/et_address"
-                    android:text="@string/save"/>
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:layout_marginEnd="@dimen/margin_horizontal"
+                android:layout_below="@id/rl_description_ref_point"
+                android:layout_alignParentEnd="true"
+                android:drawableTint="@android:color/white"
+                android:drawableStart="@drawable/ic_save"
+                android:drawablePadding="@dimen/margin_vertical"
+                style="@style/TextButton"
+                android:nextFocusForward="@id/et_address"
+                android:text="@string/save"/>
+
 
             <RelativeLayout
                 android:id="@+id/rl_ref_point"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_vertical"
+                android:layout_marginTop="@dimen/margin_vertical_double"
                 android:layout_marginBottom="@dimen/margin_vertical"
-                android:layout_below="@id/rl_description_ref_point"
+                android:layout_below="@id/btn_save"
                 style="@style/RelativeLayoutInput">
                 <TextView
                     android:id="@+id/tv_ref_point_summary"
@@ -118,7 +122,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/address"
-                        android:src="@drawable/ic_marker"/>
+                        android:src="@drawable/ic_address_light_96"/>
                     <EditText
                         android:id="@+id/et_address"
                         android:layout_width="0dp"
@@ -126,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="textPostalAddress"
                         android:enabled="false"
@@ -146,7 +150,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lat"
-                        android:src="@drawable/ic_coords_fixed"/>
+                        android:src="@drawable/ic_lat_light_96"/>
                     <EditText
                         android:id="@+id/et_lat"
                         android:layout_width="0dp"
@@ -155,7 +159,7 @@
                         android:enabled="false"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="phone"
                         android:hint="@string/lat"
@@ -174,7 +178,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lng"
-                        android:src="@drawable/ic_coords_fixed"/>
+                        android:src="@drawable/ic_lng_light_96"/>
                     <EditText
                         android:id="@+id/et_lng"
                         android:layout_width="0dp"
@@ -183,7 +187,7 @@
                         android:enabled="false"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="phone"
                         android:hint="@string/lng"
@@ -203,7 +207,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lng"
-                        android:src="@drawable/ic_postal_code"/>
+                        android:src="@drawable/ic_postal_code_light_96"/>
                     <EditText
                         android:id="@+id/et_postal_code"
                         android:layout_width="0dp"
@@ -212,7 +216,7 @@
                         android:enabled="false"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="phone"
                         android:hint="@string/postal_code"
@@ -232,7 +236,7 @@
                         android:layout_weight="0.1"
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lng"
-                        android:src="@drawable/ic_city"/>
+                        android:src="@drawable/ic_city_light_96"/>
                     <EditText
                         android:id="@+id/et_city"
                         android:layout_width="0dp"
@@ -241,27 +245,28 @@
                         android:enabled="false"
                         android:background="@drawable/et_input_background"
                         style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_vertical_middle"
+                        android:layout_marginStart="@dimen/margin_horizontal"
                         android:longClickable="false"
                         android:inputType="phone"
                         android:hint="@string/city"
                         android:nextFocusForward="@id/btn_get_current_position"/>
                 </LinearLayout>
 
-                <Button
-                    android:id="@+id/btn_get_current_position"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical"
-                    android:drawableStart="@drawable/ic_map"
-                    android:drawablePadding="@dimen/margin_vertical"
-                    android:drawableTint="@android:color/white"
-                    android:layout_alignEnd="@id/ll_ref_point_lng"
-                    android:layout_below="@id/ll_ref_point_city"
-                    style="@style/TextButton"
-                    android:text="@string/btn_get_coords_current_location"/>
-
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_get_current_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical"
+                android:layout_marginEnd="@dimen/margin_horizontal"
+                android:drawableStart="@drawable/ic_map_bold_48"
+                android:drawablePadding="@dimen/margin_vertical"
+                android:drawableTint="@android:color/white"
+                android:layout_alignParentEnd="true"
+                android:layout_below="@id/rl_ref_point"
+                style="@style/TextButton"
+                android:text="@string/btn_get_coords_current_location"/>
 
         </RelativeLayout>
 

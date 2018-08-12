@@ -4,37 +4,37 @@
 
     <item
         android:id="@+id/menu_item_edit_profile"
-        android:icon="@drawable/ic_account_circle"
+        android:icon="@drawable/ic_avatar_light_96"
         android:title="@string/edit_profile"/>
 
     <item
         android:id="@+id/menu_item_ref_position"
-        android:icon="@drawable/ic_coords"
+        android:icon="@drawable/ic_get_position_light_96"
         android:title="@string/set_current_location"/>
 
     <item
         android:id="@+id/menu_item_students"
-        android:icon="@drawable/ic_students"
+        android:icon="@drawable/ic_student_light_96"
         android:title="@string/students"/>
 
     <item
         android:id="@+id/menu_item_share_app"
-        android:icon="@drawable/ic_share"
+        android:icon="@drawable/ic_share_light_96"
         android:title="@string/share_app"/>
 
     <item
         android:id="@+id/menu_item_send_suggestions"
-        android:icon="@drawable/ic_comment"
+        android:icon="@drawable/ic_send_comments_light_96"
         android:title="@string/send_suggestions"/>
 
     <item
         android:id="@+id/menu_item_config_account"
-        android:icon="@drawable/ic_my_account"
+        android:icon="@drawable/ic_config_account_light_96"
         android:title="@string/config_account"/>
 
     <item
         android:id="@+id/menu_item_sign_out"
-        android:icon="@drawable/ic_sign_out"
+        android:icon="@drawable/ic_sign_out_light_96"
         android:title="@string/sign_out"/>
 
 </menu>
