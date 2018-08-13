@@ -6,6 +6,5 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:background="@color/mColorPrimaryDark"
-    app:titleTextColor="@color/mColorNavText"
     android:theme="@style/MainToolbar"
     android:translationZ="4dp" />

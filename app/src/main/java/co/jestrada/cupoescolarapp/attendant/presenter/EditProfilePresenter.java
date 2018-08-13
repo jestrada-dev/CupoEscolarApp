@@ -61,14 +61,14 @@ public class EditProfilePresenter extends BasePresenter implements
     private void getData() {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null) {
-            mDocIdTypeInteractor.getDocIdTypes();
+            mDocIdTypeInteractor.getDocIdTypes(false);
             mAttendantInteractor.getAttendant(mFirebaseUser.getUid());
         }
     }
 
     @Override
-    public void getAttendant(AttendantBO attendantBO) {
-        mEditProfileView.setAttendantUI(attendantBO);
+    public void getAttendant(AttendantBO attendantBO, boolean isChanged) {
+        mEditProfileView.setAttendantUI(attendantBO, isChanged);
     }
 
     @Override
@@ -81,9 +81,9 @@ public class EditProfilePresenter extends BasePresenter implements
     }
 
     @Override
-    public void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS) {
+    public void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged) {
         if (!docIdTypeBOS.isEmpty()){
-            mEditProfileView.setDocIdTypesList(docIdTypeBOS);
+            mEditProfileView.setDocIdTypesList(docIdTypeBOS, isChanged);
         }
     }
 

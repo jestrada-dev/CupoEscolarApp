@@ -108,6 +108,17 @@
     <string name="city">Ciudad</string>
     <string name="description_ref_position">Asigna un nombre para identificar el Punto de Referencia. Ej: Mi Casa.</string>
     <string name="set_current_location">Establecer Ubicación</string>
+    <string name="attendan_profile_updated">Se ha actualidado la información del Perfil Acudiente.</string>
+    <string name="doc_type_updated">Se ha actualidado los Tipos de Documento de Identificación.</string>
+    <string name="ref_positions_updated">Se ha actualizado el Punto de Referencia.</string>
+    <string name="go_to_set_current_position">Ok! Ir a Establecer Ubicación.</string>
+    <string name="go_to_granted_permission_location">Permitir acceder a la ubicación del dispositivo</string>
+    <string name="close_mapa">Cerrar Mapa</string>
+    <string name="denid_permission_location">Acceso no permitido</string>
+    <string name="request_permission_location">Se ha denegado el acceso a la ubicación del dispositivo. Este permiso es necesario para establecer las coordenadas del punto de referencia desde el cual se van a georreferencias los colegios mas cercanos.</string>
+    <string name="scholar_info">Información Escolar</string>
+    <string name="relationship">Parentesco</string>
+    <string name="grade">Grado</string>
 
 
 </resources>

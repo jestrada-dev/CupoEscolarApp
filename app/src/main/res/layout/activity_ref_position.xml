@@ -26,7 +26,7 @@
             <ImageView
                 android:id="@+id/iv_label_ref_point"
                 android:layout_width="wrap_content"
-                style="@style/ImageInputField"
+                style="@style/ImageBulletPoint"
                 android:layout_marginTop="@dimen/margin_vertical_double"
                 android:contentDescription="@string/ref_point"
                 android:src="@drawable/ic_label" />

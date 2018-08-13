@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.widget.ArrayAdapter;
@@ -14,6 +15,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -42,6 +44,8 @@ public class EditProfileActivity extends BaseActivity implements
     final int month = mCalendar.get(Calendar.MONTH);
     final int day = mCalendar.get(Calendar.DAY_OF_MONTH);
     final int year = mCalendar.get(Calendar.YEAR);
+
+    private Toolbar mToolbar;
 
     private ArrayList<String> docIdTypeArrayList;
     private ArrayList<String> docIdTypeShortNameArrayList;
@@ -86,9 +90,23 @@ public class EditProfileActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         mEditProfilePresenter = new EditProfilePresenter(EditProfileActivity.this);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolbar();
+
         docIdTypeArrayList = new ArrayList<>();
         docIdTypeShortNameArrayList = new ArrayList<>();
 
+    }
+
+    private void setToolbar() {
+        if(mToolbar != null){
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setTitle(R.string.edit_profile);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
+            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
+            //TODO Establecer el botón de atrás
+        }
     }
 
     @OnClick(R.id.btn_save)
@@ -240,46 +258,53 @@ public class EditProfileActivity extends BaseActivity implements
     }
 
     @Override
-    public void setAttendantUI(AttendantBO attendantBO) {
-        tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
-        tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
-        etDocIdType.setText((attendantBO.getDocIdType() != null) ? attendantBO.getDocIdType() : "");
-        etDocId.setText((attendantBO.getDocId() != null) ? attendantBO.getDocId() : "");
-        etFirstName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
-        etLastName.setText((attendantBO.getLastName() != null) ? attendantBO.getLastName() : "");
-        etFirstName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
-        if(attendantBO.getGenre() != null){
-            if(attendantBO.getGenre().equals(GenreEnum.HOMBRE)){
-                rbMale.setChecked(true);
+    public void setAttendantUI(AttendantBO attendantBO, boolean isChanged) {
+        if (isChanged){
+            tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
+            tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
+            etDocIdType.setText((attendantBO.getDocIdType() != null) ? attendantBO.getDocIdType() : "");
+            etDocId.setText((attendantBO.getDocId() != null) ? attendantBO.getDocId() : "");
+            etFirstName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
+            etLastName.setText((attendantBO.getLastName() != null) ? attendantBO.getLastName() : "");
+            etFirstName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
+            if(attendantBO.getGenre() != null){
+                if(attendantBO.getGenre().equals(GenreEnum.HOMBRE)){
+                    rbMale.setChecked(true);
+                }
+                else{
+                    rbFemale.setChecked(true);
+                }
             }
-            else{
-                rbFemale.setChecked(true);
-            }
+            etBirthday.setText((attendantBO.getBirthdate() != null) ? attendantBO.getBirthdate() : "");
+            etEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
+            etAddress.setText((attendantBO.getAddress() != null) ? attendantBO.getAddress() : "");
+            etLocalPhone.setText((attendantBO.getLocalPhone() != null) ? attendantBO.getLocalPhone() : "");
+            etMobilPhone.setText((attendantBO.getMobilePhone() != null) ? attendantBO.getMobilePhone() : "");
+            Toast.makeText(this, R.string.attendan_profile_updated,Toast.LENGTH_LONG).show();
         }
-        etBirthday.setText((attendantBO.getBirthdate() != null) ? attendantBO.getBirthdate() : "");
-        etEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
-        etAddress.setText((attendantBO.getAddress() != null) ? attendantBO.getAddress() : "");
-        etLocalPhone.setText((attendantBO.getLocalPhone() != null) ? attendantBO.getLocalPhone() : "");
-        etMobilPhone.setText((attendantBO.getMobilePhone() != null) ? attendantBO.getMobilePhone() : "");
         showProgressBar(false);
         enableFields(true);
     }
 
     @Override
-    public void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS) {
-        if (!docIdTypeBOS.isEmpty()){
-            docIdTypeArrayList.clear();
-            docIdTypeShortNameArrayList.clear();
-            for (DocIdTypeBO docIdTypeBO : docIdTypeBOS){
-                docIdTypeArrayList.add(docIdTypeBO.getShortName() + " " + docIdTypeBO.getLongName());
-                docIdTypeShortNameArrayList.add(docIdTypeBO.getShortName());
+    public void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged) {
+        if (isChanged){
+            if (!docIdTypeBOS.isEmpty()){
+                docIdTypeArrayList.clear();
+                docIdTypeShortNameArrayList.clear();
+                for (DocIdTypeBO docIdTypeBO : docIdTypeBOS){
+                    docIdTypeArrayList.add(docIdTypeBO.getShortName() + " " + docIdTypeBO.getLongName());
+                    docIdTypeShortNameArrayList.add(docIdTypeBO.getShortName());
+                }
             }
+            Toast.makeText(this, R.string.doc_type_updated,Toast.LENGTH_LONG).show();
         }
     }
 
     @Override
     public void onStart() {
         super.onStart();
+        showProgressBar(true);
         mEditProfilePresenter.onStart();
     }
 

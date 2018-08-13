@@ -67,8 +67,10 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
     }
 
     @Override
-    public void getAttendant(AttendantBO attendantBO) {
-        userBOApp.setValues(attendantBO);
+    public void getAttendant(AttendantBO attendantBO, boolean isChanged) {
+        if(isChanged) {
+            userBOApp.setValues(attendantBO);
+        }
     }
 
 }

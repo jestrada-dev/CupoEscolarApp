@@ -67,7 +67,7 @@ public class AttendantInteractor implements
                 if(attendantDocJson != null){
                     AttendantBO attendantBO = new AttendantBO();
                     attendantBO.setValues(attendantDocJson);
-                    notifyAttandantChanges(attendantBO);
+                    notifyAttandantChanges(attendantBO, true);
                 }
             }
             @Override
@@ -78,15 +78,15 @@ public class AttendantInteractor implements
         });
     }
 
-    private void notifyAttandantChanges(AttendantBO attendantBO) {
+    private void notifyAttandantChanges(AttendantBO attendantBO, boolean isChanged) {
         if(mAppCore != null){
-            mAppCore.getAttendant(attendantBO);
+            mAppCore.getAttendant(attendantBO, isChanged);
         }
         if(mMainPresenter != null){
-            mMainPresenter.getAttendant(attendantBO);
+            mMainPresenter.getAttendant(attendantBO, isChanged);
         }
         if(mEditProfilePresenter != null){
-            mEditProfilePresenter.getAttendant(attendantBO);
+            mEditProfilePresenter.getAttendant(attendantBO, isChanged);
         }
     }
 
@@ -103,7 +103,7 @@ public class AttendantInteractor implements
                     if(task.isSuccessful()){
                         Log.d("Attendant","AttendantInteractor -> Usuario: email:" + attendantBO.getEmail() +
                                 " grabado exitosamente");
-                        notifyAttandantChanges(attendantBO);
+                        notifyAttandantChanges(attendantBO, false);
                     }
                 }
             });

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mColorBackground"
-    tools:context=".student.view.StudentsActivity">
+    tools:context=".student.view.EditStudentActivity">
 
     <include
         android:id="@+id/toolbar"
@@ -206,10 +206,39 @@
                             android:hint="@string/birthdate" />
                     </LinearLayout>
 
+                    <LinearLayout
+                        android:id="@+id/ll_relationship"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/margin_vertical_middle"
+                        android:layout_below="@id/ll_birthday"
+                        android:weightSum="1">
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_weight="0.1"
+                            style="@style/ImageInputField"
+                            android:contentDescription="@string/address"
+                            android:src="@drawable/ic_address_light_96"/>
+                        <EditText
+                            android:id="@+id/et_relationship"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/et_input_background"
+                            style="@style/TextInputField"
+                            android:layout_marginStart="@dimen/margin_horizontal"
+                            android:longClickable="false"
+                            android:focusable="false"
+                            android:inputType="text"
+                            android:hint="@string/relationship"
+                            android:nextFocusForward="@id/et_local_phone"/>
+                    </LinearLayout>
+
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/iv_label_contact"
+                    android:id="@+id/iv_label_scholar"
                     android:layout_width="wrap_content"
                     style="@style/ImageBulletPoint"
                     android:layout_marginTop="@dimen/margin_vertical_double"
@@ -221,19 +250,19 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_vertical_double"
                     android:layout_marginStart="@dimen/margin_horizontal"
-                    android:text="@string/contact_info"
+                    android:text="@string/scholar_info"
                     android:layout_below="@id/rl_personal_info"
-                    android:layout_toEndOf="@id/iv_label_contact"/>
+                    android:layout_toEndOf="@id/iv_label_scholar"/>
                 <RelativeLayout
-                    android:id="@+id/rl_contact"
+                    android:id="@+id/rl_scholar"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_below="@id/iv_label_contact"
+                    android:layout_below="@id/iv_label_scholar"
                     android:layout_marginBottom="@dimen/margin_vertical_double"
                     style="@style/RelativeLayoutInput">
 
                     <LinearLayout
-                        android:id="@+id/ll_email"
+                        android:id="@+id/ll_grade"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -245,7 +274,7 @@
                             android:contentDescription="@string/address"
                             android:src="@drawable/ic_email_light_96"/>
                         <EditText
-                            android:id="@+id/et_email"
+                            android:id="@+id/et_grade"
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
                             android:layout_height="wrap_content"
@@ -254,44 +283,15 @@
                             android:layout_marginStart="@dimen/margin_horizontal"
                             android:longClickable="false"
                             android:focusable="false"
-                            android:enabled="false"
-                            android:inputType="textEmailAddress"
-                            android:hint="@string/email"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/ll_address"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
-                        android:layout_below="@id/ll_email"
-                        android:weightSum="1">
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            style="@style/ImageInputField"
-                            android:contentDescription="@string/address"
-                            android:src="@drawable/ic_address_light_96"/>
-                        <EditText
-                            android:id="@+id/et_address"
-                            android:layout_width="0dp"
-                            android:layout_weight="0.9"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:longClickable="false"
-                            android:inputType="text"
-                            android:hint="@string/address"
-                            android:nextFocusForward="@id/et_local_phone"/>
+                            android:inputType="number"
+                            android:hint="@string/grade"/>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_phones"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/ll_address"
+                        android:layout_below="@+id/ll_grade"
                         android:layout_marginTop="@dimen/margin_vertical_middle"
                         android:orientation="horizontal"
                         android:weightSum="1">
@@ -331,7 +331,7 @@
                     android:id="@+id/btn_save"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_contact"
+                    android:layout_below="@id/rl_scholar"
                     android:layout_marginEnd="@dimen/margin_horizontal"
                     android:layout_alignParentEnd="true"
                     android:drawableStart="@drawable/ic_save_bold_48"

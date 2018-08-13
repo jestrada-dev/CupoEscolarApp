@@ -1,25 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="mColorPrimary">#2196F3</color>
-    <color name="mColorPrimaryDark">#1976D2</color>
-    <color name="mColorPrimaryLight">#1976D2</color>
 
-    <color name="mColorAccent">#F57C00
-    </color>
+    <!--Color para los botones y splahs screen-->
+    <color name="mColorPrimary">#0097A7</color>
 
+    <!--Color para la toolbar-->
+    <color name="mColorPrimaryDark">#0097A7</color>
+
+    <!--Color para los iconos de inputs, el BottomBar y el NavBar -->
+    <color name="mColorPrimaryLight">#00BCD4</color>
+
+    <!--Color para los el borde del focused de los input-->
+    <color name="mColorAccent">#F57C00</color>
+
+    <!--Color del texto de los inputs y el button del radio button-->
     <color name="mColorPrimaryText">#212121</color>
-    <color name="mColorSecondaryText">#757575</color>
 
+    <!--Color de fondo para todas las pantallas-->
+    <color name="mColorBackground">#FFFFFF</color>
+
+    <!--Color de fondo para el header de perfil-->
+    <color name="mColorBackgroundSection">#00BCD4</color>
+
+    <!--Color para el borde de los inputs-->
+    <color name="mColorBorder">#CFD8DC</color>
+
+    <!--Colores no utilizados-->
+    <color name="mColorSecondaryText">#757575</color>
     <color name="mColorHint">#B2EBF2</color>
     <color name="mColorIcons">#232F34</color>
     <color name="mColorNavIcon">#FFFFFF</color>
     <color name="mColorNavText">#FFFFFF</color>
-
-    <color name="mColorBackground">#FFFFFF</color>
-    <color name="mColorBackgroundSection">#2196F3</color>
-
     <color name="mColorDivider">#CFD8DC</color>
-    <color name="mColorBorder">#CFD8DC</color>
 
 </resources>
 

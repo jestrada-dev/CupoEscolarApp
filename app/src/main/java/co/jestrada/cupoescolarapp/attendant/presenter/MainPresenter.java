@@ -67,12 +67,12 @@ public class MainPresenter extends BasePresenter implements
     }
 
     @Override
-    public void getAttendant(AttendantBO attendantBO) {
-        mMainView.setNavViewUI(attendantBO);
+    public void getAttendant(AttendantBO attendantBO, boolean isChanged) {
+        mMainView.setNavViewUI(attendantBO, isChanged);
     }
 
     @Override
-    public void getRefPosition(RefPositionBO refPositionBO) {
+    public void getRefPosition(RefPositionBO refPositionBO, boolean isChanged) {
 
     }
 

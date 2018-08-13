@@ -10,7 +10,7 @@ import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
 public interface IRefPositionContract extends IBaseContract {
 
     interface IRefPositionView{
-        void setRefPositionUI(RefPositionBO refPositionBO);
+        void setRefPositionUI(RefPositionBO refPositionBO, boolean isChanged);
         void onStart();
         void onStop();
         void onDestroy();
@@ -18,7 +18,7 @@ public interface IRefPositionContract extends IBaseContract {
 
     interface IRefPositionPresenter{
 
-        void getRefPosition(RefPositionBO refPositionBO);
+        void getRefPosition(RefPositionBO refPositionBO, boolean isChanged);
         void saveRefPosition(RefPositionBO refPositionBO);
         void saveDescriptionRefPosition(RefPositionBO refPositionBO);
 

@@ -51,6 +51,7 @@ public class RefPositionInteractor implements
     }
 
     public void getRefPosition(final String userUid) {
+
         dbRefRefPositions.child(userUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot refPositionDS) {
@@ -60,7 +61,7 @@ public class RefPositionInteractor implements
                 if(refPositionDocJson != null){
                     RefPositionBO refPositionBO = new RefPositionBO();
                     refPositionBO.setValues(refPositionDocJson);
-                    notifyRefPositionChanges(refPositionBO);
+                    notifyRefPositionChanges(refPositionBO, true);
                 }
             }
             @Override
@@ -69,16 +70,16 @@ public class RefPositionInteractor implements
         });
     }
 
-    private void notifyRefPositionChanges(RefPositionBO refPositionBO) {
+    private void notifyRefPositionChanges(RefPositionBO refPositionBO, boolean isChanged) {
         if(mMainPresenter != null){
-            mMainPresenter.getRefPosition(refPositionBO);
+            mMainPresenter.getRefPosition(refPositionBO, isChanged);
         }
         if(mRefPositionPresenter != null){
-            mRefPositionPresenter.getRefPosition(refPositionBO);
+            mRefPositionPresenter.getRefPosition(refPositionBO, isChanged);
         }
 
         if (mCurrentPositionMapPresenter != null){
-            mCurrentPositionMapPresenter.getRefPosition(refPositionBO);
+            mCurrentPositionMapPresenter.getRefPosition(refPositionBO, isChanged);
         }
     }
 
@@ -95,7 +96,7 @@ public class RefPositionInteractor implements
                     if(task.isSuccessful()){
                         Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
                                 " grabado exitosamente");
-                        notifyRefPositionChanges(refPositionBO);
+                        notifyRefPositionChanges(refPositionBO, false);
                     }
                 }
             });
@@ -211,7 +212,7 @@ public class RefPositionInteractor implements
                 if(task.isSuccessful()){
                     Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
                             " grabado exitosamente");
-                    notifyRefPositionChanges(refPositionBO);
+                    notifyRefPositionChanges(refPositionBO, false);
                 }
             }
         });

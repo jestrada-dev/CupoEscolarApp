@@ -4,5 +4,5 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:theme="@style/MainToolbar"
-    android:background="@android:color/transparent"
+    android:background="@color/mColorPrimaryDark"
     android:translationZ="4dp" />

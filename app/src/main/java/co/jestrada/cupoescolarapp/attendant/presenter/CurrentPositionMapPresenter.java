@@ -30,8 +30,6 @@ public class CurrentPositionMapPresenter extends BasePresenter implements
     private ICurrentPositionMapContract.ICurrentPositionMapView mCurrentPositionMapView;
     private Context mContext;
 
-    private FusedLocationProviderClient mFusedLocationClient;
-    private static final int REQUEST_FINE_LOCATION = 123;
     private FirebaseAuth mFirebaseAuth;
 
     private UserBO userBOApp;
@@ -45,7 +43,6 @@ public class CurrentPositionMapPresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        mFusedLocationClient = LocationServices.getFusedLocationProviderClient((Activity) mContext);
         userBOApp = UserBO.getInstance();
     }
 
@@ -56,29 +53,9 @@ public class CurrentPositionMapPresenter extends BasePresenter implements
         }
     }
 
-        public void getCoordsCurrentPosition() {
-        if (ActivityCompat.checkSelfPermission(mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                && ActivityCompat.checkSelfPermission((Activity)mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-            ActivityCompat.requestPermissions((Activity) mContext,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
-        }else{
-            mFusedLocationClient.getLastLocation()
-                    .addOnSuccessListener((Activity) mContext, new OnSuccessListener<Location>() {
-                        @Override
-                        public void onSuccess(Location location) {
-                            if (location != null) {
-                                mCurrentPositionMapView.setCurrentPositionMap(location.getLatitude(), location.getLongitude());
-                            }
-                        }
-                    });
-
-        }
-    }
-
     @Override
-    public void getRefPosition(RefPositionBO refPositionBO) {
-        mCurrentPositionMapView.setRefPosition(refPositionBO);
+    public void getRefPosition(RefPositionBO refPositionBO, boolean isChanged) {
+        mCurrentPositionMapView.setRefPosition(refPositionBO, isChanged);
     }
 
     @Override
@@ -100,9 +77,7 @@ public class CurrentPositionMapPresenter extends BasePresenter implements
         userBOApp = UserBO.getInstance();
         userBOApp = UserBO.getInstance();
         if (!userBOApp.isOnSession()){
-
         } else {
-            getCoordsCurrentPosition();
         }
     }
 

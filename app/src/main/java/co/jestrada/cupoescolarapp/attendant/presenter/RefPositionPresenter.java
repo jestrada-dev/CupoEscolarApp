@@ -48,9 +48,11 @@ public class RefPositionPresenter extends BasePresenter implements
         }
     }
 
+
     @Override
-    public void getRefPosition(RefPositionBO refPositionBO) {
-        mRefPositionView.setRefPositionUI(refPositionBO);
+    public void getRefPosition(RefPositionBO refPositionBO, boolean isChanged) {
+        mRefPositionView.setRefPositionUI(refPositionBO, isChanged);
+
     }
 
     @Override

@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".attendant.view.MainActivity" />
-        <activity android:name=".student.StudentsActivity" />
+        <activity android:name=".student.view.StudentsActivity" />
         <activity android:name=".attendant.view.EditProfileActivity" />
         <activity android:name=".login.view.ConfigAccountActivity" />
         <activity android:name=".social.SocialActivity" />
@@ -47,7 +47,8 @@
         <activity
             android:name=".attendant.view.CurrentPositionMapActivity"
             android:label="@string/title_activity_current_position_map" />
-        <activity android:name=".attendant.view.RefPositionActivity"></activity>
+        <activity android:name=".attendant.view.RefPositionActivity" />
+        <activity android:name=".student.view.EditStudentActivity"></activity>
     </application>
 
 </manifest>

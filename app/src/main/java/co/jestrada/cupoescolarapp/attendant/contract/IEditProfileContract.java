@@ -13,8 +13,8 @@ public interface IEditProfileContract extends IBaseContract {
 
     interface IEditProfileView{
         void goToLogin();
-        void setAttendantUI(AttendantBO attendantBO);
-        void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS);
+        void setAttendantUI(AttendantBO attendantBO, boolean isChanged);
+        void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged);
         void onStart();
         void onStop();
         void onDestroy();
@@ -22,9 +22,9 @@ public interface IEditProfileContract extends IBaseContract {
 
     interface IEditProfilePresenter{
 
-        void getAttendant(AttendantBO attendantBO);
+        void getAttendant(AttendantBO attendantBO, boolean isChanged);
         void saveAttendant(AttendantBO attendantBO);
-        void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS);
+        void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged);
 
         void signOut();
         void onStart();

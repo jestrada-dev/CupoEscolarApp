@@ -2,8 +2,10 @@ package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -37,6 +39,8 @@ public class RefPositionActivity extends BaseActivity implements
 
     private RefPositionPresenter mRefPositionPresenter;
 
+    private Toolbar mToolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +49,19 @@ public class RefPositionActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         mRefPositionPresenter = new RefPositionPresenter(RefPositionActivity.this);
+
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setToolbar();
+    }
+
+    private void setToolbar() {
+        if(mToolbar != null){
+            setSupportActionBar(mToolbar);
+            getSupportActionBar().setTitle(R.string.set_current_position);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
+            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
+            //TODO Establecer el botón de atrás
+        }
     }
 
     @OnClick(R.id.btn_save)
@@ -73,15 +90,18 @@ public class RefPositionActivity extends BaseActivity implements
 
 
     @Override
-    public void setRefPositionUI(RefPositionBO refPositionBO) {
+    public void setRefPositionUI(RefPositionBO refPositionBO, boolean isChanged) {
+        if(isChanged){
+            etDescription.setText((refPositionBO.getDescription() != null) ? refPositionBO.getDescription() : "");
+            etAddress.setText((refPositionBO.getAddress() != null) ? refPositionBO.getAddress() : "");
+            etLat.setText((refPositionBO.getLat() != 0) ? String.valueOf(refPositionBO.getLat()) : "");
+            etLng.setText((refPositionBO.getLng() != 0) ? String.valueOf(refPositionBO.getLng()) : "");
+            etPostalCode.setText((refPositionBO.getPostalCode() != null) ? refPositionBO.getPostalCode() : "");
+            etCity.setText((refPositionBO.getCity() != null) ? refPositionBO.getCity() : "");
+            Toast.makeText(this, R.string.ref_positions_updated,Toast.LENGTH_LONG).show();
+        }
         showProgressBar(false);
         enableInputs(true);
-        etDescription.setText((refPositionBO.getDescription() != null) ? refPositionBO.getDescription() : "");
-        etAddress.setText((refPositionBO.getAddress() != null) ? refPositionBO.getAddress() : "");
-        etLat.setText((refPositionBO.getLat() != 0) ? String.valueOf(refPositionBO.getLat()) : "");
-        etLng.setText((refPositionBO.getLng() != 0) ? String.valueOf(refPositionBO.getLng()) : "");
-        etPostalCode.setText((refPositionBO.getPostalCode() != null) ? refPositionBO.getPostalCode() : "");
-        etCity.setText((refPositionBO.getCity() != null) ? refPositionBO.getCity() : "");
     }
 
     @Override

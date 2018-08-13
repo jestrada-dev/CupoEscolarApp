@@ -9,15 +9,15 @@ public interface IMainContract extends IBaseContract {
 
     interface IMainView{
         void goToLogin();
-        void setNavViewUI(AttendantBO attendantBO);
+        void setNavViewUI(AttendantBO attendantBO, boolean isChanged);
     }
 
     interface IMainPresenter{
         void signOut();
 
         void getUser(UserBO userBO);
-        void getAttendant(AttendantBO attendantBO);
-        void getRefPosition(RefPositionBO refPositionBO);
+        void getAttendant(AttendantBO attendantBO, boolean isChanged);
+        void getRefPosition(RefPositionBO refPositionBO, boolean isChanged);
 
         void onStart();
         void onStop();

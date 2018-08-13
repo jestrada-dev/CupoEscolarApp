@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import co.jestrada.cupoescolarapp.R;
@@ -25,7 +26,7 @@ import co.jestrada.cupoescolarapp.login.view.ConfigAccountActivity;
 import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 import co.jestrada.cupoescolarapp.social.SendSuggestionsActivity;
 import co.jestrada.cupoescolarapp.social.SocialActivity;
-import co.jestrada.cupoescolarapp.student.StudentsActivity;
+import co.jestrada.cupoescolarapp.student.view.StudentsActivity;
 
 public class MainActivity extends BaseActivity implements
         IMainContract.IMainView{
@@ -71,10 +72,12 @@ public class MainActivity extends BaseActivity implements
         leftNavViewHeader = mNavigationView.getHeaderView(0);
         tvAttendantName = (TextView) leftNavViewHeader.findViewById(R.id.tv_user_name);
         tvAttendantEmail = (TextView) leftNavViewHeader.findViewById(R.id.tv_user_email);
+
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
                 mDrawerLayout.closeDrawers();
+
                 switch (menuItem.getItemId()){
                     case R.id.menu_item_edit_profile:
                         goToEditProfile();
@@ -187,10 +190,10 @@ public class MainActivity extends BaseActivity implements
     private void setToolbar() {
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
             mToolbar.setNavigationIcon(R.drawable.ic_avatar_bold_48);
         }
     }
-
 
     private void setTitleToolbar(String title){
         getSupportActionBar().setTitle(title);
@@ -198,7 +201,6 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
         switch (item.getItemId()){
             case android.R.id.home:
                 mDrawerLayout.openDrawer(GravityCompat.START);
@@ -228,9 +230,12 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void setNavViewUI(AttendantBO attendantBO) {
-        tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
-        tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
+    public void setNavViewUI(AttendantBO attendantBO, boolean isChanged) {
+        if(isChanged){
+            tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
+            tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
+            Toast.makeText(this, R.string.attendan_profile_updated,Toast.LENGTH_LONG).show();
+        }
     }
 
 

@@ -12,7 +12,7 @@ import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
 public interface ICurrentPositionMapContract extends IBaseContract {
 
     interface ICurrentPositionMapView{
-        void setRefPosition(RefPositionBO refPositionBO);
+        void setRefPosition(RefPositionBO refPositionBO, boolean isChanged);
         void setCurrentPositionMap(double lat, double lng);
         void onStart();
         void onStop();
@@ -21,7 +21,7 @@ public interface ICurrentPositionMapContract extends IBaseContract {
 
     interface ICurrentPositionMapPresenter{
 
-        void getRefPosition(RefPositionBO refPositionBO);
+        void getRefPosition(RefPositionBO refPositionBO, boolean isChanged);
         void saveRefPosition(RefPositionBO refPositionBO);
         void saveRefPositionNoDescription(RefPositionBO refPositionBO);
 

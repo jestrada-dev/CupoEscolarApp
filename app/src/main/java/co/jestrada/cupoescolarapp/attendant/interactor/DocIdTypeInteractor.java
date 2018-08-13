@@ -31,7 +31,7 @@ public class DocIdTypeInteractor implements
         this.dbRefDocIdTypes = mFirebaseDB.getReference(Firebase.DOC_ID_TYPES);
     }
 
-    public void getDocIdTypes() {
+    public void getDocIdTypes(boolean notifyUser) {
         dbRefDocIdTypes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot docIdTypesDS) {
@@ -43,7 +43,7 @@ public class DocIdTypeInteractor implements
                     docIdTypeBOS.add(docIdTypeBO);
                 }
                 Log.d("DocIdType","DocIdTypeInteractor -> Se ejecutó el onDataChange para " + Firebase.DOC_ID_TYPES);
-                notifyAttandantChanges(docIdTypeBOS);
+                notifyAttandantChanges(docIdTypeBOS, true);
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
@@ -51,9 +51,9 @@ public class DocIdTypeInteractor implements
         });
     }
 
-    private void notifyAttandantChanges(ArrayList<DocIdTypeBO> docIdTypeBOS) {
+    private void notifyAttandantChanges(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged) {
         if(mEditProfilePresenter != null){
-            mEditProfilePresenter.getDocIdTypes(docIdTypeBOS);
+            mEditProfilePresenter.getDocIdTypes(docIdTypeBOS, isChanged);
         }
     }
 

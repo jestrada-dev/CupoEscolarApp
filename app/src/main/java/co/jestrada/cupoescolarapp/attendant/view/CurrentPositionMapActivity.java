@@ -1,19 +1,28 @@
 package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.location.LocationManager;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -23,6 +32,7 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 
 import java.io.IOException;
 import java.util.List;
@@ -48,13 +58,22 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
     @BindView(R.id.btn_set_current_position)
     Button btnSetCurrentPosition;
 
+    LocationManager mLocationManager;
     private List<Address> mAddress;
     private Marker mMarker;
 
     private GoogleMap mMap;
 
+    private FusedLocationProviderClient mFusedLocationClient;
+
+    private static final int REQUEST_FINE_LOCATION = 1001;
+    private static final int PERMISISION_FINE_LOCATION_GRANTED = 0;
+    private static final int PERMISISION_FINE_LOCATION_DENIED = -1;
+
     private CurrentPositionMapPresenter mCurrentPositionMapPresenter;
     private RefPositionBO refPositionBO;
+
+    private AlertDialog.Builder mBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,10 +82,14 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
         mCurrentPositionMapPresenter = new CurrentPositionMapPresenter(this);
 
+        mLocationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+
         ButterKnife.bind(this);
         pb.setVisibility(View.VISIBLE);
 
-        try {
+/*        try {
             int gpsSignal = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
             if (gpsSignal == 0) {
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
@@ -74,14 +97,13 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
             }
         } catch (Settings.SettingNotFoundException e) {
             e.printStackTrace();
-        }
+        }*/
 
         refPositionBO = new RefPositionBO();
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
-
 
     @OnClick(R.id.btn_set_current_position)
     public void saveCurrentPosition() {
@@ -97,20 +119,10 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         mMap.setMinZoomPreference(Maps.MAP_ZOOM_MIN);
         mMap.setMaxZoomPreference(Maps.MAP_ZOOM_MAX);
 
-        mMap.setContentDescription("Probando");
-
-/*        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-            return;
-        }
+/*
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setMyLocationButtonEnabled(false);*/
+        mMap.getUiSettings().setMyLocationButtonEnabled(false);
+        */
 
 
         mMap.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener() {
@@ -152,7 +164,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
 
     @Override
-    public void setRefPosition(RefPositionBO refPositionBO) {
+    public void setRefPosition(RefPositionBO refPositionBO, boolean isChanged) {
         pb.setVisibility(View.GONE);
         goToRefPosition();
     }
@@ -190,8 +202,84 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         }else{
             mMarker.setPosition(currentPosition);
             mMarker.setSnippet(refPositionBO.getAddress());
-            mMarker.showInfoWindow();
         }
+        mMarker.showInfoWindow();
+    }
+
+    private boolean isLocationEnabled() {
+        return mLocationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
+                mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    public void getCoordsCurrentPosition() {
+
+        if(isLocationEnabled()){
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
+            } else{
+                mFusedLocationClient.getLastLocation()
+                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                            @Override
+                            public void onSuccess(Location location) {
+                                if (location != null) {
+                                    setCurrentPositionMap(location.getLatitude(), location.getLongitude());
+                                }
+                            }
+                        });
+            }
+        } else {
+            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+            startActivity(intent);
+        }
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode){
+
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode){
+            case REQUEST_FINE_LOCATION:
+                if(grantResults[0] == PERMISISION_FINE_LOCATION_DENIED){
+                    showPermissionFineLocatoinDeniedDialog();
+                }else{
+                    getCoordsCurrentPosition();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    public void showPermissionFineLocatoinDeniedDialog() {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle(R.string.denid_permission_location);
+        mBuilder.setMessage(R.string.request_permission_location);
+        mBuilder.setPositiveButton(R.string.go_to_granted_permission_location, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                getCoordsCurrentPosition();
+            }
+        });
+        mBuilder.setNegativeButton(R.string.close_mapa, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                goToRefPosition();
+            }
+        });
+        mBuilder.show();
     }
 
     private void goToRefPosition() {
@@ -201,6 +289,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
     @Override
     public void onStart() {
         super.onStart();
+        getCoordsCurrentPosition();
         mCurrentPositionMapPresenter.onStart();
     }
 
