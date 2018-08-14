@@ -18,13 +18,11 @@ public interface IRefPositionContract extends IBaseContract {
 
     interface IRefPositionPresenter{
 
+        void getData();
+
         void getRefPosition(RefPositionBO refPositionBO, boolean isChanged);
         void saveRefPosition(RefPositionBO refPositionBO);
         void saveDescriptionRefPosition(RefPositionBO refPositionBO);
-
-        void onStart();
-        void onStop();
-        void onDestroy();
     }
 
 }

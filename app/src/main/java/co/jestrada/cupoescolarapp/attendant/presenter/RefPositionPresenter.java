@@ -23,9 +23,8 @@ public class RefPositionPresenter extends BasePresenter implements
 
     private RefPositionInteractor mRefPositionInteractor;
 
-    private FusedLocationProviderClient mFusedLocationClient;
-
     private FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     private UserBO userBOApp;
 
@@ -41,8 +40,9 @@ public class RefPositionPresenter extends BasePresenter implements
         userBOApp = UserBO.getInstance();
     }
 
-    private void getData() {
-        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+    @Override
+    public void getData() {
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null) {
             mRefPositionInteractor.getRefPosition(mFirebaseUser.getUid());
         }
@@ -71,26 +71,6 @@ public class RefPositionPresenter extends BasePresenter implements
             refPositionBO.setUserUid(userBOApp.getuId());
             mRefPositionInteractor.saveDescriptionRefPosition(refPositionBO);
         }
-    }
-
-    @Override
-    public void onStart() {
-        userBOApp = UserBO.getInstance();
-        if (!userBOApp.isOnSession()){
-        } else {
-            getData();
-        }
-
-    }
-
-    @Override
-    public void onStop() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
     }
 
 }

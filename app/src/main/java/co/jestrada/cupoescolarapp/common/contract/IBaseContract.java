@@ -7,7 +7,6 @@ public interface IBaseContract {
 
     interface IBaseView {
 
-        String getErrInputMessage(String etName);
         void showProgressBar(boolean visible);
 
     }

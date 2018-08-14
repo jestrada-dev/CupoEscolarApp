@@ -15,12 +15,12 @@
     <ScrollView
         android:id="@+id/sv_inputs_attendant_profile"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <RelativeLayout
                 android:id="@+id/rl_header"
@@ -60,31 +60,18 @@
                 android:id="@+id/rl_inputs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical_double"
                 android:layout_below="@id/rl_header">
-                <ImageView
-                    android:id="@+id/iv_label_personal_info"
-                    android:layout_width="wrap_content"
-                    style="@style/ImageBulletPoint"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
-                    android:contentDescription="@string/doc_id"
-                    android:src="@drawable/ic_label"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
-                    android:layout_marginStart="@dimen/margin_horizontal"
-                    android:text="@string/personal_info"
-                    android:layout_toEndOf="@id/iv_label_personal_info"/>
                 <RelativeLayout
                     android:id="@+id/rl_personal_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/RelativeLayoutInput"
-                    android:layout_below="@id/iv_label_personal_info">
+                    style="@style/RelativeLayoutInput">
                     <LinearLayout
                         android:id="@+id/ll_doc_id_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_vertical_middle"
                         android:orientation="horizontal"
                         android:weightSum="1">
                         <ImageView
@@ -94,39 +81,61 @@
                             style="@style/ImageInputField"
                             android:contentDescription="@string/doc_id"
                             android:src="@drawable/ic_doc_id_light_96"/>
-                        <EditText
-                            android:id="@+id/et_doc_id_type"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_doc_id_type"
                             android:layout_width="0dp"
-                            android:layout_weight="0.3"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:focusable="false"
-                            android:longClickable="false"
-                            android:inputType="text"
-                            android:hint="@string/doc_id_type"
-                            android:nextFocusForward="@id/et_doc_id"/>
-                        <EditText
-                            android:id="@+id/et_doc_id"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:id="@+id/et_doc_id_type"
+                                style="@style/TextInputField"
+                                android:focusable="false"
+                                android:longClickable="false"
+                                android:inputType="text"
+                                android:hint="@string/doc_id_type"
+                                android:nextFocusForward="@id/et_doc_id"/>
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_doc_id"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
+                        android:layout_below="@id/ll_doc_id_type"
+                        android:orientation="horizontal"
+                        android:weightSum="1">
+                        <ImageView
+                            android:id="@+id/iv_doc_id"
                             android:layout_width="0dp"
-                            android:layout_weight="0.6"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:inputType="number"
-                            android:hint="@string/doc_id"
-                            android:nextFocusForward="@id/et_first_name"/>
+                            android:layout_weight="0.1"
+                            style="@style/ImageInputField"
+                            android:contentDescription="@string/doc_id"
+                            android:src="@drawable/ic_doc_id_light_96"/>
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_doc_id"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/et_doc_id"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:inputType="number"
+                                android:hint="@string/doc_id"
+                                android:nextFocusForward="@id/et_first_name"/>
+                        </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_first_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
                         android:orientation="horizontal"
-                        android:layout_below="@+id/ll_doc_id_type"
+                        android:layout_below="@+id/ll_doc_id"
                         android:weightSum="1">
                         <ImageView
                             android:id="@+id/iv_names"
@@ -135,24 +144,27 @@
                             style="@style/ImageInputField"
                             android:contentDescription="@string/first_name"
                             android:src="@drawable/ic_avatar_light_96"/>
-                        <EditText
-                            android:id="@+id/et_first_name"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_first_name"
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:inputType="textPersonName"
-                            android:hint="@string/first_name"
-                            android:nextFocusForward="@id/et_last_name"/>
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/et_first_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:inputType="textPersonName"
+                                android:hint="@string/first_name"
+                                android:nextFocusForward="@id/et_last_name"/>
+                        </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/ll_last_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
                         android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
                         android:layout_below="@+id/ll_first_name"
                         android:weightSum="1">
                         <ImageView
@@ -162,24 +174,27 @@
                             style="@style/ImageInputField"
                             android:contentDescription="@string/first_name"
                             android:src="@drawable/ic_avatar_light_96"/>
-                        <EditText
-                            android:id="@+id/et_last_name"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_last_name"
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
-                            android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:longClickable="false"
-                            android:inputType="textPersonName"
-                            android:hint="@string/last_name"
-                            android:nextFocusForward="@id/rb_male"/>
+                            android:layout_height="wrap_content">
+                            <EditText
+                                android:id="@+id/et_last_name"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:longClickable="false"
+                                android:inputType="textPersonName"
+                                android:hint="@string/last_name"
+                                android:nextFocusForward="@id/rb_male"/>
+                        </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
                     <LinearLayout
                         android:id="@+id/ll_genre"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
                         android:layout_below="@id/ll_last_name"
                         android:weightSum="1">
                         <ImageView
@@ -193,9 +208,6 @@
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:background="@drawable/et_input_background"
-                            android:gravity="end"
                             android:orientation="horizontal">
                             <RadioButton
                                 android:id="@+id/rb_male"
@@ -218,7 +230,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/ll_genre"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
@@ -226,51 +238,30 @@
                             style="@style/ImageInputField"
                             android:contentDescription="@string/birthdate"
                             android:src="@drawable/ic_date_light_96"/>
-                        <EditText
-                            android:id="@+id/et_birthdate"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_birthdate"
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:longClickable="false"
-                            android:focusable="false"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:inputType="date"
-                            android:hint="@string/birthdate" />
+                            android:layout_marginStart="@dimen/margin_horizontal">
+                            <EditText
+                                android:id="@+id/et_birthdate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:longClickable="false"
+                                android:focusable="false"
+                                android:inputType="date"
+                                android:hint="@string/birthdate" />
+                        </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
-
-                </RelativeLayout>
-
-                <ImageView
-                    android:id="@+id/iv_label_contact"
-                    android:layout_width="wrap_content"
-                    style="@style/ImageBulletPoint"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
-                    android:contentDescription="@string/doc_id"
-                    android:src="@drawable/ic_label"
-                    android:layout_below="@id/rl_personal_info"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
-                    android:layout_marginStart="@dimen/margin_horizontal"
-                    android:text="@string/contact_info"
-                    android:layout_below="@id/rl_personal_info"
-                    android:layout_toEndOf="@id/iv_label_contact"/>
-                <RelativeLayout
-                    android:id="@+id/rl_contact"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_below="@id/iv_label_contact"
-                    android:layout_marginBottom="@dimen/margin_vertical_double"
-                    style="@style/RelativeLayoutInput">
 
                     <LinearLayout
                         android:id="@+id/ll_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
+                        android:layout_below="@id/ll_birthday"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
@@ -278,27 +269,30 @@
                             style="@style/ImageInputField"
                             android:contentDescription="@string/address"
                             android:src="@drawable/ic_email_light_96"/>
-                        <EditText
-                            android:id="@+id/et_email"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_email"
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:longClickable="false"
-                            android:focusable="false"
-                            android:enabled="false"
-                            android:inputType="textEmailAddress"
-                            android:hint="@string/email"/>
+                            android:layout_marginStart="@dimen/margin_horizontal">
+                            <EditText
+                                android:id="@+id/et_email"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:longClickable="false"
+                                android:focusable="false"
+                                android:enabled="false"
+                                android:inputType="textEmailAddress"
+                                android:hint="@string/email"/>
+                        </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
                         android:id="@+id/ll_address"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
                         android:layout_below="@id/ll_email"
                         android:weightSum="1">
                         <ImageView
@@ -307,27 +301,30 @@
                             style="@style/ImageInputField"
                             android:contentDescription="@string/address"
                             android:src="@drawable/ic_address_light_96"/>
-                        <EditText
-                            android:id="@+id/et_address"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_address"
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:longClickable="false"
-                            android:inputType="text"
-                            android:hint="@string/address"
-                            android:nextFocusForward="@id/et_local_phone"/>
+                            android:layout_marginStart="@dimen/margin_horizontal">
+                            <EditText
+                                android:id="@+id/et_address"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:longClickable="false"
+                                android:inputType="text"
+                                android:hint="@string/address"
+                                android:nextFocusForward="@id/et_local_phone"/>
+                        </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ll_phones"
+                        android:id="@+id/ll_local_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/ll_address"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
-                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
@@ -335,44 +332,68 @@
                             style="@style/ImageInputField"
                             android:contentDescription="@string/local_phone"
                             android:src="@drawable/ic_phone_light_96"/>
-                        <EditText
-                            android:id="@+id/et_local_phone"
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_local_phone"
                             android:layout_width="0dp"
-                            android:layout_weight="0.4"
+                            android:layout_weight="0.9"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:longClickable="false"
-                            android:inputType="phone"
-                            android:hint="@string/local_phone"
-                            android:nextFocusForward="@id/et_mobile_phone"/>
-                        <EditText
-                            android:id="@+id/et_mobile_phone"
+                            android:layout_marginStart="@dimen/margin_horizontal">
+                            <EditText
+                                android:id="@+id/et_local_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:longClickable="false"
+                                android:inputType="phone"
+                                android:hint="@string/local_phone"
+                                android:nextFocusForward="@id/et_mobile_phone"/>
+                        </android.support.design.widget.TextInputLayout>
+                    </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/ll_mobile_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ll_local_phone"
+                        android:layout_marginTop="@dimen/margin_vertical_double"
+                        android:weightSum="1">
+                        <ImageView
                             android:layout_width="0dp"
-                            android:layout_weight="0.5"
+                            android:layout_weight="0.1"
+                            style="@style/ImageInputField"
+                            android:contentDescription="@string/local_phone"
+                            android:src="@drawable/ic_phone_light_96"/>
+                        <android.support.design.widget.TextInputLayout
+                            android:id="@+id/til_mobile_phone"
+                            android:layout_width="0dp"
+                            android:layout_weight="0.9"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/et_input_background"
-                            style="@style/TextInputField"
-                            android:longClickable="false"
-                            android:layout_marginStart="@dimen/margin_horizontal"
-                            android:inputType="phone"
-                            android:hint="@string/mobile_phone" />
+                            android:layout_marginStart="@dimen/margin_horizontal">
+                            <EditText
+                                android:id="@+id/et_mobile_phone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/TextInputField"
+                                android:longClickable="false"
+                                android:inputType="phone"
+                                android:hint="@string/mobile_phone" />
+                        </android.support.design.widget.TextInputLayout>
                     </LinearLayout>
 
                 </RelativeLayout>
-                <Button
-                    android:id="@+id/btn_save"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/rl_contact"
-                    android:layout_marginEnd="@dimen/margin_horizontal"
-                    android:layout_alignParentEnd="true"
-                    android:drawableStart="@drawable/ic_save_bold_48"
-                    style="@style/TextButton"
-                    android:text="@string/save"/>
 
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/btn_save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/rl_inputs"
+                android:layout_marginTop="@dimen/margin_vertical_cuadruple"
+                android:layout_marginEnd="@dimen/margin_horizontal"
+                android:layout_alignParentEnd="true"
+                android:drawableStart="@drawable/ic_save_bold_48"
+                style="@style/TextButton"
+                android:text="@string/save"/>
 
         </RelativeLayout>
 

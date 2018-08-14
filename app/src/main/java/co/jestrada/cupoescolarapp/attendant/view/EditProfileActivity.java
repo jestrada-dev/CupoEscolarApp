@@ -87,16 +87,21 @@ public class EditProfileActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
-        ButterKnife.bind(this);
-
         mEditProfilePresenter = new EditProfilePresenter(EditProfileActivity.this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setToolbar();
+
+        initView();
 
         docIdTypeArrayList = new ArrayList<>();
         docIdTypeShortNameArrayList = new ArrayList<>();
 
+    }
+
+    private void initView() {
+        ButterKnife.bind(this);
+        setToolbar();
+        getData();
     }
 
     private void setToolbar() {
@@ -107,6 +112,12 @@ public class EditProfileActivity extends BaseActivity implements
             mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
             //TODO Establecer el botón de atrás
         }
+    }
+
+    private void getData(){
+        enableFields(false);
+        showProgressBar(true);
+        mEditProfilePresenter.getData();
     }
 
     @OnClick(R.id.btn_save)
@@ -158,7 +169,6 @@ public class EditProfileActivity extends BaseActivity implements
         }
         return !err;
     }
-
 
     private boolean isValidDocId(String docId){
         boolean err = false;
@@ -284,6 +294,7 @@ public class EditProfileActivity extends BaseActivity implements
         }
         showProgressBar(false);
         enableFields(true);
+        etDocId.requestFocus();
     }
 
     @Override
@@ -304,19 +315,15 @@ public class EditProfileActivity extends BaseActivity implements
     @Override
     public void onStart() {
         super.onStart();
-        showProgressBar(true);
-        mEditProfilePresenter.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mEditProfilePresenter.onStop();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mEditProfilePresenter.onDestroy();
     }
 }

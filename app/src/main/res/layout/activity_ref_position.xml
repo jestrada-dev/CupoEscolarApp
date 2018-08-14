@@ -15,33 +15,18 @@
     <ScrollView
         android:id="@+id/sv_inputs_ref_position"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
 
         <RelativeLayout
-            android:id="@+id/rl_inputs_ref_position"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
-            <ImageView
-                android:id="@+id/iv_label_ref_point"
-                android:layout_width="wrap_content"
-                style="@style/ImageBulletPoint"
-                android:layout_marginTop="@dimen/margin_vertical_double"
-                android:contentDescription="@string/ref_point"
-                android:src="@drawable/ic_label" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_vertical_double"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                android:text="@string/ref_point"
-                android:layout_toEndOf="@id/iv_label_ref_point"/>
             <RelativeLayout
                 android:id="@+id/rl_description_ref_point"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_below="@id/iv_label_ref_point"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical_double"
                 style="@style/RelativeLayoutInput">
                 <TextView
                     android:id="@+id/tv_description_ref_point_summary"
@@ -53,7 +38,7 @@
                     android:id="@+id/ll_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_marginTop="@dimen/margin_vertical_triple"
                     android:orientation="horizontal"
                     android:layout_below="@id/tv_description_ref_point_summary"
                     android:weightSum="1">
@@ -63,19 +48,21 @@
                         style="@style/ImageInputField"
                         android:contentDescription="@string/ref_point_description"
                         android:src="@drawable/ic_description_light_96"/>
-                    <EditText
-                        android:id="@+id/et_description"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_description"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/et_input_background"
-                        style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_horizontal"
-                        android:longClickable="false"
-                        android:inputType="text"
-                        android:hint="@string/ref_point_description"
-                        android:nextFocusForward="@id/btn_save"/>
-
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_description"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextInputField"
+                            android:longClickable="false"
+                            android:inputType="text"
+                            android:hint="@string/ref_point_description"
+                            android:nextFocusForward="@id/btn_save"/>
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
             </RelativeLayout>
 
@@ -83,7 +70,7 @@
                 android:id="@+id/btn_save"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_vertical"
+                android:layout_marginTop="@dimen/margin_vertical_cuadruple"
                 android:layout_marginEnd="@dimen/margin_horizontal"
                 android:layout_below="@id/rl_description_ref_point"
                 android:layout_alignParentEnd="true"
@@ -94,11 +81,10 @@
                 android:nextFocusForward="@id/et_address"
                 android:text="@string/save"/>
 
-
             <RelativeLayout
                 android:id="@+id/rl_ref_point"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_vertical_double"
                 android:layout_marginBottom="@dimen/margin_vertical"
                 android:layout_below="@id/btn_save"
@@ -110,11 +96,11 @@
                     android:textAlignment="center"
                     android:text="@string/ref_point_summary" />
                 <LinearLayout
-                    android:id="@+id/ll_ref_point_address"
+                    android:id="@+id/ll_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_ref_point_summary"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_marginTop="@dimen/margin_vertical_triple"
                     android:orientation="horizontal"
                     android:weightSum="1">
                     <ImageView
@@ -123,27 +109,27 @@
                         style="@style/ImageInputField"
                         android:contentDescription="@string/address"
                         android:src="@drawable/ic_address_light_96"/>
-                    <EditText
-                        android:id="@+id/et_address"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_address"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/et_input_background"
-                        style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_horizontal"
-                        android:longClickable="false"
-                        android:inputType="textPostalAddress"
-                        android:enabled="false"
-                        android:hint="@string/address"
-                        android:nextFocusForward="@id/et_lat"/>
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_address"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            style="@style/TextInputField"
+                            android:inputType="textPostalAddress"
+                            android:enabled="false"
+                            android:hint="@string/address" />
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ll_ref_point_lat"
+                    android:id="@+id/ll_lat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_middle"
-                    android:layout_below="@+id/ll_ref_point_address"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_below="@+id/ll_address"
                     android:weightSum="1">
                     <ImageView
                         android:layout_width="0dp"
@@ -151,27 +137,27 @@
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lat"
                         android:src="@drawable/ic_lat_light_96"/>
-                    <EditText
-                        android:id="@+id/et_lat"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_lat"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:background="@drawable/et_input_background"
-                        style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_horizontal"
-                        android:longClickable="false"
-                        android:inputType="phone"
-                        android:hint="@string/lat"
-                        android:nextFocusForward="@id/et_lng"/>
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_lat"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            style="@style/TextInputField"
+                            android:inputType="phone"
+                            android:hint="@string/lat" />
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:id="@+id/ll_ref_point_lng"
+                    android:id="@+id/ll_lng"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_middle"
-                    android:layout_below="@+id/ll_ref_point_lat"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_below="@+id/ll_lat"
                     android:weightSum="1">
                     <ImageView
                         android:layout_width="0dp"
@@ -179,28 +165,28 @@
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lng"
                         android:src="@drawable/ic_lng_light_96"/>
-                    <EditText
-                        android:id="@+id/et_lng"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_lng"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:background="@drawable/et_input_background"
-                        style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_horizontal"
-                        android:longClickable="false"
-                        android:inputType="phone"
-                        android:hint="@string/lng"
-                        android:nextFocusForward="@id/et_postal_code"/>
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_lng"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            style="@style/TextInputField"
+                            android:inputType="phone"
+                            android:hint="@string/lng" />
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_ref_point_postal_code"
+                    android:id="@+id/ll_postal_code"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_middle"
-                    android:layout_below="@+id/ll_ref_point_lng"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_below="@+id/ll_lng"
                     android:weightSum="1">
                     <ImageView
                         android:layout_width="0dp"
@@ -208,28 +194,27 @@
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lng"
                         android:src="@drawable/ic_postal_code_light_96"/>
-                    <EditText
-                        android:id="@+id/et_postal_code"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_postal_code"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:background="@drawable/et_input_background"
-                        style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_horizontal"
-                        android:longClickable="false"
-                        android:inputType="phone"
-                        android:hint="@string/postal_code"
-                        android:nextFocusForward="@id/et_city"/>
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_postal_code"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            style="@style/TextInputField"
+                            android:inputType="phone"
+                            android:hint="@string/postal_code" />
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
-
                 <LinearLayout
-                    android:id="@+id/ll_ref_point_city"
+                    android:id="@+id/ll_city"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_middle"
-                    android:layout_below="@+id/ll_ref_point_postal_code"
-                    android:orientation="horizontal"
+                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_below="@+id/ll_postal_code"
                     android:weightSum="1">
                     <ImageView
                         android:layout_width="0dp"
@@ -237,19 +222,20 @@
                         style="@style/ImageInputField"
                         android:contentDescription="@string/lng"
                         android:src="@drawable/ic_city_light_96"/>
-                    <EditText
-                        android:id="@+id/et_city"
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_city"
                         android:layout_width="0dp"
                         android:layout_weight="0.9"
-                        android:layout_height="wrap_content"
-                        android:enabled="false"
-                        android:background="@drawable/et_input_background"
-                        style="@style/TextInputField"
-                        android:layout_marginStart="@dimen/margin_horizontal"
-                        android:longClickable="false"
-                        android:inputType="phone"
-                        android:hint="@string/city"
-                        android:nextFocusForward="@id/btn_get_current_position"/>
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_city"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            style="@style/TextInputField"
+                            android:inputType="phone"
+                            android:hint="@string/city" />
+                    </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
             </RelativeLayout>
@@ -258,13 +244,12 @@
                 android:id="@+id/btn_get_current_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_vertical"
+                android:layout_below="@id/rl_ref_point"
+                android:layout_marginTop="@dimen/margin_vertical_cuadruple"
                 android:layout_marginEnd="@dimen/margin_horizontal"
                 android:drawableStart="@drawable/ic_map_bold_48"
-                android:drawablePadding="@dimen/margin_vertical"
-                android:drawableTint="@android:color/white"
                 android:layout_alignParentEnd="true"
-                android:layout_below="@id/rl_ref_point"
+
                 style="@style/TextButton"
                 android:text="@string/btn_get_coords_current_location"/>
 

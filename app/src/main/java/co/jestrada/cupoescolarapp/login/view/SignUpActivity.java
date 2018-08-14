@@ -3,7 +3,12 @@ package co.jestrada.cupoescolarapp.login.view;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -12,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.view.MainActivity;
+import co.jestrada.cupoescolarapp.common.constant.Fields;
 import co.jestrada.cupoescolarapp.common.view.BaseActivity;
 import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
 import co.jestrada.cupoescolarapp.login.presenter.SignUpPresenter;
@@ -19,8 +25,12 @@ import co.jestrada.cupoescolarapp.login.presenter.SignUpPresenter;
 public class SignUpActivity extends BaseActivity implements
         ISignUpContract.ISignUpView {
 
+    @BindView(R.id.til_email)
+    TextInputLayout tilEmail;
     @BindView(R.id.et_email)
     EditText etEmail;
+    @BindView(R.id.til_password)
+    TextInputLayout tilPassword;
     @BindView(R.id.et_password)
     EditText etPassword;
 
@@ -39,6 +49,61 @@ public class SignUpActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         mSignUpPresenter = new SignUpPresenter(SignUpActivity.this);
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                tilEmail.setError("");
+            }
+        });
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                tilPassword.setError("");
+            }
+        });
+
+    }
+
+
+    private boolean isValidEmail(String email){
+        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
+    private boolean isValidPassword(String password){
+        return password.length() >= 8;
+    }
+
+    private boolean isValidCredentials(){
+        boolean validCredentials = true;
+
+        if(!isValidPassword(etPassword.getText().toString())){
+            tilPassword.setError(getString(R.string.validate_input_password));
+            etPassword.requestFocus();
+            validCredentials = false;
+        }
+        if(!isValidEmail(etEmail.getText().toString().trim())){
+            tilEmail.setError(getString(R.string.validate_input_email));
+            etEmail.requestFocus();
+            validCredentials = false;
+        }
+
+        if(!validCredentials){
+            enableFields(true);
+        }
+
+        return validCredentials;
     }
 
     @Override
@@ -118,33 +183,26 @@ public class SignUpActivity extends BaseActivity implements
 
     @OnClick(R.id.btn_sign_up_email_password)
     public void signUpEmailPassword(){
-        enableFields(false);
-        showProgressBar(true);
-        mSignUpPresenter.signUpEmailPassword(etEmail, etPassword);
-    }
-
-    @Override
-    public void showErrorValidateEditText(EditText editText, String etName) {
-        showProgressBar(false);
-        editText.setError(getErrInputMessage(etName));
+        if (isValidCredentials()){
+            enableFields(false);
+            showProgressBar(true);
+            mSignUpPresenter.signUpEmailPassword(etEmail.getText().toString().trim(), etPassword.getText().toString());
+        }
     }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        mSignUpPresenter.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mSignUpPresenter.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mSignUpPresenter.onDestroy();
     }
 }

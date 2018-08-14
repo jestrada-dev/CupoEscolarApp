@@ -35,8 +35,7 @@
             android:id="@+id/ll_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_vertical_middle"
-            android:orientation="horizontal"
+            android:layout_marginTop="@dimen/margin_vertical_triple"
             android:weightSum="1">
             <ImageView
                 android:id="@+id/iv_email"
@@ -45,26 +44,28 @@
                 style="@style/ImageInputField"
                 android:contentDescription="@string/first_name"
                 android:src="@drawable/ic_email_light_96"/>
-            <EditText
-                android:id="@+id/et_email"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_email"
                 android:layout_width="0dp"
                 android:layout_weight="0.9"
+                android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_email"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                android:background="@drawable/et_input_background"
                 style="@style/TextInputField"
                 android:inputType="textEmailAddress"
                 android:hint="@string/email"
                 android:nextFocusForward="@id/et_password"/>
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/ll_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_vertical_middle"
+            android:layout_marginTop="@dimen/margin_vertical_double"
             android:layout_below="@id/ll_email"
-            android:orientation="horizontal"
             android:weightSum="1">
             <ImageView
                 android:id="@+id/iv_password"
@@ -73,24 +74,27 @@
                 style="@style/ImageInputField"
                 android:contentDescription="@string/first_name"
                 android:src="@drawable/ic_password_light_96"/>
-            <EditText
-                android:id="@+id/et_password"
+            <android.support.design.widget.TextInputLayout
+                android:id="@+id/til_password"
                 android:layout_width="0dp"
                 android:layout_weight="0.9"
+                android:layout_height="wrap_content">
+            <EditText
+                android:id="@+id/et_password"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_horizontal"
-                android:background="@drawable/et_input_background"
                 style="@style/TextInputField"
                 android:inputType="textPassword"
                 android:hint="@string/password"
                 android:nextFocusForward="@id/btn_sign_in_email_password"/>
+            </android.support.design.widget.TextInputLayout>
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_sign_in_email_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_vertical"
+            android:layout_marginTop="@dimen/margin_vertical_cuadruple"
             android:layout_alignEnd="@id/ll_password"
             android:layout_below="@id/ll_password"
             style="@style/TextButton"
@@ -123,57 +127,6 @@
             android:gravity="center"
             style="@style/TextBody1"
             android:text="@string/create_email_account"/>
-        <TextView
-            android:id="@+id/tv_prefer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_vertical_triple"
-            android:layout_below="@id/tv_create_email_account"
-            android:gravity="center"
-            style="@style/TextLabel2"
-            android:text="@string/prefer"/>
-
-        <RelativeLayout
-            android:id="@+id/ll_sign_in_google"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal"
-            android:layout_marginTop="@dimen/margin_vertical_triple"
-            android:layout_below="@id/tv_prefer">
-            <Button
-                android:id="@+id/btn_sign_in_google"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_logo_google"
-                android:paddingLeft="@dimen/padding_button_double"
-                android:paddingRight="@dimen/padding_button_double"
-                android:paddingTop="@dimen/padding_button"
-                android:paddingBottom="@dimen/padding_button"
-                android:layout_marginLeft="@dimen/margin_horizontal_triple"
-                android:layout_marginRight="@dimen/margin_horizontal_triple"
-                style="@style/TextButtonSocial"
-                android:text="@string/sign_in_google" />
-            <Button
-                android:id="@+id/btn_sign_in_facebook"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/white"
-                android:drawableStart="@drawable/ic_logo_facebook"
-                android:layout_marginTop="@dimen/margin_vertical"
-                android:layout_marginBottom="@dimen/margin_vertical"
-                android:paddingLeft="@dimen/padding_button_double"
-                android:paddingRight="@dimen/padding_button_double"
-                android:paddingTop="@dimen/padding_button"
-                android:paddingBottom="@dimen/padding_button"
-                android:layout_marginLeft="@dimen/margin_horizontal_triple"
-                android:layout_marginRight="@dimen/margin_horizontal_triple"
-                style="@style/TextButtonSocial"
-                android:text="@string/sign_in_facebook"
-                android:layout_below="@id/btn_sign_in_google"/>
-        </RelativeLayout>
-
     </RelativeLayout>
 
     <ProgressBar

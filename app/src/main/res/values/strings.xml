@@ -119,6 +119,7 @@
     <string name="scholar_info">Información Escolar</string>
     <string name="relationship">Parentesco</string>
     <string name="grade">Grado</string>
+    <string name="grade_summary">Selecciona el grado al cual deseas inscribir al estudiante. Este dato se tendrá en cuenta para la búsqueda de colegios que tenga cupos disponibles para el grado seleccionado.</string>
 
 
 </resources>

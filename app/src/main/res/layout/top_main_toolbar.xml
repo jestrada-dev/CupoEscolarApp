@@ -7,4 +7,4 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/mColorPrimaryDark"
     android:theme="@style/MainToolbar"
-    android:translationZ="4dp" />
+    android:elevation="4dp" />

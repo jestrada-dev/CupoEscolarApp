@@ -79,7 +79,6 @@
         <item name="android:fontFamily">@font/worksans_medium</item>
         <item name="android:textSize">14sp</item>
         <item name="android:padding">@dimen/padding_text</item>
-        <item name="android:textAlignment">textEnd</item>
     </style>
 
     <style name="ImageInputField">

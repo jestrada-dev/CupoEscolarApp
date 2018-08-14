@@ -22,29 +22,6 @@ public class BaseActivity extends AppCompatActivity
     }
 
     @Override
-    public String getErrInputMessage(String etName) {
-        String errEditText;
-        switch (etName){
-            case Fields.PASSWORD:
-                errEditText = getString(R.string.validate_input_password);
-                break;
-            case Fields.EMAIL:
-                errEditText = getString(R.string.validate_input_email);
-                break;
-            case Fields.LAST_NAME:
-                errEditText = getString(R.string.validate_input_last_name);
-                break;
-            case Fields.FIRST_NAME:
-                errEditText = getString(R.string.validate_input_first_name);
-                break;
-            default:
-                errEditText = getString(R.string.validate_input_unidentify);
-                break;
-        }
-        return errEditText;
-    }
-
-    @Override
     public void showProgressBar(boolean visible) {
         if (visible){
             pb.setVisibility(View.VISIBLE);

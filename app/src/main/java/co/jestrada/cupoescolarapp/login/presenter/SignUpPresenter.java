@@ -60,35 +60,6 @@ public class SignUpPresenter extends BasePresenter implements
         );
     }
 
-    private boolean isValidEmail(String email){
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
-    }
-
-    private boolean isValidPassword(String password){
-        return password.length() >= 8;
-    }
-
-    private boolean isValidCredentials(EditText etEmail, EditText etPassword){
-        String email = etEmail.getText().toString().trim();
-        String password = etPassword.getText().toString();
-        boolean validCredentials = true;
-        if(!isValidPassword(password)){
-            mSignUpView.showErrorValidateEditText(etPassword, Fields.PASSWORD);
-            etPassword.requestFocus();
-            validCredentials = false;
-        }
-        if(!isValidEmail(email)){
-            mSignUpView.showErrorValidateEditText(etEmail, Fields.EMAIL);
-            etEmail.requestFocus();
-            validCredentials = false;
-        }
-        if(!validCredentials){
-            mSignUpView.enableFields(true);
-        }
-
-        return validCredentials;
-    }
-
     private boolean isInternetConnectionActive(){
         return isNetAvailable() && isOnlineNet();
     }
@@ -113,8 +84,7 @@ public class SignUpPresenter extends BasePresenter implements
     }
 
     @Override
-    public void signUpEmailPassword(EditText etEmail, EditText etPassword) {
-        if (isValidCredentials(etEmail, etPassword)){
+    public void signUpEmailPassword(String email, String password) {
             if(!isInternetConnectionActive()){
                 mSignUpView.enableFields(true);
                 mSignUpView.showProgressBar(false);
@@ -122,14 +92,8 @@ public class SignUpPresenter extends BasePresenter implements
                         mContext.getString(R.string.errorOnInternetConnection),
                         mContext.getString(R.string.try_later));
             } else{
-                final String email = etEmail.getText().toString().trim().toLowerCase();
-                String password = etPassword.getText().toString();
                 createUserEmailPassword(email, password);
             }
-        } else {
-            mSignUpView.enableFields(true);
-            mSignUpView.showProgressBar(false);
-        }
     }
 
     private void createUserEmailPassword(final String email, String password) {
@@ -196,15 +160,4 @@ public class SignUpPresenter extends BasePresenter implements
         }
     }
 
-    @Override
-    public void onStart() {
-    }
-
-    @Override
-    public void onStop() {
-    }
-
-    @Override
-    public void onDestroy() {
-    }
 }

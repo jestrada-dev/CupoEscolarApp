@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -46,12 +47,18 @@ public class RefPositionActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ref_position);
 
-        ButterKnife.bind(this);
-
         mRefPositionPresenter = new RefPositionPresenter(RefPositionActivity.this);
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        initView();
+
+    }
+
+    private void initView() {
+        ButterKnife.bind(this);
         setToolbar();
+        getData();
     }
 
     private void setToolbar() {
@@ -64,6 +71,16 @@ public class RefPositionActivity extends BaseActivity implements
         }
     }
 
+    private void getData(){
+        enableInputs(false);
+        showProgressBar(true);
+        mRefPositionPresenter.getData();
+    }
+
+    private void enableInputs(boolean enable) {
+        etDescription.setEnabled(enable);
+    }
+
     @OnClick(R.id.btn_save)
     public void saveDescription(){
         showProgressBar(true);
@@ -72,10 +89,6 @@ public class RefPositionActivity extends BaseActivity implements
         refPositionBO = new RefPositionBO();
         refPositionBO.setDescription(etDescription.getText().toString());
         mRefPositionPresenter.saveDescriptionRefPosition(refPositionBO);
-    }
-
-    private void enableInputs(boolean enable) {
-        etDescription.setEnabled(enable);
     }
 
     @OnClick(R.id.btn_get_current_position)
@@ -87,7 +100,6 @@ public class RefPositionActivity extends BaseActivity implements
         Intent intent = new Intent(RefPositionActivity.this, CurrentPositionMapActivity.class);
         startActivity(intent);
     }
-
 
     @Override
     public void setRefPositionUI(RefPositionBO refPositionBO, boolean isChanged) {
@@ -107,19 +119,15 @@ public class RefPositionActivity extends BaseActivity implements
     @Override
     public void onStart() {
         super.onStart();
-        showProgressBar(true);
-        mRefPositionPresenter.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mRefPositionPresenter.onStop();
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mRefPositionPresenter.onDestroy();
     }
 }

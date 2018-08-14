@@ -3,10 +3,13 @@ package co.jestrada.cupoescolarapp.login.view;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,8 +27,12 @@ import co.jestrada.cupoescolarapp.login.presenter.LoginPresenter;
 public class LoginActivity extends BaseActivity implements
 ILoginContract.ILoginView{
 
+    @BindView(R.id.til_email)
+    TextInputLayout tilEmail;
     @BindView(R.id.et_email)
     EditText etEmail;
+    @BindView(R.id.til_password)
+    TextInputLayout tilPassword;
     @BindView(R.id.et_password)
     EditText etPassword;
 
@@ -36,11 +43,6 @@ ILoginContract.ILoginView{
 
     @BindView(R.id.tv_create_email_account)
     TextView tvCreateEmailAccount;
-
-    @BindView(R.id.btn_sign_in_google)
-    Button btnSignInGoogle;
-    @BindView(R.id.btn_sign_in_facebook)
-    Button btnSignInFacebook;
 
     private LoginPresenter mLoginPresenter;
 
@@ -65,7 +67,7 @@ ILoginContract.ILoginView{
             }
             @Override
             public void afterTextChanged(Editable editable) {
-                etEmail.setError(null, null);
+                tilEmail.setError("");
             }
         });
         etPassword.addTextChangedListener(new TextWatcher() {
@@ -77,11 +79,36 @@ ILoginContract.ILoginView{
             }
             @Override
             public void afterTextChanged(Editable editable) {
-                etPassword.setError(null, null);
+                tilPassword.setError("");
             }
         });
     }
 
+    private boolean isValidEmail(String email){
+        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
+    private boolean isValidPassword(String password){
+        return password.length() >= 8;
+    }
+
+    private boolean isValidCredentials(){
+        boolean validCredentials = true;
+
+        if(!isValidPassword(etPassword.getText().toString())){
+            tilPassword.setError(getString(R.string.validate_input_password));
+            etPassword.requestFocus();
+            validCredentials = false;
+        }
+
+        if(!isValidEmail(etEmail.getText().toString().trim())){
+            tilEmail.setError(getString(R.string.validate_input_email));
+            etEmail.requestFocus();
+            validCredentials = false;
+        }
+
+        return validCredentials;
+    }
 
     @Override
     public void enableFields(boolean enable){
@@ -90,20 +117,27 @@ ILoginContract.ILoginView{
         btnSignInEmailPassword.setEnabled(enable);
         tvForgetPassword.setEnabled(enable);
         tvCreateEmailAccount.setEnabled(enable);
-        btnSignInGoogle.setEnabled(enable);
-        btnSignInFacebook.setEnabled(enable);
     }
 
     @OnClick(R.id.btn_sign_in_email_password)
     public void signInEmailPassword(){
-        enableFields(false);
-        showProgressBar(true);
-        mLoginPresenter.signInEmailPassword(etEmail, etPassword);
+        if (isValidCredentials()){
+            enableFields(false);
+            showProgressBar(true);
+            mLoginPresenter.signInEmailPassword(etEmail.getText().toString().trim(), etPassword.getText().toString());
+        }
     }
 
     @OnClick(R.id.tv_forget_password)
     public void forgetPassword(){
-        mLoginPresenter.forgetMyPassword(etEmail);
+        if (isValidEmail(etEmail.getText().toString().trim())){
+            showProgressBar(true);
+            enableFields(false);
+            mLoginPresenter.forgetMyPassword(etEmail.getText().toString().trim());
+        } else {
+            tilPassword.setError(getString(R.string.enter_email_resend_password));
+            etPassword.requestFocus();
+        }
     }
 
     @OnClick(R.id.tv_create_email_account)
@@ -117,21 +151,6 @@ ILoginContract.ILoginView{
 
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
-    }
-
-    @OnClick(R.id.btn_sign_in_google)
-    public void signInGoogleCredentials(){
-        mLoginPresenter.signInGoogleCredentials();
-    }
-
-    @OnClick(R.id.btn_sign_in_facebook)
-    public void signInFacebookCredentials(){
-        mLoginPresenter.signInFacebookCredentials();
-    }
-
-    @Override
-    public void showErrorValidateEditText(EditText editText, String etName) {
-        editText.setError(getErrMessage(etName));
     }
 
     @Override
@@ -181,40 +200,18 @@ ILoginContract.ILoginView{
         finish();
     }
 
-    private String getErrMessage(String etName) {
-        String errEditText;
-        switch (etName){
-            case Fields.PASSWORD:
-                errEditText = getString(R.string.validate_input_password);
-                break;
-            case Fields.EMAIL:
-                errEditText = getString(R.string.validate_input_email);
-                break;
-            case Fields.FORGET_EMAIL:
-                errEditText = getString(R.string.enter_email_resend_password);
-                break;
-            default:
-                errEditText = getString(R.string.validate_input_unidentify);
-                break;
-        }
-        return errEditText;
-    }
-
     @Override
     protected void onStart() {
         super.onStart();
-        mLoginPresenter.onStart();
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mLoginPresenter.onStop();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mLoginPresenter.onDestroy();
     }
 }

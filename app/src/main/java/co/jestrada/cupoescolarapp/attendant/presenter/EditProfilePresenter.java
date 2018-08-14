@@ -31,7 +31,6 @@ public class EditProfilePresenter extends BasePresenter implements
         IEditProfileContract.IEditProfilePresenter,
         GoogleApiClient.OnConnectionFailedListener {
 
-    private static final int REQUEST_FINE_LOCATION = 123;
     private IEditProfileContract.IEditProfileView mEditProfileView;
     private Context mContext;
 
@@ -39,6 +38,7 @@ public class EditProfilePresenter extends BasePresenter implements
     private AttendantInteractor mAttendantInteractor;
 
     private FirebaseAuth mFirebaseAuth;
+    FirebaseUser mFirebaseUser;
 
     private UserBO userBOApp;
 
@@ -58,8 +58,9 @@ public class EditProfilePresenter extends BasePresenter implements
         userBOApp = UserBO.getInstance();
     }
 
-    private void getData() {
-        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
+    @Override
+    public void getData() {
+        mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null) {
             mDocIdTypeInteractor.getDocIdTypes(false);
             mAttendantInteractor.getAttendant(mFirebaseUser.getUid());
@@ -94,27 +95,6 @@ public class EditProfilePresenter extends BasePresenter implements
         userBOApp.setOnSession(false);
         mFirebaseAuth.signOut();
         mEditProfileView.goToLogin();
-    }
-
-    @Override
-    public void onStart() {
-        userBOApp = UserBO.getInstance();
-        if (!userBOApp.isOnSession()){
-            signOut();
-        } else {
-            getData();
-        }
-
-    }
-
-    @Override
-    public void onStop() {
-
-    }
-
-    @Override
-    public void onDestroy() {
-
     }
 
     @Override

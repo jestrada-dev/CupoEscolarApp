@@ -9,7 +9,6 @@ import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 public interface ILoginContract {
 
     interface ILoginView extends IBaseContract.IBaseView{
-        void showErrorValidateEditText(EditText editText, String etName);
         void showNeutralDialog(String title, String message, String textNeutralButton);
         void showVerifyEmailDialog(String title, String message, String textPositiveButton,
                                    String textNegativeButton);
@@ -20,14 +19,9 @@ public interface ILoginContract {
     }
 
     interface ILoginPresenter extends IBaseContract.IBasePresenter{
-        void signInEmailPassword(final EditText etEmail, final EditText etPassword);
-        void signInGoogleCredentials();
-        void signInFacebookCredentials();
-        void forgetMyPassword(final EditText etEmail);
+        void signInEmailPassword(String email, String password);
+        void forgetMyPassword(String email);
 
-        void onStart();
-        void onStop();
-        void onDestroy();
     }
 
     interface IUserInteractor extends IBaseContract.IBaseInteractor{
