@@ -16,9 +16,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
-import co.jestrada.cupoescolarapp.attendant.view.MainActivity;
-import co.jestrada.cupoescolarapp.common.constant.Fields;
-import co.jestrada.cupoescolarapp.common.view.BaseActivity;
+import co.jestrada.cupoescolarapp.common.view.MainActivity;
+import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
 import co.jestrada.cupoescolarapp.login.presenter.SignUpPresenter;
 

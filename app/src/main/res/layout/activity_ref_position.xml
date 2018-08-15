@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/mColorBackground"
-    tools:context=".attendant.view.RefPositionActivity">
+    tools:context=".location.view.RefPositionActivity">
 
     <include
         android:id="@+id/toolbar"

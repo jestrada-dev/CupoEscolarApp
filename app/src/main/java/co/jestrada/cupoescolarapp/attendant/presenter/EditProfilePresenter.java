@@ -1,18 +1,10 @@
 package co.jestrada.cupoescolarapp.attendant.presenter;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Location;
 import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationServices;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -23,8 +15,7 @@ import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.interactor.DocIdTypeInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
-import co.jestrada.cupoescolarapp.common.presenter.BasePresenter;
+import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public class EditProfilePresenter extends BasePresenter implements

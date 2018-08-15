@@ -11,11 +11,11 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
+import co.jestrada.cupoescolarapp.attendant.constant.ConstantsFirebaseDocIdType;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.DocIdTypeDocJson;
-import co.jestrada.cupoescolarapp.common.constant.Firebase;
-import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
+import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
 
 public class DocIdTypeInteractor implements
         IBaseContract.IBaseInteractor{
@@ -28,7 +28,7 @@ public class DocIdTypeInteractor implements
     public DocIdTypeInteractor(@Nullable IEditProfileContract.IEditProfilePresenter mEditProfilePresenter) {
         this.mEditProfilePresenter = mEditProfilePresenter;
         this.mFirebaseDB = FirebaseDatabase.getInstance();
-        this.dbRefDocIdTypes = mFirebaseDB.getReference(Firebase.DOC_ID_TYPES);
+        this.dbRefDocIdTypes = mFirebaseDB.getReference(ConstantsFirebaseDocIdType.DOC_ID_TYPES);
     }
 
     public void getDocIdTypes(boolean notifyUser) {
@@ -42,7 +42,7 @@ public class DocIdTypeInteractor implements
                     docIdTypeBO.setValues(docIdTypeDocJson);
                     docIdTypeBOS.add(docIdTypeBO);
                 }
-                Log.d("DocIdType","DocIdTypeInteractor -> Se ejecutó el onDataChange para " + Firebase.DOC_ID_TYPES);
+                Log.d("DocIdType","DocIdTypeInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseDocIdType.DOC_ID_TYPES);
                 notifyAttandantChanges(docIdTypeBOS, true);
             }
             @Override

@@ -12,15 +12,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import co.jestrada.cupoescolarapp.attendant.contract.ICurrentPositionMapContract;
+import co.jestrada.cupoescolarapp.location.contract.ICurrentPositionMapContract;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
-import co.jestrada.cupoescolarapp.attendant.contract.IMainContract;
+import co.jestrada.cupoescolarapp.common.contract.IMainContract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
-import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.RefPositionDocJson;
-import co.jestrada.cupoescolarapp.common.constant.Firebase;
+import co.jestrada.cupoescolarapp.attendant.constant.ConstantsFirebaseAttendant;
 import co.jestrada.cupoescolarapp.common.contract.IAppCoreContract;
-import co.jestrada.cupoescolarapp.common.contract.IBaseContract;
+import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
 import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
 import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
 
@@ -51,7 +50,7 @@ public class AttendantInteractor implements
         this.mCurrentPositionMapPresenter = mCurrentPositionMapPresenter;
 
         this.mFirebaseDB = FirebaseDatabase.getInstance();
-        this.dbRefAttendants = mFirebaseDB.getReference(Firebase.ATTENDANTS);
+        this.dbRefAttendants = mFirebaseDB.getReference(ConstantsFirebaseAttendant.ATTENDANTS);
     }
 
     public void getAttendant(final String userUid) {
@@ -59,10 +58,10 @@ public class AttendantInteractor implements
             @Override
             public void onDataChange(DataSnapshot attendantDS) {
                 if(!attendantDS.exists()){
-                    Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + Firebase.ATTENDANTS + "/" + userUid + " pero el attendantDS vino null");
+                    Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseAttendant.ATTENDANTS + "/" + userUid + " pero el attendantDS vino null");
                 }
                 final AttendantDocJson attendantDocJson = attendantDS.getValue(AttendantDocJson.class);
-                Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + Firebase.ATTENDANTS + "/" + userUid);
+                Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseAttendant.ATTENDANTS + "/" + userUid);
 
                 if(attendantDocJson != null){
                     AttendantBO attendantBO = new AttendantBO();
@@ -72,7 +71,7 @@ public class AttendantInteractor implements
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("Attendant","AttendantInteractor -> Se ejecutó el onCancelled " + Firebase.ATTENDANTS + "/" + userUid);
+                Log.d("Attendant","AttendantInteractor -> Se ejecutó el onCancelled " + ConstantsFirebaseAttendant.ATTENDANTS + "/" + userUid);
 
             }
         });
@@ -90,9 +89,19 @@ public class AttendantInteractor implements
         }
     }
 
+    private void notifyTransactionState(boolean successful){
+        if(mMainPresenter != null){
+            mMainPresenter.getAttendantTransactionState(successful);
+        }
+
+        if(mEditProfilePresenter != null){
+            mEditProfilePresenter.getAttendantTransactionState(successful);
+        }
+    }
+
     public void saveAttendant(final AttendantBO attendantBO) {
         if(attendantBO.getUserUid() != null){
-            final DatabaseReference dbRefAttendants = mFirebaseDB.getReference(Firebase.ATTENDANTS);
+            final DatabaseReference dbRefAttendants = mFirebaseDB.getReference(ConstantsFirebaseAttendant.ATTENDANTS);
             final AttendantDocJson attendantDocJson = new AttendantDocJson();
             attendantDocJson.setValues(attendantBO);
             Log.d("Attendant","AttendantInteractor -> Usuario: " + attendantDocJson.getUserUid());

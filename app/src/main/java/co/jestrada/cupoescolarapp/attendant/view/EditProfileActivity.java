@@ -2,8 +2,6 @@ package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -27,10 +25,9 @@ import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.presenter.EditProfilePresenter;
-import co.jestrada.cupoescolarapp.common.view.BaseActivity;
+import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 
 public class EditProfileActivity extends BaseActivity implements
         IEditProfileContract.IEditProfileView{

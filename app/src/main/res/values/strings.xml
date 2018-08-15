@@ -42,7 +42,7 @@
     <string name="firebase_user_already_registered">The email address is already in use by another account.</string>
     <string name="firebase_user_already_registered_es">Ya te encuentras registrado en Cupo Escolar App!</string>
     <string name="change_email_account">Cambiar cuenta de correo</string>
-    <string name="try_later">Intentar mas tarde</string>
+    <string name="try_later">OK! Intentar mas tarde</string>
     <string name="check_my_email">OK, voy a revisar mi buzón de correo</string>
     <string name="failed_resend_verification_email">Algo salió mal, no fue posible enviar nuevamente el correo electrónico de verificación. Intenta mas tarde.</string>
     <string name="enter_email_resend_password">Escribe tu correo electrónico para reestablecer su contraseña.</string>
@@ -110,7 +110,7 @@
     <string name="set_current_location">Establecer Ubicación</string>
     <string name="attendan_profile_updated">Se ha actualizado la información del Perfil Acudiente.</string>
     <string name="doc_type_updated">Se ha actualidado los Tipos de Documento de Identificación.</string>
-    <string name="ref_positions_updated">Se ha actualizado el Punto de Referencia.</string>
+    <string name="ref_positions_updated_succesfully">Se ha actualizado el Punto de Referencia exitosamente.</string>
     <string name="go_to_set_current_position">OK! Ir a Establecer Ubicación.</string>
     <string name="go_to_granted_permission_location">Permitir acceder a la ubicación del dispositivo</string>
     <string name="close_map">Cerrar Mapa</string>
@@ -126,6 +126,9 @@
     <string name="grade_summary">Selecciona el grado al cual deseas inscribir al estudiante. Este dato se tendrá en cuenta para la búsqueda de colegios que tenga cupos disponibles para el grado seleccionado.</string>
     <string name="admin_area">Departamento</string>
     <string name="country">País</string>
+    <string name="location_failed">Ubicación no disponible</string>
+    <string name="location_failed_summary">El servicio de geolocalización no está disponible por el momento. Por favor intenta mas tarde.</string>
+    <string name="edit_student">Editar Estudiante</string>
 
 
 </resources>

@@ -26,14 +26,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".attendant.view.MainActivity" />
+        <activity android:name=".common.view.MainActivity" />
         <activity android:name=".student.view.StudentsActivity" />
         <activity android:name=".attendant.view.EditProfileActivity" />
         <activity android:name=".login.view.ConfigAccountActivity" />
-        <activity android:name=".social.SocialActivity" />
-        <activity android:name=".social.SendSuggestionsActivity" />
+        <activity android:name=".social.view.SocialActivity" />
+        <activity android:name=".social.view.SendSuggestionsActivity" />
         <!--
-             The API key for Google Maps-based APIs is defined as a string resource.
+             The API key for Google ConstantsMap-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
              Note that the API key is linked to the encryption key used to sign the APK.
              You need a different API key for each encryption key, including the release key that is used to
@@ -45,9 +45,9 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".attendant.view.CurrentPositionMapActivity"
+            android:name=".location.view.CurrentPositionMapActivity"
             android:label="@string/title_activity_current_position_map" />
-        <activity android:name=".attendant.view.RefPositionActivity" />
+        <activity android:name=".location.view.RefPositionActivity" />
         <activity android:name=".student.view.EditStudentActivity"></activity>
     </application>
 
