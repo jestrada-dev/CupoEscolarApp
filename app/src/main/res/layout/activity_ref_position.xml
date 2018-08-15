@@ -119,65 +119,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             style="@style/TextInputField"
-                            android:inputType="textPostalAddress"
+                            android:inputType="text"
                             android:enabled="false"
                             android:hint="@string/address" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ll_lat"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
-                    android:layout_below="@+id/ll_address"
-                    android:weightSum="1">
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_weight="0.1"
-                        style="@style/ImageInputField"
-                        android:contentDescription="@string/lat"
-                        android:src="@drawable/ic_lat_light_96"/>
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/til_lat"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.9"
-                        android:layout_height="wrap_content">
-                        <EditText
-                            android:id="@+id/et_lat"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            style="@style/TextInputField"
-                            android:inputType="phone"
-                            android:hint="@string/lat" />
-                    </android.support.design.widget.TextInputLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:id="@+id/ll_lng"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_vertical_double"
-                    android:layout_below="@+id/ll_lat"
-                    android:weightSum="1">
-                    <ImageView
-                        android:layout_width="0dp"
-                        android:layout_weight="0.1"
-                        style="@style/ImageInputField"
-                        android:contentDescription="@string/lng"
-                        android:src="@drawable/ic_lng_light_96"/>
-                    <android.support.design.widget.TextInputLayout
-                        android:id="@+id/til_lng"
-                        android:layout_width="0dp"
-                        android:layout_weight="0.9"
-                        android:layout_height="wrap_content">
-                        <EditText
-                            android:id="@+id/et_lng"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:enabled="false"
-                            style="@style/TextInputField"
-                            android:inputType="phone"
-                            android:hint="@string/lng" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
 
@@ -186,7 +130,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/margin_vertical_double"
-                    android:layout_below="@+id/ll_lng"
+                    android:layout_below="@+id/ll_address"
                     android:weightSum="1">
                     <ImageView
                         android:layout_width="0dp"
@@ -205,7 +149,7 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             style="@style/TextInputField"
-                            android:inputType="phone"
+                            android:inputType="textPostalAddress"
                             android:hint="@string/postal_code" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
@@ -233,10 +177,69 @@
                             android:layout_height="wrap_content"
                             android:enabled="false"
                             style="@style/TextInputField"
-                            android:inputType="phone"
+                            android:inputType="text"
                             android:hint="@string/city" />
                     </android.support.design.widget.TextInputLayout>
                 </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_admin_area"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_below="@+id/ll_city"
+                    android:weightSum="1">
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.1"
+                        style="@style/ImageInputField"
+                        android:contentDescription="@string/lng"
+                        android:src="@drawable/ic_area_admin_light_96"/>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_admin_area"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.9"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_admin_area"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            style="@style/TextInputField"
+                            android:inputType="text"
+                            android:hint="@string/admin_area" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_vertical_double"
+                    android:layout_below="@+id/ll_admin_area"
+                    android:weightSum="1">
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_weight="0.1"
+                        style="@style/ImageInputField"
+                        android:contentDescription="@string/lng"
+                        android:src="@drawable/ic_country_light_96"/>
+                    <android.support.design.widget.TextInputLayout
+                        android:id="@+id/til_country"
+                        android:layout_width="0dp"
+                        android:layout_weight="0.9"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/et_country"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:enabled="false"
+                            style="@style/TextInputField"
+                            android:inputType="text"
+                            android:hint="@string/country" />
+                    </android.support.design.widget.TextInputLayout>
+                </LinearLayout>
+
 
             </RelativeLayout>
 

@@ -18,6 +18,7 @@ public class Firebase {
     public static final String REF_POSITIONS_POSTAL_CODE = "postalCode";
     public static final String REF_POSITIONS_CITY = "city";
     public static final String REF_POSITIONS_ADMIN_AREA = "adminArea";
+    public static final String REF_POSITIONS_COUNTRY = "country";
 
     public static final String DOC_ID_TYPES = "DocIdTypes";
 }

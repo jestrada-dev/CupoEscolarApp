@@ -27,10 +27,10 @@ public class RefPositionActivity extends BaseActivity implements
 
     @BindView(R.id.et_address)
     EditText etAddress;
-    @BindView(R.id.et_lat)
-    EditText etLat;
-    @BindView(R.id.et_lng)
-    EditText etLng;
+    @BindView(R.id.et_admin_area)
+    EditText etAdminArea;
+    @BindView(R.id.et_country)
+    EditText etCountry;
     @BindView(R.id.et_postal_code)
     EditText etPostalCode;
     @BindView(R.id.et_city)
@@ -106,8 +106,8 @@ public class RefPositionActivity extends BaseActivity implements
         if(isChanged){
             etDescription.setText((refPositionBO.getDescription() != null) ? refPositionBO.getDescription() : "");
             etAddress.setText((refPositionBO.getAddress() != null) ? refPositionBO.getAddress() : "");
-            etLat.setText((refPositionBO.getLat() != 0) ? String.valueOf(refPositionBO.getLat()) : "");
-            etLng.setText((refPositionBO.getLng() != 0) ? String.valueOf(refPositionBO.getLng()) : "");
+            etAdminArea.setText((refPositionBO.getAdminArea() != null) ? refPositionBO.getAdminArea() : "");
+            etCountry.setText((refPositionBO.getAddress() != null) ? refPositionBO.getCountry() : "");
             etPostalCode.setText((refPositionBO.getPostalCode() != null) ? refPositionBO.getPostalCode() : "");
             etCity.setText((refPositionBO.getCity() != null) ? refPositionBO.getCity() : "");
             Toast.makeText(this, R.string.ref_positions_updated,Toast.LENGTH_LONG).show();

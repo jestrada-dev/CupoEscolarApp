@@ -66,6 +66,9 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
     private FusedLocationProviderClient mFusedLocationClient;
 
+    private boolean locationEnableRequested = false;
+    private boolean permissionAccessRequested = false;
+
     private static final int REQUEST_FINE_LOCATION = 1001;
     private static final int PERMISISION_FINE_LOCATION_GRANTED = 0;
     private static final int PERMISISION_FINE_LOCATION_DENIED = -1;
@@ -87,7 +90,10 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
 
         ButterKnife.bind(this);
+
         pb.setVisibility(View.VISIBLE);
+
+        initGeolocationProcess();
 
 /*        try {
             int gpsSignal = Settings.Secure.getInt(getContentResolver(), Settings.Secure.LOCATION_MODE);
@@ -103,6 +109,44 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+    }
+
+
+    private void showRequestEnableLocation() {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle(R.string.access_location);
+        mBuilder.setMessage(R.string.request_enable_location);
+        mBuilder.setPositiveButton(R.string.go_to_granted_permission_location, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestEnableLocation();
+            }
+        });
+        mBuilder.setNegativeButton(R.string.close_map, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                goToRefPosition();
+            }
+        });
+        mBuilder.show();
+    }
+
+    private void requestEnableLocation() {
+        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(intent);
+        locationEnableRequested = true;
+    }
+
+    private void requestPermissionAccessLocation(){
+        ActivityCompat.requestPermissions(this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
+        permissionAccessRequested = true;
+    }
+
+    private boolean isGrantedPermissionAccessLocation() {
+        return !(ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED);
     }
 
     @OnClick(R.id.btn_set_current_position)
@@ -136,14 +180,26 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
             @Override
             public void onMarkerDragEnd(Marker marker) {
-                    double lat = marker.getPosition().latitude;
-                    double lng = marker.getPosition().longitude;
-                    setCurrentPositionMap(lat, lng);
+                double lat = marker.getPosition().latitude;
+                double lng = marker.getPosition().longitude;
+                setCurrentPositionMap(lat, lng);
             }
         });
     }
 
-    private void getGeolocation(double lat, double lng){
+    private void initGeolocationProcess(){
+        if(!isLocationEnabled()){
+            showRequestEnableLocation();
+        }else{
+            if (!isGrantedPermissionAccessLocation()){
+                requestPermissionAccessLocation();
+            }else {
+                getCoordsCurrentPosition();
+            }
+        }
+    }
+
+    private void getGeolocation(double lat, double lng) {
         try {
             Geocoder mGeocoder;
             mGeocoder = new Geocoder(this, Locale.getDefault());
@@ -160,8 +216,8 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         refPositionBO.setCity(mAddress.get(0).getLocality());
         refPositionBO.setAdminArea(mAddress.get(0).getAdminArea());
         refPositionBO.setPostalCode(mAddress.get(0).getPostalCode());
+        refPositionBO.setCountry(mAddress.get(0).getCountryName());
     }
-
 
     @Override
     public void setRefPosition(RefPositionBO refPositionBO, boolean isChanged) {
@@ -190,7 +246,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
     private void setMarkerMap(double lat, double lng) {
         LatLng currentPosition = new LatLng(lat, lng);
-        if (mMarker == null){
+        if (mMarker == null) {
             MarkerOptions mMarkerOptions = new MarkerOptions();
             mMarkerOptions
                     .position(currentPosition)
@@ -199,7 +255,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
                     .title(getString(R.string.current_position))
                     .snippet(refPositionBO.getAddress());
             mMarker = mMap.addMarker(mMarkerOptions);
-        }else{
+        } else {
             mMarker.setPosition(currentPosition);
             mMarker.setSnippet(refPositionBO.getAddress());
         }
@@ -211,38 +267,44 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
                 mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    public void getCoordsCurrentPosition() {
-
-        if(isLocationEnabled()){
-            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                ActivityCompat.requestPermissions(this,
-                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_FINE_LOCATION);
-            } else{
-                mFusedLocationClient.getLastLocation()
-                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                            @Override
-                            public void onSuccess(Location location) {
-                                if (location != null) {
-                                    setCurrentPositionMap(location.getLatitude(), location.getLongitude());
-                                }
-                            }
-                        });
-            }
-        } else {
-            Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-            startActivity(intent);
-        }
-
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
+    private void showRequestEnableLocationDenied() {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle(R.string.denied_enable_location);
+        mBuilder.setMessage(R.string.request_location_denied);
+        mBuilder.setPositiveButton(R.string.go_to_granted_permission_location, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                requestEnableLocation();
+            }
+        });
+        mBuilder.setNegativeButton(R.string.close_map, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                goToRefPosition();
+            }
+        });
+        mBuilder.show();
+    }
 
+    public void getCoordsCurrentPosition() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
+        mFusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        if (location != null) {
+                            setCurrentPositionMap(location.getLatitude(), location.getLongitude());
+                        }
+                    }
+                });
 
     }
 
@@ -252,7 +314,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         switch (requestCode){
             case REQUEST_FINE_LOCATION:
                 if(grantResults[0] == PERMISISION_FINE_LOCATION_DENIED){
-                    showPermissionFineLocatoinDeniedDialog();
+                    showPermissionFineLocationDeniedDialog();
                 }else{
                     getCoordsCurrentPosition();
                 }
@@ -262,18 +324,18 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         }
     }
 
-    public void showPermissionFineLocatoinDeniedDialog() {
+    public void showPermissionFineLocationDeniedDialog() {
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle(R.string.denid_permission_location);
-        mBuilder.setMessage(R.string.request_permission_location);
+        mBuilder.setTitle(R.string.denied_permission_access_location);
+        mBuilder.setMessage(R.string.request_permission_access_location);
         mBuilder.setPositiveButton(R.string.go_to_granted_permission_location, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                getCoordsCurrentPosition();
+                requestPermissionAccessLocation();
             }
         });
-        mBuilder.setNegativeButton(R.string.close_mapa, new DialogInterface.OnClickListener() {
+        mBuilder.setNegativeButton(R.string.close_map, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 goToRefPosition();
@@ -289,20 +351,15 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
     @Override
     public void onStart() {
         super.onStart();
-        getCoordsCurrentPosition();
-        mCurrentPositionMapPresenter.onStart();
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        mCurrentPositionMapPresenter.onStop();
-
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mCurrentPositionMapPresenter.onDestroy();
     }
 }

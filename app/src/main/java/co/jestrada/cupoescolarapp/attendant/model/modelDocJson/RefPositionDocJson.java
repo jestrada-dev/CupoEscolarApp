@@ -13,6 +13,7 @@ public class RefPositionDocJson {
     private String city;
     private String adminArea;
     private String postalCode;
+    private String country;
 
     public RefPositionDocJson() {
     }
@@ -27,6 +28,7 @@ public class RefPositionDocJson {
             this.city = refPositionBO.getCity();
             this.adminArea = refPositionBO.getAdminArea();
             this.postalCode = refPositionBO.getPostalCode();
+            this.country = refPositionBO.getCountry();
         }
     }
 
@@ -88,6 +90,14 @@ public class RefPositionDocJson {
 
     public String getPostalCode() {
         return postalCode;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public void setPostalCode(String postalCode) {

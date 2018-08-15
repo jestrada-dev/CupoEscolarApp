@@ -9,9 +9,10 @@ public class RefPositionBO {
     private double lat;
     private double lng;
     private String address;
+    private String postalCode;
     private String city;
     private String adminArea;
-    private String postalCode;
+    private String country;
 
     public RefPositionBO() {
     }
@@ -25,6 +26,7 @@ public class RefPositionBO {
         this.city = refPositionDocJson.getCity();
         this.adminArea = refPositionDocJson.getAdminArea();
         this.postalCode = refPositionDocJson.getPostalCode();
+        this.country = refPositionDocJson.getCountry();
     }
 
     public String getUserUid() {
@@ -81,6 +83,14 @@ public class RefPositionBO {
 
     public void setAdminArea(String adminArea) {
         this.adminArea = adminArea;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getPostalCode() {

@@ -212,11 +212,27 @@ public class RefPositionInteractor implements
                 if(task.isSuccessful()){
                     Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
                             " grabado exitosamente");
+                    saveRefPositionCountry(refPositionBO);
+                }
+            }
+        });
+    }
+
+    private void saveRefPositionCountry(final RefPositionBO refPositionBO) {
+        dbRefRefPositions.child(refPositionBO.getUserUid())
+                .child(Firebase.REF_POSITIONS_COUNTRY)
+                .setValue(refPositionBO.getCountry()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
+                            " grabado exitosamente");
                     notifyRefPositionChanges(refPositionBO, false);
                 }
             }
         });
     }
+
 
 }
 
