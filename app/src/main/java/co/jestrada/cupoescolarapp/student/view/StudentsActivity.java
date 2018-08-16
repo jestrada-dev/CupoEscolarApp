@@ -1,14 +1,13 @@
 package co.jestrada.cupoescolarapp.student.view;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 
 import java.util.ArrayList;
 
 import butterknife.ButterKnife;
 import co.jestrada.cupoescolarapp.R;
-import co.jestrada.cupoescolarapp.attendant.presenter.EditProfilePresenter;
 import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 import co.jestrada.cupoescolarapp.student.contract.IStudentContract;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
@@ -43,10 +42,16 @@ public class StudentsActivity extends BaseActivity implements
     private void setToolbar() {
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
+
             getSupportActionBar().setTitle(R.string.students);
             mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
             mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
-            //TODO Establecer el botón de atrás
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
         }
     }
 
@@ -62,7 +67,7 @@ public class StudentsActivity extends BaseActivity implements
 
     @Override
     public void setStudentsUI(ArrayList<StudentBO> studentBOS, boolean isChanged) {
-
+        showProgressBar(false);
     }
 
 }

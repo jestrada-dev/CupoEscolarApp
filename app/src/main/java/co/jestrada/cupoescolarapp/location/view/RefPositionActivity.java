@@ -3,6 +3,7 @@ package co.jestrada.cupoescolarapp.location.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -66,7 +67,12 @@ public class RefPositionActivity extends BaseActivity implements
             getSupportActionBar().setTitle(R.string.set_current_position);
             mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
             mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
-            //TODO Establecer el botón de atrás
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
         }
     }
 

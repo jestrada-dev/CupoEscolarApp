@@ -20,7 +20,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_vertical_double">
             <RelativeLayout
                 android:id="@+id/rl_inputs"
                 android:layout_width="match_parent"

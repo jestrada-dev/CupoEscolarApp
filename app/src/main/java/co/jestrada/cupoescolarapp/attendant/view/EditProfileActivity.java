@@ -7,6 +7,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -102,7 +103,12 @@ public class EditProfileActivity extends BaseActivity implements
             getSupportActionBar().setTitle(R.string.edit_profile);
             mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
             mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
-            //TODO Establecer el botón de atrás
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
         }
     }
 
@@ -305,7 +311,6 @@ public class EditProfileActivity extends BaseActivity implements
                     docIdTypeShortNameArrayList.add(docIdTypeBO.getShortName());
                 }
             }
-            Toast.makeText(this, R.string.doc_type_updated,Toast.LENGTH_LONG).show();
         }
     }
 

@@ -23,6 +23,7 @@ import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 import co.jestrada.cupoescolarapp.common.contract.IMainContract;
 import co.jestrada.cupoescolarapp.common.presenter.MainPresenter;
 import co.jestrada.cupoescolarapp.location.view.RefPositionActivity;
+import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.login.view.ConfigAccountActivity;
 import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 import co.jestrada.cupoescolarapp.social.view.SendSuggestionsActivity;
@@ -47,7 +48,6 @@ public class MainActivity extends BaseActivity implements
 
     private MainPresenter mMainPresenter;
 
-    private TextView tvAttendantName;
     private TextView tvAttendantEmail;
 
     @Override
@@ -58,6 +58,8 @@ public class MainActivity extends BaseActivity implements
         ButterKnife.bind(this);
 
         mMainPresenter = new MainPresenter(MainActivity.this);
+
+        mMainPresenter.getData();
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setToolbar();
@@ -71,7 +73,6 @@ public class MainActivity extends BaseActivity implements
 
         mNavigationView = (NavigationView) findViewById(R.id.left_nav_view);
         leftNavViewHeader = mNavigationView.getHeaderView(0);
-        tvAttendantName = (TextView) leftNavViewHeader.findViewById(R.id.tv_user_name);
         tvAttendantEmail = (TextView) leftNavViewHeader.findViewById(R.id.tv_user_email);
 
         mNavigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
@@ -152,38 +153,44 @@ public class MainActivity extends BaseActivity implements
         setTitleToolbar(getString(R.string.dashboard));
     }
 
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
+
     private void goToRefPosition() {
-        Intent intent = new Intent(MainActivity.this, RefPositionActivity.class);
+        Intent intent = new Intent(this, RefPositionActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToConfigAccount() {
-        Intent intent = new Intent(MainActivity.this, ConfigAccountActivity.class);
+        Intent intent = new Intent(this, ConfigAccountActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToSendSuggestions() {
-        Intent intent = new Intent(MainActivity.this, SendSuggestionsActivity.class);
+        Intent intent = new Intent(this, SendSuggestionsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToShareApp() {
-        Intent intent = new Intent(MainActivity.this, SocialActivity.class);
+        Intent intent = new Intent(this, SocialActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToEditProfile() {
-        Intent intent = new Intent(MainActivity.this, EditProfileActivity.class);
+        Intent intent = new Intent(this, EditProfileActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
 
     private void goToStudents() {
-        Intent intent = new Intent(MainActivity.this, StudentsActivity.class);
+        Intent intent = new Intent(this, StudentsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
@@ -236,36 +243,17 @@ public class MainActivity extends BaseActivity implements
 
     @Override
     public void goToLogin() {
-        Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         finish();
         startActivity(intent);
     }
 
     @Override
-    public void setNavViewUI(AttendantBO attendantBO, boolean isChanged) {
+    public void setNavViewUI(UserBO userBO, boolean isChanged) {
         if(isChanged){
-            tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
-            tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
+            tvAttendantEmail.setText((userBO.getEmail() != null) ? userBO.getEmail() : "");
         }
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        mMainPresenter.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        mMainPresenter.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mMainPresenter.onDestroy();
-    }
 }

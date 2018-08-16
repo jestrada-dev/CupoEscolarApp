@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationAvailability;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -30,7 +31,9 @@ import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 
 import java.io.IOException;
 import java.util.List;
@@ -93,7 +96,12 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
     private void initView() {
         ButterKnife.bind(this);
+        enableBtnSetCurrentPosition(false);
         pb.setVisibility(View.VISIBLE);
+    }
+
+    private void enableBtnSetCurrentPosition(boolean enable) {
+        btnSetCurrentPosition.setEnabled(enable);
     }
 
     @OnClick(R.id.btn_set_current_position)
@@ -191,7 +199,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
                 mLocationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    private void showRequestEnableLocationDenied() {
+/*    private void showRequestEnableLocationDenied() {
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
         mBuilder.setTitle(R.string.denied_enable_location);
@@ -209,7 +217,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
             }
         });
         mBuilder.show();
-    }
+    }*/
 
     public void getCoordsCurrentPosition() {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -221,6 +229,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
                     public void onSuccess(Location location) {
                         if (location != null) {
                             setCurrentPositionMap(location.getLatitude(), location.getLongitude());
+                            enableBtnSetCurrentPosition(true);
                         } else {
                             if (!isLocationEnabled()){
                                 showRequestEnableLocation();
@@ -369,4 +378,5 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
     public void onDestroy() {
         super.onDestroy();
     }
+
 }

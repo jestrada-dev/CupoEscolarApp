@@ -28,7 +28,8 @@ public class EditStudentPresenter extends BasePresenter implements
         this.mEditStudentView = (IEditStudentContract.IEditStudentView) mContext;
         this.mStudentInteractor = new StudentInteractor(
                 null,
-                this
+                this,
+                null
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();

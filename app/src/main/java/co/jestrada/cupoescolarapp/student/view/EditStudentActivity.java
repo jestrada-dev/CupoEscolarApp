@@ -3,6 +3,7 @@ package co.jestrada.cupoescolarapp.student.view;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -82,7 +83,12 @@ public class EditStudentActivity extends BaseActivity implements
             getSupportActionBar().setTitle(R.string.edit_student);
             mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
             mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
-            //TODO Establecer el botón de atrás
+            mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onBackPressed();
+                }
+            });
         }
     }
 

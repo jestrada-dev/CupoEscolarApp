@@ -51,7 +51,6 @@ ILoginContract.ILoginView{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        Log.d("LoginActivity","LoginActivity -> Cargando Login Activity");
 
         ButterKnife.bind(this);
 
@@ -146,8 +145,6 @@ ILoginContract.ILoginView{
 
     private void goToSignUpEmailPassword() {
         Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
-        Log.d("SignUpActivity","LoginActivity -> Iniciando SignUp Activity");
-
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
     }
@@ -191,26 +188,10 @@ ILoginContract.ILoginView{
 
     @Override
     public void goToMain() {
-        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-        Log.d("MainActivity","LoginActivity -> Iniciando Main Activity");
-
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         startActivity(intent);
         finish();
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

@@ -25,10 +25,8 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            Log.d("AuthListener","AppCore -> Se ejecutó el Listener.");
             userBOApp = UserBO.getInstance();
             if (firebaseUser != null) {
-                Log.d("AuthListener","AppCore -> Usuario conectado: " + firebaseUser.getEmail());
                 if (firebaseUser.isEmailVerified()){
                     if(!userBOApp.isOnSession()){
                         userBOApp.setOnSession(true);
@@ -36,23 +34,21 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
                     }
                 }
             } else {
-                Log.d("AppCore","AppCore -> Usuario desconectado");
                 userBOApp.setOnSession(false);
             }
+            startLogin();
         }
     };
 
     private void startLogin() {
-        Intent intent = new Intent(AppCore.this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        Log.d("LoginActivity","AppCore -> Iniciando Login Activity");
         startActivity(intent);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
-        startLogin();
 
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseAuth.addAuthStateListener(mAuthListener);

@@ -13,14 +13,13 @@ public interface IMainContract extends IBaseContract {
         void getRefPositionTransactionState(boolean successful);
         void getAttendantTransactionState(boolean successful);
         void goToLogin();
-        void setNavViewUI(AttendantBO attendantBO, boolean isChanged);
+        void setNavViewUI(UserBO userBO, boolean isChanged);
     }
 
     interface IMainPresenter{
         void signOut();
 
-
-        void getUser(UserBO userBO);
+        void getUser(UserBO userBO, boolean isChanged);
         void getAttendant(AttendantBO attendantBO, boolean isChanged);
         void getRefPosition(RefPositionBO refPositionBO, boolean isChanged);
         void getStudent(StudentBO studentBO, boolean isChanged);
@@ -29,9 +28,6 @@ public interface IMainContract extends IBaseContract {
         void getAttendantTransactionState(boolean successful);
         void getStudentTransactionState(boolean successful);
 
-        void onStart();
-        void onStop();
-        void onDestroy();
     }
 
 }

@@ -43,6 +43,8 @@ public class UserInteractor implements
 
     private UserBO userBOApp;
 
+    private boolean isChanged = false;
+
     public UserInteractor(@Nullable ILoginContract.ILoginPresenter mLoginPresenter,
                           @Nullable ISignUpContract.ISignUpPresenter mSignUpPresenter,
                           @Nullable IMainContract.IMainPresenter mMainPresenter) {
@@ -59,12 +61,10 @@ public class UserInteractor implements
             @Override
             public void onDataChange(DataSnapshot userDS) {
                 final UserDocJson userDocJson = userDS.getValue(UserDocJson.class);
-                Log.d("User","UserInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseUser.USERS + "/" + userUid);
 
                 dbRefUsers.child(userUid).child(ConstantsFirebaseUser.USER_LOGINS).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot loginMethodDS) {
-                        Log.d("User","UserInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseUser.USERS + "/" + ConstantsFirebaseUser.USER_LOGINS);
 
                         ArrayList<LoginMethodDocJson> loginMethodDocJsons = new ArrayList<>();
                         for( DataSnapshot loginMethodChildDS : loginMethodDS.getChildren()){
@@ -73,7 +73,7 @@ public class UserInteractor implements
                         }
                         userBOApp = UserBO.getInstance();
                         userBOApp.setValues(userDocJson, loginMethodDocJsons);
-                        notifyUserChanges();
+                        notifyUserChanges(true);
                     }
 
                     @Override
@@ -90,13 +90,13 @@ public class UserInteractor implements
         });
     }
 
-    private void notifyUserChanges() {
+    private void notifyUserChanges(boolean isChanged) {
         if(mLoginPresenter != null){
         }
         if(mSignUpPresenter != null){
         }
         if(mMainPresenter != null){
-            mMainPresenter.getUser(userBOApp);
+            mMainPresenter.getUser(userBOApp, isChanged);
         }
     }
 
@@ -113,7 +113,6 @@ public class UserInteractor implements
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Log.d("User","UserInteractor -> Usuario: email:" + userDocJson.getEmail() + " grabado exitosamente");
                     for (LoginMethodBO loginMethod : loginMethodBOS){
                         final LoginMethodDocJson loginMethodDocJson = new LoginMethodDocJson();
 
@@ -126,8 +125,7 @@ public class UserInteractor implements
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    Log.d("User","UserInteractor -> Usuario: email:" + userDocJson.getEmail() +
-                                            " LoginMethod: " + loginMethodDocJson.getLoginMethod() + " grabado exitosamente");
+
                                 }
                             }
                         });
@@ -151,8 +149,7 @@ public class UserInteractor implements
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Log.d("User","UserInteractor -> Usuario: email:" + userBOApp.getEmail() +
-                            " activado exitosamente");
+
 
                 }
             }
@@ -166,8 +163,7 @@ public class UserInteractor implements
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Log.d("User","UserInteractor -> Usuario: email:" + userBOApp.getEmail() +
-                            " LoginMethod: " + ConstantsFirebaseUser.USER_LOGIN_METHOD_EMAIL_PASSWORD + " grabado exitosamente");
+
 
                 }
             }
@@ -182,9 +178,7 @@ public class UserInteractor implements
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()){
-                    Log.d("User","UserInteractor -> Usuario: email:" + userBOApp.getEmail() +
-                            " LoginMethod: " + ConstantsFirebaseUser.USER_LOGIN_METHOD_EMAIL_PASSWORD + " fecha:" +
-                            strFecha + " grabado exitosamente");
+
                 }
             }
         });
