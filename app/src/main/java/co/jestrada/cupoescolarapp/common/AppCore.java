@@ -36,15 +36,8 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
             } else {
                 userBOApp.setOnSession(false);
             }
-            startLogin();
         }
     };
-
-    private void startLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(intent);
-    }
 
     @Override
     public void onCreate() {

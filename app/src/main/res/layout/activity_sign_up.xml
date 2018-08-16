@@ -56,12 +56,10 @@
                 android:id="@+id/til_email"
                 android:layout_width="0dp"
                 android:layout_weight="0.9"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_horizontal">
+                android:layout_height="wrap_content">
             <EditText
                 android:id="@+id/et_email"
                 android:layout_width="match_parent"
-                android:layout_weight="0.9"
                 android:layout_height="wrap_content"
                 style="@style/TextInputField"
                 android:inputType="textEmailAddress"

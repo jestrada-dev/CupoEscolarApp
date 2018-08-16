@@ -52,9 +52,13 @@ ILoginContract.ILoginView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        ButterKnife.bind(this);
-
         mLoginPresenter = new LoginPresenter(LoginActivity.this);
+
+        initView();
+    }
+
+    private void initView() {
+        ButterKnife.bind(this);
 
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override

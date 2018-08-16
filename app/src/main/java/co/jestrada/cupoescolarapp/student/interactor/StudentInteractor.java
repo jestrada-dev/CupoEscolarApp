@@ -131,18 +131,14 @@ public class StudentInteractor implements
             final DatabaseReference dbRefRefPositions = mFirebaseDB.getReference(ConstantsFirebaseRefPosition.REF_POSITIONS);
             final StudentDocJson studentDocJson = new StudentDocJson();
             studentDocJson.setValues(studentBO);
-            Log.d("RefPosition","RefPositionInteractor -> Usuario: " + studentDocJson.getAttendantUserUid());
             dbRefRefPositions.child(studentDocJson.getAttendantUserUid())
                     .setValue(studentBO).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     notifyStudentTransactionState(task.isSuccessful());
-                    Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + studentBO.getAttendantUserUid() +
-                            " grabado exitosamente");
+
                 }
             });
-        } else {
-            Log.d("RefPosition","RefPositionInteractor -> Usuario null");
         }
 
     }

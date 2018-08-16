@@ -45,9 +45,15 @@ public class SignUpActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        mSignUpPresenter = new SignUpPresenter(SignUpActivity.this);
+
+        initView();
+
+    }
+
+    private void initView() {
         ButterKnife.bind(this);
 
-        mSignUpPresenter = new SignUpPresenter(SignUpActivity.this);
         etEmail.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -60,6 +66,7 @@ public class SignUpActivity extends BaseActivity implements
                 tilEmail.setError("");
             }
         });
+
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -72,7 +79,6 @@ public class SignUpActivity extends BaseActivity implements
                 tilPassword.setError("");
             }
         });
-
     }
 
 
@@ -189,19 +195,4 @@ public class SignUpActivity extends BaseActivity implements
         }
     }
 
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-    }
 }

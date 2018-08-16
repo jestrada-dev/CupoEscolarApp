@@ -62,7 +62,7 @@ public class StudentsActivity extends BaseActivity implements
 
     @Override
     public void getStudentTransactionState(boolean successful) {
-
+        showProgressBar(false);
     }
 
     @Override
