@@ -42,4 +42,5 @@
     <dimen name="iv_avatar_width_and_height">90dp</dimen>
     <dimen name="margin_horizontal_middle">4dp</dimen>
     <dimen name="height_edit_profile_header_custom">150dp</dimen>
+    <dimen name="card_view_height">180dp</dimen>
 </resources>

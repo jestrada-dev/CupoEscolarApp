@@ -50,6 +50,11 @@ public class EditProfilePresenter extends BasePresenter implements
     }
 
     @Override
+    public void getAttendantTransactionState(boolean successful) {
+        mEditProfileView.getAttendantTransactionState(successful);
+    }
+
+    @Override
     public void getData() {
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null) {

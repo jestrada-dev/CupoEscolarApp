@@ -47,11 +47,6 @@ public class EditProfileActivity extends BaseActivity implements
     private ArrayList<String> docIdTypeArrayList;
     private ArrayList<String> docIdTypeShortNameArrayList;
 
-    @BindView(R.id.tv_attendant_email)
-    TextView tvAttendantEmail;
-    @BindView(R.id.tv_attendant_name)
-    TextView tvAttendantName;
-
     @BindView(R.id.btn_save)
     Button btnSave;
 
@@ -265,10 +260,16 @@ public class EditProfileActivity extends BaseActivity implements
     }
 
     @Override
+    public void getAttendantTransactionState(boolean successful) {
+        if(successful){
+            Toast.makeText(this, R.string.attendan_profile_updated,Toast.LENGTH_LONG).show();
+        }
+
+    }
+
+    @Override
     public void setAttendantUI(AttendantBO attendantBO, boolean isChanged) {
         if (isChanged){
-            tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
-            tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
             etDocIdType.setText((attendantBO.getDocIdType() != null) ? attendantBO.getDocIdType() : "");
             etDocId.setText((attendantBO.getDocId() != null) ? attendantBO.getDocId() : "");
             etFirstName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");
@@ -287,7 +288,6 @@ public class EditProfileActivity extends BaseActivity implements
             etAddress.setText((attendantBO.getAddress() != null) ? attendantBO.getAddress() : "");
             etLocalPhone.setText((attendantBO.getLocalPhone() != null) ? attendantBO.getLocalPhone() : "");
             etMobilPhone.setText((attendantBO.getMobilePhone() != null) ? attendantBO.getMobilePhone() : "");
-            Toast.makeText(this, R.string.attendan_profile_updated,Toast.LENGTH_LONG).show();
         }
         showProgressBar(false);
         enableFields(true);

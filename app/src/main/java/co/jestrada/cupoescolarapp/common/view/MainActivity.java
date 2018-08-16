@@ -14,7 +14,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import co.jestrada.cupoescolarapp.R;
@@ -43,8 +42,8 @@ public class MainActivity extends BaseActivity implements
 
     private EnrollsStudentsFragment mEnrollsStudentsFragment;
     private DashboardFragment mDashboardFragment;
-    private NotificationsFragment mNotificationsFragment;
-    private ClosestSchoolsFragment mClosestSchoolsFragment;
+    private ListSchoolFragment mListSchoolFragment;
+    private MapSchoolsFragment mMapSchoolsFragment;
 
     private MainPresenter mMainPresenter;
 
@@ -67,8 +66,8 @@ public class MainActivity extends BaseActivity implements
 
         mEnrollsStudentsFragment = new EnrollsStudentsFragment();
         mDashboardFragment = new DashboardFragment();
-        mNotificationsFragment = new NotificationsFragment();
-        mClosestSchoolsFragment = new ClosestSchoolsFragment();
+        mListSchoolFragment = new ListSchoolFragment();
+        mMapSchoolsFragment = new MapSchoolsFragment();
 
         mNavigationView = (NavigationView) findViewById(R.id.left_nav_view);
         leftNavViewHeader = mNavigationView.getHeaderView(0);
@@ -131,14 +130,14 @@ public class MainActivity extends BaseActivity implements
                         setTitleToolbar(getString(R.string.dashboard));
                         return true;
 
-                    case R.id.menu_nav_notifications:
-                        setFragment(mNotificationsFragment);
-                        setTitleToolbar(getString(R.string.notifications));
+                    case R.id.menu_nav_list_schools_closest:
+                        setFragment(mListSchoolFragment);
+                        setTitleToolbar(getString(R.string.list_closest_schools));
                         return true;
 
-                    case R.id.menu_nav_search_schools:
-                        setFragment(mClosestSchoolsFragment);
-                        setTitleToolbar(getString(R.string.closest_schools));
+                    case R.id.menu_nav_map_school_closest:
+                        setFragment(mMapSchoolsFragment);
+                        setTitleToolbar(getString(R.string.map_closest_schools));
                         return true;
 
                     default:
@@ -221,6 +220,11 @@ public class MainActivity extends BaseActivity implements
 
     public void signOut(){
         mMainPresenter.signOut();
+    }
+
+    @Override
+    public void getRefPositionTransactionState(boolean successful) {
+
     }
 
     @Override

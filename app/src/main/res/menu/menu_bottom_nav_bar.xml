@@ -2,23 +2,24 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_nav_enrolls"
-        android:icon="@drawable/ic_enrolls"
-        android:title=""/>
-
-    <item
         android:id="@+id/menu_nav_dashboard"
         android:icon="@drawable/ic_dashboard_black_24dp"
         android:title="" />
 
     <item
-        android:id="@+id/menu_nav_notifications"
-        android:icon="@drawable/ic_notifications"
+        android:id="@+id/menu_nav_list_schools_closest"
+        android:icon="@drawable/ic_list_scholl_bold_96"
         android:title="" />
 
     <item
-        android:id="@+id/menu_nav_search_schools"
-        android:icon="@drawable/ic_explore"
+        android:id="@+id/menu_nav_map_school_closest"
+        android:icon="@drawable/ic_map_school_bold_96"
         android:title="" />
+
+    <item
+        android:id="@+id/menu_nav_enrolls"
+        android:icon="@drawable/ic_enroll_student_bold_96"
+        android:title=""/>
+
 
 </menu>

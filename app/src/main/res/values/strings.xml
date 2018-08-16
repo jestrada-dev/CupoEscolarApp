@@ -78,7 +78,8 @@
     <string name="enroll_students">Estudiantes Inscritos</string>
     <string name="dashboard">Dashboard</string>
     <string name="notifications">Notificaciones</string>
-    <string name="closest_schools">Colegios más Cercanos</string>
+    <string name="list_closest_schools">Lista Colegios más Cercanos</string>
+    <string name="map_closest_schools">Mapa Colegios más Cercanos</string>
     <string name="doc_id">Documento No</string>
     <string name="address">Dirección</string>
     <string name="local_phone">Fijo Local</string>
@@ -129,6 +130,12 @@
     <string name="location_failed">Ubicación no disponible</string>
     <string name="location_failed_summary">El servicio de geolocalización no está disponible por el momento. Por favor intenta mas tarde.</string>
     <string name="edit_student">Editar Estudiante</string>
+    <string name="change_email_summary">Escribe tu nueva dirección de correo electrónico si deseas cambiarlo. Este proceso requiere dos pasos: Autenticar credenciales y confirmar el nuevo buzón de correo electrónico.</string>
+    <string name="change_password_summary">Escribe tu nueva contraseña si deseas cambiarla. Este proceso requiere Autenticar credenciales.</string>
+    <string name="change_email">Cambiar Email</string>
+    <string name="change_password">Cambiar Contraseña</string>
+    <string name="close_account">Cerrar Cuenta</string>
+    <string name="students">Estudiantes</string>
 
 
 </resources>
