@@ -37,7 +37,7 @@
                     android:contentDescription="@string/click_to_change_avatar"
                     android:layout_centerHorizontal="true"/>
                 <TextView
-                    android:id="@+id/tv_attendant_email"
+                    android:id="@+id/tv_user_email"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_vertical"
@@ -88,9 +88,6 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/TextInputField"
-                                android:longClickable="false"
-                                android:focusable="false"
-                                android:enabled="false"
                                 android:inputType="textEmailAddress"
                                 android:hint="@string/email"/>
                         </android.support.design.widget.TextInputLayout>
