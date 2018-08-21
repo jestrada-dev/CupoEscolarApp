@@ -13,7 +13,7 @@ public interface IConfigAccountContract {
 
         void setUserUI(UserBO userBO, boolean isChanged);
 
-        void validateCredentials(boolean isValidCredentials);
+        void validateCredentials(boolean isValidCredentials, String emailOrPassword);
         void changeEmail(boolean isSuccessful);
         void changePassword(boolean isSuccessful);
         void showDialogSendVerifyEmail();

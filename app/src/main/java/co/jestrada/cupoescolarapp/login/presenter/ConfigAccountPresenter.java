@@ -77,13 +77,7 @@ public class ConfigAccountPresenter extends BasePresenter implements
             mFirebaseUser.reauthenticate(authCredential).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    if(emailOrPassword.equals(ConstantsAccount.CHANGE_EMAIL)){
-                        mConfigAccountView.validateCredentials(task.isSuccessful());
-                    } else {
-                        if(task.isSuccessful()){
-                            changePassword(password);
-                        }
-                    }
+                    mConfigAccountView.validateCredentials(task.isSuccessful(), emailOrPassword);
                 }
             });
         }
@@ -114,4 +108,5 @@ public class ConfigAccountPresenter extends BasePresenter implements
             });
         }
     }
+
 }

@@ -20,13 +20,15 @@
     <color name="mColorBackground">#FFFFFF</color>
 
     <!--Color de fondo para el header de perfil-->
-    <color name="mColorBackgroundSection">#00BCD4</color>
+    <color name="mColorBackgroundSection">#FAFAFA</color>
 
     <!--Color para el borde de los inputs-->
     <color name="mColorBorder">#CFD8DC</color>
 
-    <!--Colores no utilizados-->
+    <!--Color del avatar sin foto, nombre y correo del perfil del usuario -->
     <color name="mColorSecondaryText">#757575</color>
+
+    <!--Colores no utilizados-->
     <color name="mColorHint">#B2EBF2</color>
     <color name="mColorIcons">#232F34</color>
     <color name="mColorNavIcon">#FFFFFF</color>

@@ -5,7 +5,6 @@
     android:id="@+id/left_nav_view_header"
     android:layout_width="match_parent"
     android:layout_height="@dimen/height_nav_view_header_custom"
-    android:layout_margin="@dimen/margin_vertical"
     android:clickable="true"
     android:focusable="true"
     app:cardBackgroundColor="@color/mColorBackgroundSection"
@@ -19,16 +18,26 @@
         android:scaleType="centerCrop"
         style="@style/ImageAvatar"
         android:contentDescription="@string/click_to_change_avatar"
-        android:src="@drawable/ic_account_circle"
+        android:src="@drawable/ic_avatar_bold_96"
+        android:layout_marginTop="@dimen/margin_vertical_cuadruple"
+        android:layout_gravity="start"/>
+    <TextView
+        android:id="@+id/tv_attendant_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_vertical_cuadruple"
+        android:layout_marginStart="@dimen/margin_horizontal_double"
+        android:layout_gravity="bottom"
+        style="@style/TextBodyInvert1"
+        android:text="@string/first_name"
         android:layout_centerHorizontal="true"/>
     <TextView
-        android:id="@+id/tv_user_email"
+        android:id="@+id/tv_attendant_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_vertical"
-        android:layout_marginEnd="@dimen/margin_vertical"
+        android:layout_marginStart="@dimen/margin_horizontal_double"
         android:layout_gravity="bottom"
-        android:gravity="end"
         style="@style/TextBodyInvert2"
         android:text="@string/email"
         android:layout_centerHorizontal="true"/>

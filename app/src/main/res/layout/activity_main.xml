@@ -28,8 +28,9 @@
             android:layout_height="@dimen/height_bottom_bar"
             android:layout_alignParentBottom="true"
             android:background="@android:color/white"
-            app:itemIconTint="@color/mColorBackgroundSection"
-            app:itemTextColor="@color/mColorBackgroundSection"
+            app:itemIconTint="@color/mColorSecondaryText"
+
+            app:itemTextColor="@color/mColorPrimaryLight"
             app:itemHorizontalTranslationEnabled="true"
             app:menu="@menu/menu_bottom_nav_bar" />
     </RelativeLayout>

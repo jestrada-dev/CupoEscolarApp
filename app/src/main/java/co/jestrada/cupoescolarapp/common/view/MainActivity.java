@@ -50,6 +50,7 @@ public class MainActivity extends BaseActivity implements
     private MainPresenter mMainPresenter;
 
     private TextView tvAttendantEmail;
+    private TextView tvAttendantName;
 
     private boolean closeOnBackPressed = false;
 
@@ -77,7 +78,8 @@ public class MainActivity extends BaseActivity implements
         mNavigationView = (NavigationView) findViewById(R.id.left_nav_view);
         mBottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_nav_bar);
         leftNavViewHeader = mNavigationView.getHeaderView(0);
-        tvAttendantEmail = (TextView) leftNavViewHeader.findViewById(R.id.tv_user_email);
+        tvAttendantEmail = (TextView) leftNavViewHeader.findViewById(R.id.tv_attendant_email);
+        tvAttendantName = (TextView) leftNavViewHeader.findViewById(R.id.tv_attendant_name);
 
         setToolbar();
 
@@ -184,6 +186,7 @@ public class MainActivity extends BaseActivity implements
     @Override
     public void setNavViewUI(UserBO userBO, boolean isChanged) {
         if(isChanged){
+            tvAttendantName.setText((userBO.getuId() != null) ? userBO.getuId() : "");
             tvAttendantEmail.setText((userBO.getEmail() != null) ? userBO.getEmail() : "");
         }
     }

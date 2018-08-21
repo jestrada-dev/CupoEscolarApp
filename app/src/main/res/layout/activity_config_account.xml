@@ -33,7 +33,7 @@
                     android:layout_height="@dimen/iv_avatar_width_and_height"
                     android:layout_marginTop="@dimen/margin_vertical"
                     style="@style/ImageAvatar"
-                    android:src="@drawable/ic_account_circle"
+                    android:src="@drawable/ic_avatar_bold_96"
                     android:contentDescription="@string/click_to_change_avatar"
                     android:layout_centerHorizontal="true"/>
                 <TextView
@@ -131,7 +131,7 @@
                             android:contentDescription="@string/address"
                             android:src="@drawable/ic_password_light_96"/>
                         <android.support.design.widget.TextInputLayout
-                            android:id="@+id/til_address"
+                            android:id="@+id/til_password"
                             android:layout_width="0dp"
                             android:layout_weight="0.9"
                             android:layout_height="wrap_content"

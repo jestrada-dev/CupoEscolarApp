@@ -1,10 +1,15 @@
 package co.jestrada.cupoescolarapp.login.view;
 
 import android.content.DialogInterface;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,11 +40,15 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
     @BindView(R.id.tv_user_email)
     TextView tvUserEmail;
 
+    @BindView(R.id.til_email)
+    TextInputLayout tilEmail;
     @BindView(R.id.et_email)
     EditText etEmail;
     @BindView(R.id.btn_change_email)
     Button btnChangeEmail;
 
+    @BindView(R.id.til_password)
+    TextInputLayout tilPassword;
     @BindView(R.id.et_password)
     EditText etPassword;
     @BindView(R.id.btn_change_password)
@@ -68,6 +77,33 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
 
     private void initView() {
         ButterKnife.bind(this);
+
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                tilEmail.setError("");
+            }
+        });
+        etPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+            @Override
+            public void afterTextChanged(Editable editable) {
+                tilPassword.setError("");
+            }
+        });
+
+
         setToolbar();
     }
 
@@ -111,59 +147,80 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
     }
 
     private void showDialogNewEmail() {
-        mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setCancelable(false);
-        mBuilder.setTitle("Cambiar tu Cuenta de Correo");
-        mBuilder.setMessage("Escribe tu contraseña para validar credenciales:");
-        final EditText etPass = new EditText(this);
-        etPass.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        etPass.setLayoutParams(layoutParams);
-        mBuilder.setView(etPass);
-        mBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String password = etPass.getText().toString();
-                mConfigAccountPresenter.validateCredentials(password, ConstantsAccount.CHANGE_EMAIL);
-            }
-        });
-        mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                getData();
-            }
-        });
-        mBuilder.show();
+        if(!isValidEmail(etEmail.getText().toString().trim())){
+            tilEmail.setError(getString(R.string.validate_input_email));
+            etEmail.requestFocus();
+        } else {
+            showProgressBar(true);
+            mBuilder = new AlertDialog.Builder(this);
+            mBuilder.setCancelable(false);
+            mBuilder.setTitle("Cambiar tu Cuenta de Correo");
+            mBuilder.setMessage("Escribe tu contraseña para validar credenciales:");
+            final EditText etPass = new EditText(this);
+            etPass.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            etPass.setLayoutParams(layoutParams);
+            mBuilder.setView(etPass);
+            mBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String password = etPass.getText().toString();
+                    mConfigAccountPresenter.validateCredentials(password, ConstantsAccount.CHANGE_EMAIL);
+                }
+            });
+            mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    getData();
+                }
+            });
+            mBuilder.show();
+
+        }
+    }
+
+    private boolean isValidEmail(String email){
+        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
+    }
+
+    private boolean isValidPassword(String password){
+        return password.length() >= 8;
     }
 
     private void showDialogNewPassword() {
-        mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setCancelable(false);
-        mBuilder.setTitle("Cambiar tu Contraseña");
-        mBuilder.setMessage("Escribe tu contraseña actual para validar credenciales:");
-        final EditText etPass = new EditText(this);
-        etPass.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT,
-                LinearLayout.LayoutParams.MATCH_PARENT);
-        etPass.setLayoutParams(layoutParams);
-        mBuilder.setView(etPass);
-        mBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                String password = etPass.getText().toString();
-                mConfigAccountPresenter.validateCredentials(password, ConstantsAccount.CHANGE_PASSWORD);
-            }
-        });
-        mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                getData();
-            }
-        });
-        mBuilder.show();
+        if(!isValidPassword(etPassword.getText().toString())){
+            tilPassword.setError(getString(R.string.validate_input_password));
+            etPassword.requestFocus();
+        } else {
+            showProgressBar(true);
+            mBuilder = new AlertDialog.Builder(this);
+            mBuilder.setCancelable(false);
+            mBuilder.setTitle("Cambiar tu Contraseña");
+            mBuilder.setMessage("Escribe tu contraseña actual para validar credenciales:");
+            final EditText etOldPassword = new EditText(this);
+            etOldPassword.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.MATCH_PARENT);
+            etOldPassword.setLayoutParams(layoutParams);
+            mBuilder.setView(etOldPassword);
+            mBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    String password = etOldPassword.getText().toString();
+                    mConfigAccountPresenter.validateCredentials(password, ConstantsAccount.CHANGE_PASSWORD);
+                }
+            });
+            mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            });
+            mBuilder.show();
+
+        }
     }
 
 
@@ -181,8 +238,45 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
     }
 
     @Override
-    public void validateCredentials(boolean isValidCredentials) {
-        showDialogSendVerifyEmail();
+    public void validateCredentials(boolean isValidCredentials, String emailOrPassword) {
+        if (emailOrPassword.equals(ConstantsAccount.CHANGE_EMAIL)){
+            if (isValidCredentials){
+                String email = etEmail.getText().toString().trim();
+                mConfigAccountPresenter.changeEmailAccount(email);
+            } else {
+                showProgressBar(false);
+                showDialogInvalidCredentials();
+            }
+        } else {
+            if (isValidCredentials){
+                String password = etPassword.getText().toString();
+                mConfigAccountPresenter.changePassword(password);
+            }  else {
+                showProgressBar(false);
+
+            }
+        }
+
+    }
+
+    private void showDialogInvalidCredentials() {
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle("Credenciales inválidas");
+        mBuilder.setMessage("Su contraseña es incorrecta. Favor validar e intentar nuevamente.");
+        final EditText etOldPassword = new EditText(this);
+        etOldPassword.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT);
+        etOldPassword.setLayoutParams(layoutParams);
+        mBuilder.setView(etOldPassword);
+        mBuilder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+            }
+        });
+        mBuilder.show();
     }
 
     @Override
@@ -192,7 +286,12 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
 
     @Override
     public void changePassword(boolean isSuccessful) {
-        showDialogPasswordChanged();
+        if (isSuccessful){
+            etPassword.setText("");
+            showProgressBar(false);
+            showDialogPasswordChanged();
+        }
+
     }
 
     private void showDialogPasswordChanged() {
@@ -210,6 +309,7 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
 
     @Override
     public void showDialogSendVerifyEmail() {
+        showProgressBar(false);
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
         mBuilder.setTitle("Confirma tu Nueva cuenta de correo");
@@ -217,6 +317,7 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
         mBuilder.setNeutralButton("OK! Voy a revisar mi correo", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
+
             }
         });
         mBuilder.show();
