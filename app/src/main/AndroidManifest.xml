@@ -15,10 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".login.view.LoginActivity" />
-        <activity android:name=".login.view.SignUpActivity" />
+        <activity android:name=".attendant.view.LoginActivity" />
+        <activity android:name=".attendant.view.SignUpActivity" />
         <activity
-            android:name=".login.view.SplashScreenActivity"
+            android:name=".common.view.SplashScreenActivity"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,7 +29,7 @@
         <activity android:name=".common.view.MainActivity" />
         <activity android:name=".student.view.StudentsActivity" />
         <activity android:name=".attendant.view.EditProfileActivity" />
-        <activity android:name=".login.view.ConfigAccountActivity" />
+        <activity android:name=".attendant.view.ConfigAccountActivity" />
         <activity android:name=".social.view.SocialActivity" />
         <activity android:name=".social.view.SendSuggestionsActivity" />
         <!--

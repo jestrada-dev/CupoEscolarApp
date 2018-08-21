@@ -1,9 +1,7 @@
-package co.jestrada.cupoescolarapp.login.contract;
+package co.jestrada.cupoescolarapp.attendant.contract;
 
-import com.google.firebase.auth.AuthCredential;
-
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public interface IConfigAccountContract {
 
@@ -11,7 +9,7 @@ public interface IConfigAccountContract {
 
         void getUserTransactionState(boolean successful);
 
-        void setUserUI(UserBO userBO, boolean isChanged);
+        void setUserUI(boolean isChanged);
 
         void validateCredentials(boolean isValidCredentials, String emailOrPassword);
         void changeEmail(boolean isSuccessful);

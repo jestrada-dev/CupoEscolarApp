@@ -1,9 +1,8 @@
-package co.jestrada.cupoescolarapp.login.view;
+package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.content.DialogInterface;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
@@ -16,19 +15,15 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.EmailAuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.base.view.BaseActivity;
-import co.jestrada.cupoescolarapp.login.constants.ConstantsAccount;
-import co.jestrada.cupoescolarapp.login.contract.IConfigAccountContract;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.login.presenter.ConfigAccountPresenter;
+import co.jestrada.cupoescolarapp.attendant.constant.ConstantsAccount;
+import co.jestrada.cupoescolarapp.attendant.contract.IConfigAccountContract;
+import co.jestrada.cupoescolarapp.attendant.presenter.ConfigAccountPresenter;
 
 import static android.text.InputType.TYPE_CLASS_TEXT;
 import static android.text.InputType.TYPE_TEXT_VARIATION_PASSWORD;
@@ -230,11 +225,12 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
     }
 
     @Override
-    public void setUserUI(UserBO userBO, boolean isChanged) {
+    public void setUserUI( boolean isChanged) {
         showProgressBar(false);
         enableInputs(true);
-        tvUserEmail.setText((userBO.getEmail() != null) ? userBO.getEmail() : "");
-        etEmail.setText((userBO.getEmail() != null) ? userBO.getEmail() : "");
+        AttendantBO attendantBO = AttendantBO.getInstance();
+        tvUserEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
+        etEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
     }
 
     @Override

@@ -6,6 +6,6 @@ import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
 public interface IAppCoreContract extends IBaseContract {
 
     interface IAppCore extends IBaseContract.IBaseInteractor{
-        void getAttendant(AttendantBO attendantBO, boolean isChanged);
+
     }
 }

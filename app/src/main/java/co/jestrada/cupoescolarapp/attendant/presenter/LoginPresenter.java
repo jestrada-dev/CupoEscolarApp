@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.presenter;
+package co.jestrada.cupoescolarapp.attendant.presenter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -14,29 +14,22 @@ import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
-import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
-import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
+import co.jestrada.cupoescolarapp.attendant.contract.ILoginContract;
+import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 
 public class LoginPresenter extends BasePresenter implements
         ILoginContract.ILoginPresenter {
 
     private Context mContext;
     private ILoginContract.ILoginView mLoginView;
-    private UserInteractor mUserInteractor;
     private AttendantInteractor mAttendantInteractor;
     private FirebaseAuth mFirebaseAuth;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public LoginPresenter(final Context mContext) {
         this.mContext = mContext;
         this.mLoginView = (ILoginContract.ILoginView) mContext;
-        this.mUserInteractor = new UserInteractor(
-                this,
-                null,
-                null);
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
                 this,
@@ -47,8 +40,8 @@ public class LoginPresenter extends BasePresenter implements
         );
         this.mFirebaseAuth = FirebaseAuth.getInstance();
 
-        userBOApp = UserBO.getInstance();
-        if (userBOApp.isOnSession()){
+        attendantBO = AttendantBO.getInstance();
+        if (attendantBO.isOnSession()){
             mLoginView.goToMain();
         }
     }
@@ -64,8 +57,8 @@ public class LoginPresenter extends BasePresenter implements
                             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                             if(mFirebaseUser != null){
                                 if(mFirebaseUser.isEmailVerified()){
-                                    userBOApp = UserBO.getInstance();
-                                    userBOApp.setuId(mFirebaseUser.getUid());
+                                    attendantBO = AttendantBO.getInstance();
+                                    attendantBO.setUserUid(mFirebaseUser.getUid());
                                     validatedUserState();
                                     login();
                                 } else {
@@ -90,16 +83,16 @@ public class LoginPresenter extends BasePresenter implements
     }
 
     private void login() {
-        userBOApp = UserBO.getInstance();
-        userBOApp.setOnSession(true);
+        attendantBO = AttendantBO.getInstance();
+        attendantBO.setOnSession(true);
         mLoginView.goToMain();
     }
 
     private void validatedUserState() {
-        userBOApp = UserBO.getInstance();
-        if ( (userBOApp.getState() != null) &&
-                (userBOApp.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
-            mUserInteractor.activateUser();
+        attendantBO = AttendantBO.getInstance();
+        if ( (attendantBO.getState() != null) &&
+                (attendantBO.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
+            mAttendantInteractor.activateUser();
             saveAttendant();
         }
     }
@@ -107,10 +100,10 @@ public class LoginPresenter extends BasePresenter implements
     private void saveAttendant() {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null){
-            AttendantBO attendantBO = new AttendantBO();
+            attendantBO = AttendantBO.getInstance();
             attendantBO.setUserUid(mFirebaseUser.getUid());
             attendantBO.setEmail(mFirebaseUser.getEmail());
-            mAttendantInteractor.saveAttendant(attendantBO);
+            mAttendantInteractor.saveAttendant();
         }
     }
 

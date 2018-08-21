@@ -1,9 +1,7 @@
 package co.jestrada.cupoescolarapp.common;
 
 import android.app.Application;
-import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -11,12 +9,10 @@ import com.google.firebase.auth.FirebaseUser;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.common.contract.IAppCoreContract;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.login.view.LoginActivity;
 
 public class AppCore extends Application implements IAppCoreContract.IAppCore{
 
-    UserBO userBOApp;
+    AttendantBO attendantBO;
 
     private AttendantInteractor mAttendantInteractor;
 
@@ -25,16 +21,16 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
         @Override
         public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
             FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-            userBOApp = UserBO.getInstance();
+            attendantBO = AttendantBO.getInstance();
             if (firebaseUser != null) {
                 if (firebaseUser.isEmailVerified()){
-                    if(!userBOApp.isOnSession()){
-                        userBOApp.setOnSession(true);
+                    if(!attendantBO.isOnSession()){
+                        attendantBO.setOnSession(true);
                         mAttendantInteractor.getAttendant(firebaseUser.getUid());
                     }
                 }
             } else {
-                userBOApp.setOnSession(false);
+                attendantBO.setOnSession(false);
             }
         }
     };
@@ -55,11 +51,5 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
                 null);
     }
 
-    @Override
-    public void getAttendant(AttendantBO attendantBO, boolean isChanged) {
-        if(isChanged) {
-            userBOApp.setValues(attendantBO);
-        }
-    }
 
 }

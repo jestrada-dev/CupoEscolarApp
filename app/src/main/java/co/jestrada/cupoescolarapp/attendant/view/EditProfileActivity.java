@@ -218,7 +218,7 @@ public class EditProfileActivity extends BaseActivity implements
     }
 
     private void saveAttendant() {
-        AttendantBO attendantBO = new AttendantBO();
+        AttendantBO attendantBO = AttendantBO.getInstance();
         attendantBO.setDocIdType(etDocIdType.getText() != null ? etDocIdType.getText().toString() : "");
         attendantBO.setDocId(etDocId.getText() != null ? etDocId.getText().toString() : "");
         attendantBO.setFirstName(etFirstName.getText() != null ? etFirstName.getText().toString() : "");
@@ -234,7 +234,7 @@ public class EditProfileActivity extends BaseActivity implements
         attendantBO.setAddress(etAddress.getText() != null ? etAddress.getText().toString() : "");
         attendantBO.setLocalPhone(etLocalPhone.getText() != null ? etLocalPhone.getText().toString() : "");
         attendantBO.setMobilePhone(etMobilPhone.getText() != null ? etMobilPhone.getText().toString() : "");
-        mEditProfilePresenter.saveAttendant(attendantBO);
+        mEditProfilePresenter.saveAttendant();
     }
 
     void enableFields(boolean enable){
@@ -274,8 +274,9 @@ public class EditProfileActivity extends BaseActivity implements
     }
 
     @Override
-    public void setAttendantUI(AttendantBO attendantBO, boolean isChanged) {
+    public void setAttendantUI(boolean isChanged) {
         if (isChanged){
+            AttendantBO attendantBO = AttendantBO.getInstance();
             etDocIdType.setText((attendantBO.getDocIdType() != null) ? attendantBO.getDocIdType() : "");
             etDocId.setText((attendantBO.getDocId() != null) ? attendantBO.getDocId() : "");
             etFirstName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() : "");

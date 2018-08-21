@@ -12,7 +12,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,9 +23,8 @@ import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 import co.jestrada.cupoescolarapp.common.contract.IMainContract;
 import co.jestrada.cupoescolarapp.common.presenter.MainPresenter;
 import co.jestrada.cupoescolarapp.location.view.RefPositionActivity;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.login.view.ConfigAccountActivity;
-import co.jestrada.cupoescolarapp.login.view.LoginActivity;
+import co.jestrada.cupoescolarapp.attendant.view.ConfigAccountActivity;
+import co.jestrada.cupoescolarapp.attendant.view.LoginActivity;
 import co.jestrada.cupoescolarapp.social.view.SendSuggestionsActivity;
 import co.jestrada.cupoescolarapp.social.view.SocialActivity;
 import co.jestrada.cupoescolarapp.student.view.StudentsActivity;
@@ -184,10 +182,11 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
-    public void setNavViewUI(UserBO userBO, boolean isChanged) {
+    public void setNavViewUI(boolean isChanged) {
         if(isChanged){
-            tvAttendantName.setText((userBO.getuId() != null) ? userBO.getuId() : "");
-            tvAttendantEmail.setText((userBO.getEmail() != null) ? userBO.getEmail() : "");
+            AttendantBO attendantBO = AttendantBO.getInstance();
+            tvAttendantName.setText((attendantBO.getUserUid() != null) ? attendantBO.getUserUid() : "");
+            tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
         }
     }
 

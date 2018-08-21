@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.presenter;
+package co.jestrada.cupoescolarapp.attendant.presenter;
 
 import android.app.Activity;
 import android.content.Context;
@@ -9,10 +9,7 @@ import android.text.format.DateFormat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.EmailAuthCredential;
-import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -21,14 +18,11 @@ import java.util.Date;
 
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.common.constant.CustomDateUtils;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
-import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
-import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
-import co.jestrada.cupoescolarapp.login.model.bo.LoginMethodBO;
-import co.jestrada.cupoescolarapp.login.model.enums.LoginMethodEnum;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
+import co.jestrada.cupoescolarapp.attendant.contract.ISignUpContract;
+import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 
 public class SignUpPresenter extends BasePresenter implements
         ISignUpContract.ISignUpPresenter{
@@ -36,19 +30,15 @@ public class SignUpPresenter extends BasePresenter implements
     private Context mContext;
     private ISignUpContract.ISignUpView mSignUpView;
     private FirebaseAuth mFirebaseAuth;
-    private UserInteractor mUserInteractor;
     private AttendantInteractor mAttendantInteractor;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public SignUpPresenter(final Context mContext) {
         this.mContext = mContext;
         this.mSignUpView = (ISignUpContract.ISignUpView) mContext;
         this.mFirebaseAuth = FirebaseAuth.getInstance();
-        this.mUserInteractor = new UserInteractor(
-                null,
-                this,
-                null);
+
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
                 null,
@@ -127,23 +117,11 @@ public class SignUpPresenter extends BasePresenter implements
     private void saveUser() {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null){
-            userBOApp = UserBO.getInstance();
-            userBOApp.setuId(mFirebaseUser.getUid());
-            userBOApp.setEmail(mFirebaseUser.getEmail());
-            userBOApp.setState(StateUserEnum.NOT_VERIFY_EMAIL);
-            ArrayList<LoginMethodBO> loginMethodBOS = new ArrayList<>();
-            LoginMethodBO loginMethodBO = new LoginMethodBO();
-            long longFecha = mFirebaseUser.getMetadata().getCreationTimestamp();
-            String strFecha = DateFormat.format(CustomDateUtils.LONG_DATE, new Date(longFecha)).toString();
-            loginMethodBO.setCreationTimestamp(strFecha);
-            loginMethodBO.setActivateTimestamp("");
-            loginMethodBO.setLoginMethod(LoginMethodEnum.EMAIL_AND_PASSWORD);
-            loginMethodBO.setEmail(mFirebaseUser.getEmail());
-            loginMethodBO.setState(StateUserEnum.NOT_VERIFY_EMAIL);
-            loginMethodBOS.add(loginMethodBO);
-
-            userBOApp.setLogins(loginMethodBOS);
-            mUserInteractor.saveUser(userBOApp);
+            attendantBO = AttendantBO.getInstance();
+            attendantBO.setUserUid(mFirebaseUser.getUid());
+            attendantBO.setEmail(mFirebaseUser.getEmail());
+            attendantBO.setState(StateUserEnum.NOT_VERIFY_EMAIL);
+            mAttendantInteractor.saveAttendant();
         }
     }
 

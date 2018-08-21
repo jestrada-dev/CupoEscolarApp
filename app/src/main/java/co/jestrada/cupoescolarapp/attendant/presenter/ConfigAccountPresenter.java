@@ -1,27 +1,18 @@
-package co.jestrada.cupoescolarapp.login.presenter;
+package co.jestrada.cupoescolarapp.attendant.presenter;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
-import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.EmailAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import co.jestrada.cupoescolarapp.R;
-import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.constants.ConstantsAccount;
-import co.jestrada.cupoescolarapp.login.contract.IConfigAccountContract;
-import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
-import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.login.model.enums.StateUserEnum;
+import co.jestrada.cupoescolarapp.attendant.contract.IConfigAccountContract;
 
 public class ConfigAccountPresenter extends BasePresenter implements
         IConfigAccountContract.IConfigAccountPresenter {
@@ -32,7 +23,7 @@ public class ConfigAccountPresenter extends BasePresenter implements
     private FirebaseAuth mFirebaseAuth;
     private FirebaseUser mFirebaseUser;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public ConfigAccountPresenter(final Context mContext) {
         this.mContext = mContext;
@@ -41,7 +32,7 @@ public class ConfigAccountPresenter extends BasePresenter implements
         this.mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseUser = mFirebaseAuth.getCurrentUser();
 
-        userBOApp = UserBO.getInstance();
+        attendantBO = AttendantBO.getInstance();
     }
 
 
@@ -67,7 +58,7 @@ public class ConfigAccountPresenter extends BasePresenter implements
 
     @Override
     public void getData() {
-        mConfigAccountView.setUserUI(userBOApp,true);
+        mConfigAccountView.setUserUI(true);
     }
 
     @Override

@@ -1,8 +1,10 @@
-package co.jestrada.cupoescolarapp.login.view;
+package co.jestrada.cupoescolarapp.common.view;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import co.jestrada.cupoescolarapp.attendant.view.LoginActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 

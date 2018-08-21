@@ -1,11 +1,20 @@
 package co.jestrada.cupoescolarapp.attendant.model.bo;
 
+import java.util.List;
+
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
+import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.StudentDocJson;
+import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 
 public class AttendantBO {
 
+    private static volatile AttendantBO attendantBOModelInstance = new AttendantBO();
+
     private String userUid;
+    private String photoURL;
+    private StateUserEnum state;
+    private boolean onSession;
     private String docId;
     private String docIdType;
     private String lastName;
@@ -16,13 +25,29 @@ public class AttendantBO {
     private String email;
     private String localPhone;
     private String mobilePhone;
+    private List<String> students;
 
-    public AttendantBO() {
+    private AttendantBO() {
+        if(attendantBOModelInstance != null){
+            throw new RuntimeException("Use getInstance() method to get the single instance of this class.");
+        }
+    }
+
+    public static AttendantBO getInstance(){
+        if (attendantBOModelInstance == null){
+            synchronized (AttendantBO.class) {
+                if (attendantBOModelInstance == null){
+                    attendantBOModelInstance = new AttendantBO();
+                }
+            }
+        }
+        return attendantBOModelInstance;
     }
 
     public void setValues(AttendantDocJson attendantDocJson){
         if (attendantDocJson != null){
             this.userUid = attendantDocJson.getUserUid();
+            this.state = attendantDocJson.getState();
             this.docId = attendantDocJson.getDocId();
             this.docIdType = attendantDocJson.getDocIdType();
             this.lastName = attendantDocJson.getLastName();
@@ -34,7 +59,10 @@ public class AttendantBO {
             this.localPhone = attendantDocJson.getLocalPhone();
             this.mobilePhone = attendantDocJson.getMobilePhone();
         }
+    }
 
+    public void addStudent(StudentDocJson studentDocJson){
+        this.students.add(studentDocJson.getDocIdStudent());
     }
 
     public String getUserUid() {
@@ -43,6 +71,30 @@ public class AttendantBO {
 
     public void setUserUid(String userUid) {
         this.userUid = userUid;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
+    public StateUserEnum getState() {
+        return state;
+    }
+
+    public void setState(StateUserEnum state) {
+        this.state = state;
+    }
+
+    public boolean isOnSession() {
+        return onSession;
+    }
+
+    public void setOnSession(boolean onSession) {
+        this.onSession = onSession;
     }
 
     public String getDocId() {
@@ -123,5 +175,13 @@ public class AttendantBO {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
+    }
+
+    public List<String> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<String> students) {
+        this.students = students;
     }
 }

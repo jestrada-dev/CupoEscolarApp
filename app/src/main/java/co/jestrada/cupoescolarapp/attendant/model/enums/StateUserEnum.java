@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.model.enums;
+package co.jestrada.cupoescolarapp.attendant.model.enums;
 
 public enum StateUserEnum {
 

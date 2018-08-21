@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.constants;
+package co.jestrada.cupoescolarapp.attendant.constant;
 
 public class ConstantsAccount {
 

@@ -10,8 +10,6 @@ import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.location.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.common.contract.IMainContract;
-import co.jestrada.cupoescolarapp.login.interactor.UserInteractor;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
 
 public class MainPresenter extends BasePresenter implements
@@ -20,19 +18,14 @@ public class MainPresenter extends BasePresenter implements
     private IMainContract.IMainView mMainView;
     private Context mContext;
 
-    private UserInteractor mUserInteractor;
     private AttendantInteractor mAttendantInteractor;
 
     private FirebaseAuth mFirebaseAuth;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public MainPresenter(final Context mContext) {
         this.mMainView = (IMainContract.IMainView) mContext;
-        this.mUserInteractor = new UserInteractor(
-                null,
-                null,
-                this);
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
                 null,
@@ -47,32 +40,32 @@ public class MainPresenter extends BasePresenter implements
 
 
     public void getData(){
-        userBOApp = UserBO.getInstance();
-        if (!userBOApp.isOnSession()){
+        attendantBO = attendantBO.getInstance();
+        if (!attendantBO.isOnSession()){
             signOut();
         } else {
             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
             if (mFirebaseUser != null){
-                mUserInteractor.getUser(mFirebaseUser.getUid());
+                mAttendantInteractor.getAttendant(mFirebaseUser.getUid());
             }
         }
     }
 
     @Override
     public void signOut() {
-        userBOApp = UserBO.getInstance();
-        userBOApp.setOnSession(false);
+        attendantBO = AttendantBO.getInstance();
+        attendantBO.setOnSession(false);
         mFirebaseAuth.signOut();
         mMainView.goToLogin();
     }
 
     @Override
-    public void getUser(UserBO userBO, boolean isChanged) {
-        mMainView.setNavViewUI(userBO, isChanged);
+    public void getUser(boolean isChanged) {
+        mMainView.setNavViewUI(isChanged);
     }
 
     @Override
-    public void getAttendant(AttendantBO attendantBO, boolean isChanged) {
+    public void getAttendant(boolean isChanged) {
 
     }
 

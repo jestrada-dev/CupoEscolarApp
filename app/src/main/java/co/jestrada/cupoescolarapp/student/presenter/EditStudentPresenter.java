@@ -5,8 +5,8 @@ import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 import co.jestrada.cupoescolarapp.student.contract.IEditStudentContract;
 import co.jestrada.cupoescolarapp.student.interactor.StudentInteractor;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
@@ -22,7 +22,7 @@ public class EditStudentPresenter extends BasePresenter implements
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public EditStudentPresenter(final Context mContext) {
         this.mEditStudentView = (IEditStudentContract.IEditStudentView) mContext;
@@ -33,7 +33,7 @@ public class EditStudentPresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        userBOApp = UserBO.getInstance();
+        attendantBO = AttendantBO.getInstance();
     }
 
     @Override
@@ -54,9 +54,9 @@ public class EditStudentPresenter extends BasePresenter implements
     @Override
     public void saveStudent(StudentBO studentBO) {
         if(studentBO.getAttendantUserUid() == null){
-            userBOApp = UserBO.getInstance();
-            if (userBOApp != null){
-                studentBO.setAttendantUserUid(userBOApp.getuId());
+            attendantBO = AttendantBO.getInstance();
+            if (attendantBO != null){
+                studentBO.setAttendantUserUid(attendantBO.getUserUid());
             }
         }
         mStudentInteractor.saveStudent(studentBO);

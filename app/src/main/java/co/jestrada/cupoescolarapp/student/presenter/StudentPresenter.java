@@ -7,9 +7,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
-import co.jestrada.cupoescolarapp.student.contract.IEditStudentContract;
 import co.jestrada.cupoescolarapp.student.contract.IStudentContract;
 import co.jestrada.cupoescolarapp.student.interactor.StudentInteractor;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
@@ -25,7 +24,7 @@ public class StudentPresenter extends BasePresenter implements
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public StudentPresenter(final Context mContext) {
         this.mStudentView = (IStudentContract.IStudentView) mContext;
@@ -36,7 +35,7 @@ public class StudentPresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        userBOApp = UserBO.getInstance();
+        attendantBO = AttendantBO.getInstance();
     }
 
     @Override
@@ -46,9 +45,9 @@ public class StudentPresenter extends BasePresenter implements
 
     @Override
     public void getData() {
-        userBOApp = UserBO.getInstance();
-        if (userBOApp.getuId() != null){
-            mStudentInteractor.getStudentsByAttendantUserUid(userBOApp.getuId());
+        attendantBO = AttendantBO.getInstance();
+        if (attendantBO.getUserUid() != null){
+            mStudentInteractor.getStudentsByAttendantUserUid(attendantBO.getUserUid());
         }
     }
 

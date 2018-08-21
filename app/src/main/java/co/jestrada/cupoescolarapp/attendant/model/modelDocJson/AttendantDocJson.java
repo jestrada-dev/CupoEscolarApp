@@ -2,10 +2,14 @@ package co.jestrada.cupoescolarapp.attendant.model.modelDocJson;
 
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
+import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 
 public class AttendantDocJson {
 
     private String userUid;
+    private String photoURL;
+    private StateUserEnum state;
+    private boolean onSession;
     private String docId;
     private String docIdType;
     private String lastName;
@@ -22,6 +26,7 @@ public class AttendantDocJson {
 
     public void setValues (AttendantBO attendantBO){
         this.userUid = attendantBO.getUserUid();
+        this.state = attendantBO.getState();
         this.docId = attendantBO.getDocId();
         this.docIdType = attendantBO.getDocIdType();
         this.lastName = attendantBO.getLastName();
@@ -120,5 +125,29 @@ public class AttendantDocJson {
 
     public void setMobilePhone(String mobilePhone) {
         this.mobilePhone = mobilePhone;
+    }
+
+    public String getPhotoURL() {
+        return photoURL;
+    }
+
+    public void setPhotoURL(String photoURL) {
+        this.photoURL = photoURL;
+    }
+
+    public StateUserEnum getState() {
+        return state;
+    }
+
+    public void setState(StateUserEnum state) {
+        this.state = state;
+    }
+
+    public boolean isOnSession() {
+        return onSession;
+    }
+
+    public void setOnSession(boolean onSession) {
+        this.onSession = onSession;
     }
 }

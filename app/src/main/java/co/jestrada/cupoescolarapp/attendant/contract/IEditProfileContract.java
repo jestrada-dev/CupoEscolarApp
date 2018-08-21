@@ -13,7 +13,7 @@ public interface IEditProfileContract extends IBaseContract {
 
         void getAttendantTransactionState(boolean successful);
 
-        void setAttendantUI(AttendantBO attendantBO, boolean isChanged);
+        void setAttendantUI(boolean isChanged);
         void setDocIdTypesList(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged);
     }
 
@@ -23,8 +23,8 @@ public interface IEditProfileContract extends IBaseContract {
 
         void getData();
 
-        void getAttendant(AttendantBO attendantBO, boolean isChanged);
-        void saveAttendant(AttendantBO attendantBO);
+        void getAttendant(boolean isChanged);
+        void saveAttendant();
         void getDocIdTypes(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged);
 
         void signOut();

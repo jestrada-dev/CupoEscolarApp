@@ -12,6 +12,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.location.contract.ICurrentPositionMapContract;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.common.contract.IMainContract;
@@ -20,8 +21,9 @@ import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
 import co.jestrada.cupoescolarapp.attendant.constant.ConstantsFirebaseAttendant;
 import co.jestrada.cupoescolarapp.common.contract.IAppCoreContract;
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
-import co.jestrada.cupoescolarapp.login.contract.ILoginContract;
-import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
+import co.jestrada.cupoescolarapp.attendant.constant.ConstantsFirebaseUser;
+import co.jestrada.cupoescolarapp.attendant.contract.ILoginContract;
+import co.jestrada.cupoescolarapp.attendant.contract.ISignUpContract;
 
 public class AttendantInteractor implements
         IBaseContract.IBaseInteractor{
@@ -35,6 +37,8 @@ public class AttendantInteractor implements
 
     private FirebaseDatabase mFirebaseDB;
     private DatabaseReference dbRefAttendants;
+
+    AttendantBO attendantBO;
 
     public AttendantInteractor(@Nullable IAppCoreContract.IAppCore mAppCore,
                                @Nullable ILoginContract.ILoginPresenter mLoginPresenter,
@@ -64,9 +68,9 @@ public class AttendantInteractor implements
                 Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseAttendant.ATTENDANTS + "/" + userUid);
 
                 if(attendantDocJson != null){
-                    AttendantBO attendantBO = new AttendantBO();
+                    attendantBO = AttendantBO.getInstance();
                     attendantBO.setValues(attendantDocJson);
-                    notifyAttandantChanges(attendantBO, true);
+                    notifyAttandantChanges(true);
                 }
             }
             @Override
@@ -77,15 +81,13 @@ public class AttendantInteractor implements
         });
     }
 
-    private void notifyAttandantChanges(AttendantBO attendantBO, boolean isChanged) {
-        if(mAppCore != null){
-            mAppCore.getAttendant(attendantBO, isChanged);
-        }
+    private void notifyAttandantChanges(boolean isChanged) {
+
         if(mMainPresenter != null){
-            mMainPresenter.getAttendant(attendantBO, isChanged);
+            mMainPresenter.getAttendant( isChanged);
         }
         if(mEditProfilePresenter != null){
-            mEditProfilePresenter.getAttendant(attendantBO, isChanged);
+            mEditProfilePresenter.getAttendant(isChanged);
         }
     }
 
@@ -99,7 +101,7 @@ public class AttendantInteractor implements
         }
     }
 
-    public void saveAttendant(final AttendantBO attendantBO) {
+    public void saveAttendant() {
         if(attendantBO.getUserUid() != null){
             final DatabaseReference dbRefAttendants = mFirebaseDB.getReference(ConstantsFirebaseAttendant.ATTENDANTS);
             final AttendantDocJson attendantDocJson = new AttendantDocJson();
@@ -112,7 +114,7 @@ public class AttendantInteractor implements
                     if(task.isSuccessful()){
                         Log.d("Attendant","AttendantInteractor -> Usuario: email:" + attendantBO.getEmail() +
                                 " grabado exitosamente");
-                        notifyAttandantChanges(attendantBO, false);
+                        notifyAttandantChanges( false);
                     }
                 }
             });
@@ -120,6 +122,37 @@ public class AttendantInteractor implements
             Log.d("Attendant","AttendantInteractor -> Usuario null");
         }
 
+    }
+
+    public void activateUser() {
+        attendantBO = AttendantBO.getInstance();
+
+        final DatabaseReference dbRefUsers = mFirebaseDB.getReference(ConstantsFirebaseUser.USERS);
+        dbRefUsers.child(attendantBO.getUserUid())
+                .child(ConstantsFirebaseUser.USER_FIELD_STATE)
+                .setValue(StateUserEnum.ACTIVE).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+
+
+                }
+            }
+        });
+
+/*        final String strFecha = DateFormat.format(CustomDateUtils.LONG_DATE, new Date()).toString();
+        dbRefUsers.child(attendantBO.getUserUid())
+                .child(ConstantsFirebaseUser.USER_LOGINS)
+                .child(ConstantsFirebaseUser.USER_LOGIN_METHOD_EMAIL_PASSWORD)
+                .child(ConstantsFirebaseUser.USER_FIELD_ACTIVATE_TIMESTAMP)
+                .setValue(strFecha).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+
+                }
+            }
+        });*/
     }
 
 }

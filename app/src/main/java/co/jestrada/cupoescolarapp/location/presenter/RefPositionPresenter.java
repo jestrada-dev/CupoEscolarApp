@@ -5,11 +5,11 @@ import android.content.Context;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.location.contract.IRefPositionContract;
 import co.jestrada.cupoescolarapp.location.interactor.RefPositionInteractor;
 import co.jestrada.cupoescolarapp.location.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public class RefPositionPresenter extends BasePresenter implements
         IRefPositionContract.IRefPositionPresenter{
@@ -22,7 +22,7 @@ public class RefPositionPresenter extends BasePresenter implements
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public RefPositionPresenter(final Context mContext) {
         this.mRefPositionView = (IRefPositionContract.IRefPositionView) mContext;
@@ -33,7 +33,7 @@ public class RefPositionPresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        userBOApp = UserBO.getInstance();
+        attendantBO = AttendantBO.getInstance();
     }
 
     @Override
@@ -57,18 +57,18 @@ public class RefPositionPresenter extends BasePresenter implements
 
     @Override
     public void saveRefPosition(RefPositionBO refPositionBO) {
-        userBOApp = UserBO.getInstance();
-        if (userBOApp != null){
-            refPositionBO.setUserUid(userBOApp.getuId());
+        attendantBO = AttendantBO.getInstance();
+        if (attendantBO != null){
+            refPositionBO.setUserUid(attendantBO.getUserUid());
             mRefPositionInteractor.saveRefPosition(refPositionBO);
         }
     }
 
     @Override
     public void saveDescriptionRefPosition(RefPositionBO refPositionBO) {
-        userBOApp = UserBO.getInstance();
-        if (userBOApp != null){
-            refPositionBO.setUserUid(userBOApp.getuId());
+        attendantBO = AttendantBO.getInstance();
+        if (attendantBO != null){
+            refPositionBO.setUserUid(attendantBO.getUserUid());
             mRefPositionInteractor.saveDescriptionRefPosition(refPositionBO);
         }
     }

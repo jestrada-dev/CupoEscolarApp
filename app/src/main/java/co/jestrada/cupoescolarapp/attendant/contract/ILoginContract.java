@@ -1,7 +1,6 @@
-package co.jestrada.cupoescolarapp.login.contract;
+package co.jestrada.cupoescolarapp.attendant.contract;
 
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public interface ILoginContract {
 
@@ -23,7 +22,7 @@ public interface ILoginContract {
 
     interface IUserInteractor extends IBaseContract.IBaseInteractor{
         void getUser(final String userUid);
-        void saveUser(UserBO userBO);
+        void saveUser();
         void activateUser();
     }
 

@@ -16,7 +16,6 @@ import co.jestrada.cupoescolarapp.attendant.interactor.DocIdTypeInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
-import co.jestrada.cupoescolarapp.login.model.bo.UserBO;
 
 public class EditProfilePresenter extends BasePresenter implements
         IEditProfileContract.IEditProfilePresenter,
@@ -31,7 +30,7 @@ public class EditProfilePresenter extends BasePresenter implements
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
 
-    private UserBO userBOApp;
+    private AttendantBO attendantBO;
 
     public EditProfilePresenter(final Context mContext) {
         this.mEditProfileView = (IEditProfileContract.IEditProfileView) mContext;
@@ -46,7 +45,7 @@ public class EditProfilePresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        userBOApp = UserBO.getInstance();
+        attendantBO = attendantBO.getInstance();
     }
 
     @Override
@@ -64,16 +63,16 @@ public class EditProfilePresenter extends BasePresenter implements
     }
 
     @Override
-    public void getAttendant(AttendantBO attendantBO, boolean isChanged) {
-        mEditProfileView.setAttendantUI(attendantBO, isChanged);
+    public void getAttendant(boolean isChanged) {
+        mEditProfileView.setAttendantUI(isChanged);
     }
 
     @Override
-    public void saveAttendant(AttendantBO attendantBO) {
-        userBOApp = UserBO.getInstance();
-        if (userBOApp != null){
-            attendantBO.setUserUid(userBOApp.getuId());
-            mAttendantInteractor.saveAttendant(attendantBO);
+    public void saveAttendant() {
+        this.attendantBO = attendantBO.getInstance();
+        if (this.attendantBO != null){
+            attendantBO.setUserUid(this.attendantBO.getUserUid());
+            mAttendantInteractor.saveAttendant();
         }
     }
 
@@ -87,8 +86,8 @@ public class EditProfilePresenter extends BasePresenter implements
 
     @Override
     public void signOut() {
-        userBOApp = UserBO.getInstance();
-        userBOApp.setOnSession(false);
+        attendantBO = attendantBO.getInstance();
+        attendantBO.setOnSession(false);
         mFirebaseAuth.signOut();
         mEditProfileView.goToLogin();
     }

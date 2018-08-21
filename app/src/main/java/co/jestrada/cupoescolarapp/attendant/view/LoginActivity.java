@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.login.view;
+package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Patterns;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -18,11 +19,11 @@ import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.common.view.MainActivity;
 import co.jestrada.cupoescolarapp.base.view.BaseActivity;
-import co.jestrada.cupoescolarapp.login.contract.ISignUpContract;
-import co.jestrada.cupoescolarapp.login.presenter.SignUpPresenter;
+import co.jestrada.cupoescolarapp.attendant.contract.ILoginContract;
+import co.jestrada.cupoescolarapp.attendant.presenter.LoginPresenter;
 
-public class SignUpActivity extends BaseActivity implements
-        ISignUpContract.ISignUpView {
+public class LoginActivity extends BaseActivity implements
+ILoginContract.ILoginView{
 
     @BindView(R.id.til_email)
     TextInputLayout tilEmail;
@@ -33,22 +34,26 @@ public class SignUpActivity extends BaseActivity implements
     @BindView(R.id.et_password)
     EditText etPassword;
 
-    @BindView(R.id.btn_sign_up_email_password)
-    Button btnSignUp;
+    @BindView(R.id.btn_sign_in_email_password)
+    Button btnSignInEmailPassword;
+    @BindView(R.id.tv_forget_password)
+    TextView tvForgetPassword;
 
-    private SignUpPresenter mSignUpPresenter;
+    @BindView(R.id.tv_create_email_account)
+    TextView tvCreateEmailAccount;
+
+    private LoginPresenter mLoginPresenter;
 
     private AlertDialog.Builder mBuilder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_sign_up);
+        setContentView(R.layout.activity_login);
 
-        mSignUpPresenter = new SignUpPresenter(SignUpActivity.this);
+        mLoginPresenter = new LoginPresenter(LoginActivity.this);
 
         initView();
-
     }
 
     private void initView() {
@@ -66,7 +71,6 @@ public class SignUpActivity extends BaseActivity implements
                 tilEmail.setError("");
             }
         });
-
         etPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -80,7 +84,6 @@ public class SignUpActivity extends BaseActivity implements
             }
         });
     }
-
 
     private boolean isValidEmail(String email){
         return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches());
@@ -98,17 +101,55 @@ public class SignUpActivity extends BaseActivity implements
             etPassword.requestFocus();
             validCredentials = false;
         }
+
         if(!isValidEmail(etEmail.getText().toString().trim())){
             tilEmail.setError(getString(R.string.validate_input_email));
             etEmail.requestFocus();
             validCredentials = false;
         }
 
-        if(!validCredentials){
-            enableFields(true);
-        }
-
         return validCredentials;
+    }
+
+    @Override
+    public void enableFields(boolean enable){
+        etEmail.setEnabled(enable);
+        etPassword.setEnabled(enable);
+        btnSignInEmailPassword.setEnabled(enable);
+        tvForgetPassword.setEnabled(enable);
+        tvCreateEmailAccount.setEnabled(enable);
+    }
+
+    @OnClick(R.id.btn_sign_in_email_password)
+    public void signInEmailPassword(){
+        if (isValidCredentials()){
+            enableFields(false);
+            showProgressBar(true);
+            mLoginPresenter.signInEmailPassword(etEmail.getText().toString().trim(), etPassword.getText().toString());
+        }
+    }
+
+    @OnClick(R.id.tv_forget_password)
+    public void forgetPassword(){
+        if (isValidEmail(etEmail.getText().toString().trim())){
+            showProgressBar(true);
+            enableFields(false);
+            mLoginPresenter.forgetMyPassword(etEmail.getText().toString().trim());
+        } else {
+            tilPassword.setError(getString(R.string.enter_email_resend_password));
+            etPassword.requestFocus();
+        }
+    }
+
+    @OnClick(R.id.tv_create_email_account)
+    public void signUpEmailPassword(){
+        goToSignUpEmailPassword();
+    }
+
+    private void goToSignUpEmailPassword() {
+        Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 
     @Override
@@ -127,7 +168,7 @@ public class SignUpActivity extends BaseActivity implements
     }
 
     @Override
-    public void showUserCreatedDialog(String title, String message, String textPositiveButton) {
+    public void showVerifyEmailDialog(String title, String message, String textPositiveButton, String textNegativeButton) {
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
         mBuilder.setTitle(title);
@@ -135,23 +176,8 @@ public class SignUpActivity extends BaseActivity implements
         mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                goToLogin();
-            }
-        });
-        mBuilder.show();
-    }
-
-    @Override
-    public void showUserAlreadyRegisteredDialog(final String title, String message, String textPositiveButton,
-                           String textNegativeButton) {
-        mBuilder = new AlertDialog.Builder(this);
-        mBuilder.setCancelable(false);
-        mBuilder.setTitle(title);
-        mBuilder.setMessage(message);
-        mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                goToLogin();
+                mLoginPresenter.sendVerificationEmail();
+                enableFields(true);
             }
         });
         mBuilder.setNegativeButton(textNegativeButton, new DialogInterface.OnClickListener() {
@@ -167,32 +193,8 @@ public class SignUpActivity extends BaseActivity implements
     public void goToMain() {
         Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        finish();
         startActivity(intent);
-    }
-
-    @Override
-    public void goToLogin() {
-        Intent intent = new Intent(this, LoginActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         finish();
-        startActivity(intent);
-    }
-
-    @Override
-    public void enableFields(boolean enable) {
-        etEmail.setEnabled(enable);
-        etPassword.setEnabled(enable);
-        btnSignUp.setEnabled(enable);
-    }
-
-    @OnClick(R.id.btn_sign_up_email_password)
-    public void signUpEmailPassword(){
-        if (isValidCredentials()){
-            enableFields(false);
-            showProgressBar(true);
-            mSignUpPresenter.signUpEmailPassword(etEmail.getText().toString().trim(), etPassword.getText().toString());
-        }
     }
 
 }
