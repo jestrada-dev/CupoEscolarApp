@@ -146,6 +146,7 @@
     <string name="password_changed_succesfully_summary">Tu nueva contraseña se ha cambiado exitosamente.</string>
     <string name="new_email_registered_successfully">Hemos registrado tu nueva cuenta exitosamente! El siguiente paso es confirmar el correo electrónico. Hemos enviado un mail de confirmación a tu buzón.</string>
     <string name="confirm_new_email">Confirma tu Nueva cuenta de correo</string>
+    <string name="add_student">Agregar Nuevo Estudiante</string>
 
 
 </resources>

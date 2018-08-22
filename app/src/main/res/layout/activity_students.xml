@@ -22,20 +22,74 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <android.support.v7.widget.CardView
-                android:id="@+id/cv_students"
+            <RelativeLayout
+                android:id="@+id/rl_add_student"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                android:layout_margin="@dimen/margin">
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/card_view_height" />
+                android:background="@color/mColorBorder">
 
-            </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_new_student"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:layout_margin="@dimen/margin_vertical">
+
+                    <TextView
+                        android:id="@+id/tv_add_student"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/add_student"
+                        android:layout_gravity="start|center"
+                        android:layout_marginTop="@dimen/margin_vertical"
+                        android:layout_marginStart="@dimen/margin_horizontal_triple"
+                        android:layout_marginBottom="@dimen/margin_vertical"
+                        style="@style/TextBodyInvert1"/>
+
+                    <ImageView
+                        android:id="@+id/iv_add_student"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:contentDescription=""
+                        android:src="@drawable/ic_add_student_bold_96"
+                        android:tint="@color/mColorPrimaryLight"
+                        android:layout_gravity="end"
+                        android:layout_marginTop="@dimen/margin_vertical"
+                        android:layout_marginEnd="@dimen/margin_horizontal"
+                        android:layout_marginBottom="@dimen/margin_vertical"
+                        />
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rl_students"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/mColorBackgroundSection"
+                android:paddingBottom="@dimen/margin"
+                android:layout_below="@id/rl_add_student">
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/cv_students"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
+                    android:layout_marginTop="@dimen/margin"
+                    android:layout_marginStart="@dimen/margin"
+                    android:layout_marginEnd="@dimen/margin">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/card_view_height" />
+
+                </android.support.v7.widget.CardView>
+            </RelativeLayout>
+
         </RelativeLayout>
+
 
     </ScrollView>
 
