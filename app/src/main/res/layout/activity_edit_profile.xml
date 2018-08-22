@@ -20,12 +20,14 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_vertical_double">
+            android:layout_height="wrap_content">
+
             <RelativeLayout
                 android:id="@+id/rl_inputs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_vertical_double"
+                android:layout_marginBottom="@dimen/margin_vertical">
                 <RelativeLayout
                     android:id="@+id/rl_personal_info"
                     android:layout_width="match_parent"

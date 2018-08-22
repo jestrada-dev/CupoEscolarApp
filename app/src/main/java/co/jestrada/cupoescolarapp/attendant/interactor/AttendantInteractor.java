@@ -72,7 +72,6 @@ public class AttendantInteractor implements
                             String studentDocId = dataSnapshot.getValue(String.class);
                             attendantBO.addStudent(studentDocId);
                         }
-
                         notifyAttendantChanges(true);
                     }
                 }

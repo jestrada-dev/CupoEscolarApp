@@ -52,6 +52,10 @@ public class MainPresenter extends BasePresenter implements
         mMainView.goToLogin();
     }
 
+    public void getData(){
+        mAttendantInteractor.getAttendant();
+    }
+
     @Override
     public void getUser(boolean isChanged) {
         mMainView.setNavViewUI(isChanged);

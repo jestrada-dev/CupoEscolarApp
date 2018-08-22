@@ -85,7 +85,7 @@
     <string name="local_phone">Fijo Local</string>
     <string name="mobile_phone">Móvil</string>
     <string name="btn_save_attendant_profile_personal_info">Guardar</string>
-    <string name="doc_id_type">Tipo Doc</string>
+    <string name="doc_id_type">Tipo Documento</string>
     <string name="genre_male">Hombre</string>
     <string name="genre_female">Mujer</string>
     <string name="birthdate">Fecha de Nacimiento</string>

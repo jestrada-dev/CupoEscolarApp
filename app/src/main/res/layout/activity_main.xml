@@ -28,9 +28,7 @@
             android:layout_height="@dimen/height_bottom_bar"
             android:layout_alignParentBottom="true"
             android:background="@android:color/white"
-            app:itemIconTint="@color/mColorSecondaryText"
-
-            app:itemTextColor="@color/mColorPrimaryLight"
+            app:itemIconTint="@drawable/menu_bottom_bar_background"
             app:itemHorizontalTranslationEnabled="true"
             app:menu="@menu/menu_bottom_nav_bar" />
     </RelativeLayout>
@@ -50,6 +48,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:background="@android:color/white"
+        app:itemIconTint="@color/mColorSecondaryText"
         app:headerLayout="@layout/left_nav_view_header"
         app:menu="@menu/menu_left_nav_view" />
 

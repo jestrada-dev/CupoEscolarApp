@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!--Color para los botones y splahs screen-->
+    <!--Color para los botones y splash screen-->
     <color name="mColorPrimary">#0097A7</color>
 
     <!--Color para la toolbar-->
     <color name="mColorPrimaryDark">#0097A7</color>
 
-    <!--Color para los iconos de inputs, el BottomBar y el NavBar -->
+    <!--Color checked para los icon del bottom bar-->
     <color name="mColorPrimaryLight">#00BCD4</color>
 
     <!--Color para los el borde del focused de los input-->
@@ -25,7 +25,8 @@
     <!--Color para el borde de los inputs-->
     <color name="mColorBorder">#CFD8DC</color>
 
-    <!--Color del avatar sin foto, nombre y correo del perfil del usuario -->
+    <!--Color del avatar sin foto, nombre y correo del perfil del usuario
+     iconos de inputs, línea inferior de los edit text, el BottomBar y el NavBar-->
     <color name="mColorSecondaryText">#757575</color>
 
     <!--Colores no utilizados-->

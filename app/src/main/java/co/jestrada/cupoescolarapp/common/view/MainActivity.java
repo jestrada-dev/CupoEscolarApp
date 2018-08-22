@@ -101,7 +101,11 @@ public class MainActivity extends BaseActivity implements
 
         setFragment(mDashboardFragment);
         setTitleToolbar(getString(R.string.dashboard));
-        setNavViewUI(true);
+        getData();
+    }
+
+    private void getData() {
+        mMainPresenter.getData();
     }
 
 

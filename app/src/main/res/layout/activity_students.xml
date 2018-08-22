@@ -54,10 +54,10 @@
                         android:layout_height="match_parent"
                         android:contentDescription=""
                         android:src="@drawable/ic_add_student_bold_96"
-                        android:tint="@color/mColorPrimaryLight"
+                        android:tint="@color/mColorAccent"
                         android:layout_gravity="end"
                         android:layout_marginTop="@dimen/margin_vertical"
-                        android:layout_marginEnd="@dimen/margin_horizontal"
+                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
                         android:layout_marginBottom="@dimen/margin_vertical"
                         />
                 </android.support.v7.widget.CardView>

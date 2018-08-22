@@ -20,7 +20,7 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <RelativeLayout
                 android:id="@+id/rl_description_ref_point"
@@ -252,7 +252,6 @@
                 android:layout_marginEnd="@dimen/margin_horizontal"
                 android:drawableStart="@drawable/ic_map_bold_48"
                 android:layout_alignParentEnd="true"
-
                 style="@style/TextButton"
                 android:text="@string/btn_get_coords_current_location"/>
 
