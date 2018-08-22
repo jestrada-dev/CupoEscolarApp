@@ -5,12 +5,12 @@ import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
 public interface ILoginContract {
 
     interface ILoginView extends IBaseContract.IBaseView{
-        void showNeutralDialog(String title, String message, String textNeutralButton);
-        void showVerifyEmailDialog(String title, String message, String textPositiveButton,
-                                   String textNegativeButton);
+        void showNotVerifyEmailDialog();
+        void showNotCredentials();
+        void showVerifyEmailSentDialog();
+        void showRestorePasswordEmailSentDialog(boolean isSuccessful);
 
         void goToMain();
-        void enableFields(boolean enable);
 
     }
 
@@ -18,12 +18,6 @@ public interface ILoginContract {
         void signInEmailPassword(String email, String password);
         void forgetMyPassword(String email);
 
-    }
-
-    interface IUserInteractor extends IBaseContract.IBaseInteractor{
-        void getUser(final String userUid);
-        void saveUser();
-        void activateUser();
     }
 
 }

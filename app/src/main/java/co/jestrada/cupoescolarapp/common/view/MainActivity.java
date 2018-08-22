@@ -101,8 +101,9 @@ public class MainActivity extends BaseActivity implements
 
         setFragment(mDashboardFragment);
         setTitleToolbar(getString(R.string.dashboard));
-        mMainPresenter.getData();
+        setNavViewUI(true);
     }
+
 
     private void setToolbar() {
         if(mToolbar != null){
@@ -185,7 +186,7 @@ public class MainActivity extends BaseActivity implements
     public void setNavViewUI(boolean isChanged) {
         if(isChanged){
             AttendantBO attendantBO = AttendantBO.getInstance();
-            tvAttendantName.setText((attendantBO.getUserUid() != null) ? attendantBO.getUserUid() : "");
+            tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() + " " + attendantBO.getLastName() : "");
             tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
         }
     }

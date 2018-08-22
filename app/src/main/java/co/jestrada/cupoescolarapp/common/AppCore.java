@@ -12,9 +12,9 @@ import co.jestrada.cupoescolarapp.common.contract.IAppCoreContract;
 
 public class AppCore extends Application implements IAppCoreContract.IAppCore{
 
-    AttendantBO attendantBO;
-
     private AttendantInteractor mAttendantInteractor;
+
+    AttendantBO attendantBO;
 
     FirebaseAuth mFirebaseAuth;
     FirebaseAuth.AuthStateListener mAuthListener = new FirebaseAuth.AuthStateListener() {
@@ -26,7 +26,8 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
                 if (firebaseUser.isEmailVerified()){
                     if(!attendantBO.isOnSession()){
                         attendantBO.setOnSession(true);
-                        mAttendantInteractor.getAttendant(firebaseUser.getUid());
+                        attendantBO.setUserUid(firebaseUser.getUid());
+                        mAttendantInteractor.getAttendant();
                     }
                 }
             } else {
@@ -38,7 +39,6 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
     @Override
     public void onCreate() {
         super.onCreate();
-
         mFirebaseAuth = FirebaseAuth.getInstance();
         mFirebaseAuth.addAuthStateListener(mAuthListener);
 
@@ -50,6 +50,5 @@ public class AppCore extends Application implements IAppCoreContract.IAppCore{
                 null,
                 null);
     }
-
 
 }

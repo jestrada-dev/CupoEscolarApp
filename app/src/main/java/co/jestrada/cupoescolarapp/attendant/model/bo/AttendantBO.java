@@ -4,7 +4,6 @@ import java.util.List;
 
 import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
-import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.StudentDocJson;
 import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 
 public class AttendantBO {
@@ -61,8 +60,8 @@ public class AttendantBO {
         }
     }
 
-    public void addStudent(StudentDocJson studentDocJson){
-        this.students.add(studentDocJson.getDocIdStudent());
+    public void addStudent(String studentDocIdJson){
+        this.students.add(studentDocIdJson);
     }
 
     public String getUserUid() {

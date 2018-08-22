@@ -111,8 +111,7 @@ ILoginContract.ILoginView{
         return validCredentials;
     }
 
-    @Override
-    public void enableFields(boolean enable){
+    private void enableFields(boolean enable){
         etEmail.setEnabled(enable);
         etPassword.setEnabled(enable);
         btnSignInEmailPassword.setEnabled(enable);
@@ -153,37 +152,79 @@ ILoginContract.ILoginView{
     }
 
     @Override
-    public void showNeutralDialog(String title, String message, String textNeutralButton) {
+    public void showNotVerifyEmailDialog() {
+        showProgressBar(false);
+        enableFields(true);
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle(title);
-        mBuilder.setMessage(message);
-        mBuilder.setNeutralButton(textNeutralButton, new DialogInterface.OnClickListener() {
+        mBuilder.setTitle(etEmail.getText().toString().trim());
+        mBuilder.setMessage(R.string.firebase_user_already_registered_es);
+        mBuilder.setPositiveButton(R.string.resend_verify_email, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                enableFields(true);
+                mLoginPresenter.sendVerificationEmail();
+            }
+        });
+        mBuilder.setNegativeButton(R.string.check_my_email, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
             }
         });
         mBuilder.show();
     }
 
     @Override
-    public void showVerifyEmailDialog(String title, String message, String textPositiveButton, String textNegativeButton) {
+    public void showNotCredentials() {
+        showProgressBar(false);
+        enableFields(true);
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle(title);
-        mBuilder.setMessage(message);
-        mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
+        mBuilder.setTitle(etEmail.getText().toString().trim());
+        mBuilder.setMessage(R.string.email_password_incorrects);
+        mBuilder.setNeutralButton(R.string.try_again, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                mLoginPresenter.sendVerificationEmail();
-                enableFields(true);
+
             }
         });
-        mBuilder.setNegativeButton(textNegativeButton, new DialogInterface.OnClickListener() {
+        mBuilder.show();
+    }
+
+    @Override
+    public void showVerifyEmailSentDialog() {
+        showProgressBar(false);
+        enableFields(true);
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle(etEmail.getText().toString().trim());
+        mBuilder.setMessage(R.string.sent_verify_email);
+        mBuilder.setNeutralButton(R.string.check_my_email, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                enableFields(true);
+
+            }
+        });
+        mBuilder.show();
+    }
+
+    @Override
+    public void showRestorePasswordEmailSentDialog(boolean isSuccessful) {
+        showProgressBar(false);
+        enableFields(true);
+        String message = getString(R.string.sent_email_restore_password);
+        String neutralButton = getString(R.string.check_my_email);
+        if(!isSuccessful){
+            message = getString(R.string.failed_send_password_reset_email);
+            neutralButton = getString(R.string.verify_my_email);
+        }
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle(etEmail.getText().toString().trim());
+        mBuilder.setMessage(message);
+        mBuilder.setNeutralButton(neutralButton, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
             }
         });
         mBuilder.show();

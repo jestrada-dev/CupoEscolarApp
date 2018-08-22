@@ -45,7 +45,7 @@ public class EditProfilePresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-        attendantBO = attendantBO.getInstance();
+        attendantBO = AttendantBO.getInstance();
     }
 
     @Override
@@ -55,11 +55,8 @@ public class EditProfilePresenter extends BasePresenter implements
 
     @Override
     public void getData() {
-        mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser != null) {
-            mDocIdTypeInteractor.getDocIdTypes(false);
-            mAttendantInteractor.getAttendant(mFirebaseUser.getUid());
-        }
+        mDocIdTypeInteractor.getDocIdTypes();
+        mAttendantInteractor.getAttendant();
     }
 
     @Override
@@ -69,11 +66,7 @@ public class EditProfilePresenter extends BasePresenter implements
 
     @Override
     public void saveAttendant() {
-        this.attendantBO = attendantBO.getInstance();
-        if (this.attendantBO != null){
-            attendantBO.setUserUid(this.attendantBO.getUserUid());
-            mAttendantInteractor.saveAttendant();
-        }
+        mAttendantInteractor.saveAttendant();
     }
 
     @Override
@@ -86,7 +79,7 @@ public class EditProfilePresenter extends BasePresenter implements
 
     @Override
     public void signOut() {
-        attendantBO = attendantBO.getInstance();
+        attendantBO = AttendantBO.getInstance();
         attendantBO.setOnSession(false);
         mFirebaseAuth.signOut();
         mEditProfileView.goToLogin();

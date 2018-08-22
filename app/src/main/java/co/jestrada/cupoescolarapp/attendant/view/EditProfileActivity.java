@@ -315,18 +315,4 @@ public class EditProfileActivity extends BaseActivity implements
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 }

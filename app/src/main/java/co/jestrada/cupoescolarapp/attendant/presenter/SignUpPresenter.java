@@ -5,7 +5,6 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
-import android.text.format.DateFormat;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -13,13 +12,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
-import co.jestrada.cupoescolarapp.common.constant.CustomDateUtils;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.attendant.contract.ISignUpContract;
 import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
@@ -75,11 +70,7 @@ public class SignUpPresenter extends BasePresenter implements
     @Override
     public void signUpEmailPassword(String email, String password) {
             if(!isInternetConnectionActive()){
-                mSignUpView.enableFields(true);
-                mSignUpView.showProgressBar(false);
-                mSignUpView.showNeutralDialog(mContext.getString(R.string.create_account),
-                        mContext.getString(R.string.errorOnInternetConnection),
-                        mContext.getString(R.string.try_later));
+                mSignUpView.showNotConnectionDialog();
             } else{
                 createUserEmailPassword(email, password);
             }
@@ -91,21 +82,14 @@ public class SignUpPresenter extends BasePresenter implements
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            saveUser();
+                            saveAttendant();
                             sendVerificationEmail(email);
                         } else {
-                            mSignUpView.enableFields(true);
-                            mSignUpView.showProgressBar(false);
                             if(task.getException().getMessage().equals
                                     (mContext.getString(R.string.firebase_user_already_registered))){
-                                mSignUpView.showUserAlreadyRegisteredDialog(email,
-                                        mContext.getString(R.string.firebase_user_already_registered_es),
-                                        mContext.getString(R.string.login),
-                                        mContext.getString(R.string.try_another_email_account));
+                                mSignUpView.showUserAlreadyRegisteredDialog();
                             } else {
-                                mSignUpView.showNeutralDialog(email,
-                                        mContext.getString(R.string.sign_up_user_failed),
-                                        mContext.getString(R.string.try_later));
+                                mSignUpView.showNotIdentifyErrorOnSignUp();
                             }
                         }
                     }
@@ -114,13 +98,13 @@ public class SignUpPresenter extends BasePresenter implements
 
     }
 
-    private void saveUser() {
+    private void saveAttendant() {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null){
             attendantBO = AttendantBO.getInstance();
             attendantBO.setUserUid(mFirebaseUser.getUid());
             attendantBO.setEmail(mFirebaseUser.getEmail());
-            attendantBO.setState(StateUserEnum.NOT_VERIFY_EMAIL);
+            attendantBO.setState(StateUserEnum.INACTIVE);
             mAttendantInteractor.saveAttendant();
         }
     }
@@ -129,11 +113,12 @@ public class SignUpPresenter extends BasePresenter implements
     public void sendVerificationEmail(String email) {
         FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
         if (mFirebaseUser != null){
-            mFirebaseUser.sendEmailVerification();
-            mSignUpView.showProgressBar(false);
-            mSignUpView.showUserCreatedDialog(email,
-                    mContext.getString(R.string.sign_up_user_succesfully),
-                    mContext.getString(R.string.check_my_email));
+            mFirebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    mSignUpView.showVerifyEmailSentDialog(task.isSuccessful());
+                }
+            });
         }
     }
 

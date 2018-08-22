@@ -2,7 +2,6 @@ package co.jestrada.cupoescolarapp.attendant.interactor;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -11,6 +10,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 import co.jestrada.cupoescolarapp.location.contract.ICurrentPositionMapContract;
@@ -21,7 +22,6 @@ import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
 import co.jestrada.cupoescolarapp.attendant.constant.ConstantsFirebaseAttendant;
 import co.jestrada.cupoescolarapp.common.contract.IAppCoreContract;
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
-import co.jestrada.cupoescolarapp.attendant.constant.ConstantsFirebaseUser;
 import co.jestrada.cupoescolarapp.attendant.contract.ILoginContract;
 import co.jestrada.cupoescolarapp.attendant.contract.ISignUpContract;
 
@@ -57,34 +57,38 @@ public class AttendantInteractor implements
         this.dbRefAttendants = mFirebaseDB.getReference(ConstantsFirebaseAttendant.ATTENDANTS);
     }
 
-    public void getAttendant(final String userUid) {
-        dbRefAttendants.child(userUid).addValueEventListener(new ValueEventListener() {
+    public void getAttendant() {
+        attendantBO = AttendantBO.getInstance();
+        dbRefAttendants.child(attendantBO.getUserUid()).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot attendantDS) {
-                if(!attendantDS.exists()){
-                    Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseAttendant.ATTENDANTS + "/" + userUid + " pero el attendantDS vino null");
-                }
-                final AttendantDocJson attendantDocJson = attendantDS.getValue(AttendantDocJson.class);
-                Log.d("Attendant","AttendantInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseAttendant.ATTENDANTS + "/" + userUid);
+                if(attendantDS.exists()){
+                    final AttendantDocJson attendantDocJson = attendantDS.getValue(AttendantDocJson.class);
+                    if(attendantDocJson != null){
+                        attendantBO = AttendantBO.getInstance();
+                        attendantBO.setValues(attendantDocJson);
 
-                if(attendantDocJson != null){
-                    attendantBO = AttendantBO.getInstance();
-                    attendantBO.setValues(attendantDocJson);
-                    notifyAttandantChanges(true);
+                        for(DataSnapshot dataSnapshot : attendantDS.child(ConstantsFirebaseAttendant.ATTENDANT_STUDENTS).getChildren()){
+                            String studentDocId = dataSnapshot.getValue(String.class);
+                            attendantBO.addStudent(studentDocId);
+                        }
+
+                        notifyAttendantChanges(true);
+                    }
                 }
+
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.d("Attendant","AttendantInteractor -> Se ejecutó el onCancelled " + ConstantsFirebaseAttendant.ATTENDANTS + "/" + userUid);
 
             }
         });
     }
 
-    private void notifyAttandantChanges(boolean isChanged) {
+    private void notifyAttendantChanges(boolean isChanged) {
 
         if(mMainPresenter != null){
-            mMainPresenter.getAttendant( isChanged);
+            mMainPresenter.getAttendant(isChanged);
         }
         if(mEditProfilePresenter != null){
             mEditProfilePresenter.getAttendant(isChanged);
@@ -102,57 +106,46 @@ public class AttendantInteractor implements
     }
 
     public void saveAttendant() {
+        attendantBO = AttendantBO.getInstance();
         if(attendantBO.getUserUid() != null){
-            final DatabaseReference dbRefAttendants = mFirebaseDB.getReference(ConstantsFirebaseAttendant.ATTENDANTS);
+            dbRefAttendants = mFirebaseDB.getReference(ConstantsFirebaseAttendant.ATTENDANTS);
             final AttendantDocJson attendantDocJson = new AttendantDocJson();
             attendantDocJson.setValues(attendantBO);
-            Log.d("Attendant","AttendantInteractor -> Usuario: " + attendantDocJson.getUserUid());
-            dbRefAttendants.child(attendantDocJson.getUserUid())
-                    .setValue(attendantDocJson).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if(task.isSuccessful()){
-                        Log.d("Attendant","AttendantInteractor -> Usuario: email:" + attendantBO.getEmail() +
-                                " grabado exitosamente");
-                        notifyAttandantChanges( false);
-                    }
-                }
-            });
-        } else {
-            Log.d("Attendant","AttendantInteractor -> Usuario null");
-        }
+            final ArrayList<String> studentDocIds = new ArrayList<>();
+            studentDocIds.addAll(attendantBO.getStudents());
 
+            dbRefAttendants.child(attendantDocJson.getUserUid()).setValue(attendantDocJson)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()){
+                                if (studentDocIds.isEmpty()){
+                                    notifyTransactionState(task.isSuccessful());
+                                }else {
+                                    dbRefAttendants.child(attendantDocJson.getUserUid())
+                                            .child(ConstantsFirebaseAttendant.ATTENDANT_STUDENTS)
+                                            .setValue(studentDocIds).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            notifyTransactionState(task.isSuccessful());
+                                        }
+                                    });
+                                }
+
+                            }
+
+                        }
+                    });
+        }
     }
 
     public void activateUser() {
         attendantBO = AttendantBO.getInstance();
-
-        final DatabaseReference dbRefUsers = mFirebaseDB.getReference(ConstantsFirebaseUser.USERS);
-        dbRefUsers.child(attendantBO.getUserUid())
-                .child(ConstantsFirebaseUser.USER_FIELD_STATE)
-                .setValue(StateUserEnum.ACTIVE).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-
-
-                }
-            }
-        });
-
-/*        final String strFecha = DateFormat.format(CustomDateUtils.LONG_DATE, new Date()).toString();
-        dbRefUsers.child(attendantBO.getUserUid())
-                .child(ConstantsFirebaseUser.USER_LOGINS)
-                .child(ConstantsFirebaseUser.USER_LOGIN_METHOD_EMAIL_PASSWORD)
-                .child(ConstantsFirebaseUser.USER_FIELD_ACTIVATE_TIMESTAMP)
-                .setValue(strFecha).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-
-                }
-            }
-        });*/
+        if(attendantBO.getUserUid() != null){
+            dbRefAttendants.child(attendantBO.getUserUid())
+                    .child(ConstantsFirebaseAttendant.ATTENDANT_FIELD_STATE)
+                    .setValue(StateUserEnum.ACTIVE);
+        }
     }
 
 }

@@ -6,10 +6,10 @@ public interface ISignUpContract extends IBaseContract {
 
     interface ISignUpView extends IBaseView {
 
-        void showNeutralDialog(String title, String message, String textNeutralButton);
-        void showUserCreatedDialog(String title, String message, String textPositiveButton);
-        void showUserAlreadyRegisteredDialog(String title, String message, String textPositiveButton,
-                        String textNegativeButton);
+        void showNotConnectionDialog();
+        void showVerifyEmailSentDialog(boolean isSuccessful);
+        void showNotIdentifyErrorOnSignUp();
+        void showUserAlreadyRegisteredDialog();
         void goToMain();
         void goToLogin();
         void enableFields(boolean enable);
@@ -21,11 +21,6 @@ public interface ISignUpContract extends IBaseContract {
         void signUpEmailPassword(final String email, final String password);
         void sendVerificationEmail(String email);
 
-    }
-
-    interface IUserInteractor extends IBaseContract.IBaseInteractor{
-        void getUser(final String userUid);
-        void saveUser();
     }
 
 }

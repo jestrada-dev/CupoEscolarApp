@@ -136,6 +136,16 @@
     <string name="change_password">Cambiar Contraseña</string>
     <string name="close_account">Cerrar Cuenta</string>
     <string name="try_again_to_close">Presione nuevamente para salir de la aplicación</string>
+    <string name="failed_sent_verify_email">Se ha presentado un error al intentar enviar el email de confirmación.</string>
+    <string name="enter_password">Escribe tu contraseña para validar credenciales:</string>
+    <string name="accept">Aceptar</string>
+    <string name="cancel">Cancelar</string>
+    <string name="password_incorrect_try_again">Su contraseña es incorrecta. Favor validar e intentar nuevamente.</string>
+    <string name="password_incorrect">Clave Incorrecta</string>
+    <string name="password_changed_successfully">Contraseña cambiada exitosamente</string>
+    <string name="password_changed_succesfully_summary">Tu nueva contraseña se ha cambiado exitosamente.</string>
+    <string name="new_email_registered_successfully">Hemos registrado tu nueva cuenta exitosamente! El siguiente paso es confirmar el correo electrónico. Hemos enviado un mail de confirmación a tu buzón.</string>
+    <string name="confirm_new_email">Confirma tu Nueva cuenta de correo</string>
 
 
 </resources>

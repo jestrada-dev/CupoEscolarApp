@@ -112,52 +112,82 @@ public class SignUpActivity extends BaseActivity implements
     }
 
     @Override
-    public void showNeutralDialog(String title, String message, String textNeutralButton) {
+    public void showNotConnectionDialog() {
+        showProgressBar(false);
+        enableFields(true);
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle(title);
-        mBuilder.setMessage(message);
-        mBuilder.setNeutralButton(textNeutralButton, new DialogInterface.OnClickListener() {
+        mBuilder.setTitle(R.string.create_account);
+        mBuilder.setMessage(R.string.errorOnInternetConnection);
+        mBuilder.setNeutralButton(R.string.try_later, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                enableFields(true);
             }
         });
         mBuilder.show();
     }
 
     @Override
-    public void showUserCreatedDialog(String title, String message, String textPositiveButton) {
+    public void showVerifyEmailSentDialog(final boolean isSuccessful) {
+        showProgressBar(false);
+        enableFields(true);
+        String message = getString(R.string.sign_up_user_succesfully);
+        String neutralButton = getString(R.string.check_my_email);
+        if (!isSuccessful){
+            message = getString(R.string.failed_sent_verify_email);
+            neutralButton = getString(R.string.try_later);
+        }
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle(title);
+        mBuilder.setTitle(etEmail.getText().toString().trim());
         mBuilder.setMessage(message);
-        mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
+        mBuilder.setNeutralButton(neutralButton, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                goToLogin();
+                if (isSuccessful){
+                    goToLogin();
+                }
             }
         });
         mBuilder.show();
     }
 
     @Override
-    public void showUserAlreadyRegisteredDialog(final String title, String message, String textPositiveButton,
-                           String textNegativeButton) {
+    public void showNotIdentifyErrorOnSignUp() {
+        showProgressBar(false);
+        enableFields(true);
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle(title);
-        mBuilder.setMessage(message);
-        mBuilder.setPositiveButton(textPositiveButton, new DialogInterface.OnClickListener() {
+        mBuilder.setTitle(etEmail.getText().toString().trim());
+        mBuilder.setMessage(R.string.sign_up_user_failed);
+        mBuilder.setNeutralButton(R.string.try_later, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+        mBuilder.show();
+
+    }
+
+    @Override
+    public void showUserAlreadyRegisteredDialog() {
+        showProgressBar(false);
+        enableFields(true);
+        mBuilder = new AlertDialog.Builder(this);
+        mBuilder.setCancelable(false);
+        mBuilder.setTitle(etEmail.getText().toString().trim());
+        mBuilder.setMessage(R.string.firebase_user_already_registered_es);
+        mBuilder.setPositiveButton(R.string.login, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 goToLogin();
             }
         });
-        mBuilder.setNegativeButton(textNegativeButton, new DialogInterface.OnClickListener() {
+        mBuilder.setNegativeButton(R.string.try_another_email_account, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                enableFields(true);
+
             }
         });
         mBuilder.show();

@@ -32,8 +32,10 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
 
     private Toolbar mToolbar;
 
-    @BindView(R.id.tv_user_email)
-    TextView tvUserEmail;
+    @BindView(R.id.tv_attendant_name)
+    TextView tvAttendantName;
+    @BindView(R.id.tv_attendant_email)
+    TextView tvAttendantEmail;
 
     @BindView(R.id.til_email)
     TextInputLayout tilEmail;
@@ -98,7 +100,6 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
             }
         });
 
-
         setToolbar();
     }
 
@@ -120,7 +121,7 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
     private void getData(){
         enableInputs(false);
         showProgressBar(true);
-        mConfigAccountPresenter.getData();
+        setAttendantUI();
     }
 
     private void enableInputs(boolean enable) {
@@ -149,8 +150,8 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
             showProgressBar(true);
             mBuilder = new AlertDialog.Builder(this);
             mBuilder.setCancelable(false);
-            mBuilder.setTitle("Cambiar tu Cuenta de Correo");
-            mBuilder.setMessage("Escribe tu contraseña para validar credenciales:");
+            mBuilder.setTitle(getString(R.string.change_email_account));
+            mBuilder.setMessage(R.string.enter_password);
             final EditText etPass = new EditText(this);
             etPass.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -158,14 +159,14 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
                     LinearLayout.LayoutParams.MATCH_PARENT);
             etPass.setLayoutParams(layoutParams);
             mBuilder.setView(etPass);
-            mBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            mBuilder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     String password = etPass.getText().toString();
                     mConfigAccountPresenter.validateCredentials(password, ConstantsAccount.CHANGE_EMAIL);
                 }
             });
-            mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            mBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     getData();
@@ -192,8 +193,8 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
             showProgressBar(true);
             mBuilder = new AlertDialog.Builder(this);
             mBuilder.setCancelable(false);
-            mBuilder.setTitle("Cambiar tu Contraseña");
-            mBuilder.setMessage("Escribe tu contraseña actual para validar credenciales:");
+            mBuilder.setTitle(getString(R.string.change_password));
+            mBuilder.setMessage(getString(R.string.enter_password));
             final EditText etOldPassword = new EditText(this);
             etOldPassword.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -201,14 +202,14 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
                     LinearLayout.LayoutParams.MATCH_PARENT);
             etOldPassword.setLayoutParams(layoutParams);
             mBuilder.setView(etOldPassword);
-            mBuilder.setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
+            mBuilder.setPositiveButton(R.string.accept, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     String password = etOldPassword.getText().toString();
                     mConfigAccountPresenter.validateCredentials(password, ConstantsAccount.CHANGE_PASSWORD);
                 }
             });
-            mBuilder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            mBuilder.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                 }
@@ -218,18 +219,13 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
         }
     }
 
-
     @Override
-    public void getUserTransactionState(boolean successful) {
-
-    }
-
-    @Override
-    public void setUserUI( boolean isChanged) {
+    public void setAttendantUI() {
         showProgressBar(false);
         enableInputs(true);
         AttendantBO attendantBO = AttendantBO.getInstance();
-        tvUserEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
+        tvAttendantName.setText((attendantBO.getFirstName() != null) ? attendantBO.getFirstName() + " " + attendantBO.getLastName() : "");
+        tvAttendantEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
         etEmail.setText((attendantBO.getEmail() != null) ? attendantBO.getEmail() : "");
     }
 
@@ -258,8 +254,8 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
     private void showDialogInvalidCredentials() {
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle("Credenciales inválidas");
-        mBuilder.setMessage("Su contraseña es incorrecta. Favor validar e intentar nuevamente.");
+        mBuilder.setTitle(R.string.password_incorrect);
+        mBuilder.setMessage(R.string.password_incorrect_try_again);
         final EditText etOldPassword = new EditText(this);
         etOldPassword.setInputType(TYPE_CLASS_TEXT | TYPE_TEXT_VARIATION_PASSWORD);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
@@ -267,17 +263,12 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
                 LinearLayout.LayoutParams.MATCH_PARENT);
         etOldPassword.setLayoutParams(layoutParams);
         mBuilder.setView(etOldPassword);
-        mBuilder.setNegativeButton("Aceptar", new DialogInterface.OnClickListener() {
+        mBuilder.setNegativeButton(R.string.accept, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
             }
         });
         mBuilder.show();
-    }
-
-    @Override
-    public void changeEmail(boolean isSuccessful) {
-
     }
 
     @Override
@@ -293,9 +284,9 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
     private void showDialogPasswordChanged() {
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle("Contraseña cambiada exitosamente");
-        mBuilder.setMessage("Tu nueva contraseña se ha cambiado exitosamente.");
-        mBuilder.setNeutralButton("Aceptar", new DialogInterface.OnClickListener() {
+        mBuilder.setTitle(R.string.password_changed_successfully);
+        mBuilder.setMessage(R.string.password_changed_succesfully_summary);
+        mBuilder.setNeutralButton(R.string.accept, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
             }
@@ -308,9 +299,9 @@ public class ConfigAccountActivity extends BaseActivity implements IConfigAccoun
         showProgressBar(false);
         mBuilder = new AlertDialog.Builder(this);
         mBuilder.setCancelable(false);
-        mBuilder.setTitle("Confirma tu Nueva cuenta de correo");
-        mBuilder.setMessage("Hemos registrado tu nueva cuenta exitosamente! El siguiente paso es confirmar el correo electrónico. Hemos enviado un mail de confirmación a tu buzón.");
-        mBuilder.setNeutralButton("OK! Voy a revisar mi correo", new DialogInterface.OnClickListener() {
+        mBuilder.setTitle(R.string.confirm_new_email);
+        mBuilder.setMessage(R.string.new_email_registered_successfully);
+        mBuilder.setNeutralButton(R.string.check_my_email, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
 

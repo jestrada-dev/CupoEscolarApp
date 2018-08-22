@@ -37,12 +37,21 @@
                     android:contentDescription="@string/click_to_change_avatar"
                     android:layout_centerHorizontal="true"/>
                 <TextView
-                    android:id="@+id/tv_user_email"
+                    android:id="@+id/tv_attendant_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/margin_vertical"
                     android:layout_below="@id/iv_photo_profile"
                     style="@style/TextBodyInvert1"
+                    android:text="@string/first_name"
+                    android:layout_centerHorizontal="true"/>
+                <TextView
+                    android:id="@+id/tv_attendant_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_vertical"
+                    android:layout_below="@id/tv_attendant_name"
+                    style="@style/TextBodyInvert2"
                     android:text="@string/email"
                     android:layout_centerHorizontal="true"/>
             </RelativeLayout>

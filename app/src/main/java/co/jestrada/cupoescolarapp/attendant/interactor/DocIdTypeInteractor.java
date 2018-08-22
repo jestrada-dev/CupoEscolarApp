@@ -31,7 +31,7 @@ public class DocIdTypeInteractor implements
         this.dbRefDocIdTypes = mFirebaseDB.getReference(ConstantsFirebaseDocIdType.DOC_ID_TYPES);
     }
 
-    public void getDocIdTypes(boolean notifyUser) {
+    public void getDocIdTypes() {
         dbRefDocIdTypes.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot docIdTypesDS) {
@@ -42,7 +42,6 @@ public class DocIdTypeInteractor implements
                     docIdTypeBO.setValues(docIdTypeDocJson);
                     docIdTypeBOS.add(docIdTypeBO);
                 }
-                Log.d("DocIdType","DocIdTypeInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseDocIdType.DOC_ID_TYPES);
                 notifyAttandantChanges(docIdTypeBOS, true);
             }
             @Override

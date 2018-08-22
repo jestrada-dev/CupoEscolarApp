@@ -36,20 +36,13 @@ public class MainPresenter extends BasePresenter implements
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
-    }
 
-
-    public void getData(){
-        attendantBO = attendantBO.getInstance();
+        attendantBO = AttendantBO.getInstance();
         if (!attendantBO.isOnSession()){
             signOut();
-        } else {
-            FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-            if (mFirebaseUser != null){
-                mAttendantInteractor.getAttendant(mFirebaseUser.getUid());
-            }
         }
     }
+
 
     @Override
     public void signOut() {
@@ -66,7 +59,7 @@ public class MainPresenter extends BasePresenter implements
 
     @Override
     public void getAttendant(boolean isChanged) {
-
+        mMainView.setNavViewUI(isChanged);
     }
 
     @Override

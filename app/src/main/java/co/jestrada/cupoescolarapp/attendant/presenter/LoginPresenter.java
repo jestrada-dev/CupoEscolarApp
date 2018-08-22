@@ -48,7 +48,6 @@ public class LoginPresenter extends BasePresenter implements
 
     @Override
     public void signInEmailPassword(final String email, String password) {
-
         mFirebaseAuth.signInWithEmailAndPassword(email, password).
                 addOnCompleteListener((Activity)mLoginView, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -57,26 +56,15 @@ public class LoginPresenter extends BasePresenter implements
                             FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
                             if(mFirebaseUser != null){
                                 if(mFirebaseUser.isEmailVerified()){
-                                    attendantBO = AttendantBO.getInstance();
-                                    attendantBO.setUserUid(mFirebaseUser.getUid());
                                     validatedUserState();
                                     login();
                                 } else {
-                                    mLoginView.showProgressBar(false);
-                                    mLoginView.enableFields(true);
-                                    mLoginView.showVerifyEmailDialog(email,
-                                            mContext.getString(R.string.firebase_user_already_registered_es),
-                                            mContext.getString(R.string.resend_verify_email),
-                                            mContext.getString(R.string.check_my_email));
+                                    mLoginView.showNotVerifyEmailDialog();
                                 }
                             }
                         }else {
                             // TODO: pendiente validar motivos de log in no exitoso.
-                            mLoginView.showProgressBar(false);
-                            mLoginView.enableFields(true);
-                            mLoginView.showNeutralDialog(email,
-                                    mContext.getString(R.string.email_password_incorrects),
-                                    mContext.getString(R.string.try_again));
+                            mLoginView.showNotCredentials();
                         }
                     }
                 });
@@ -90,20 +78,8 @@ public class LoginPresenter extends BasePresenter implements
 
     private void validatedUserState() {
         attendantBO = AttendantBO.getInstance();
-        if ( (attendantBO.getState() != null) &&
-                (attendantBO.getState().toString().equals(StateUserEnum.NOT_VERIFY_EMAIL.name())) ){
+        if(attendantBO.getState() == null || attendantBO.getState().toString().equals(StateUserEnum.INACTIVE.name())){
             mAttendantInteractor.activateUser();
-            saveAttendant();
-        }
-    }
-
-    private void saveAttendant() {
-        FirebaseUser mFirebaseUser = mFirebaseAuth.getCurrentUser();
-        if (mFirebaseUser != null){
-            attendantBO = AttendantBO.getInstance();
-            attendantBO.setUserUid(mFirebaseUser.getUid());
-            attendantBO.setEmail(mFirebaseUser.getEmail());
-            mAttendantInteractor.saveAttendant();
         }
     }
 
@@ -115,9 +91,7 @@ public class LoginPresenter extends BasePresenter implements
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if (task.isSuccessful()){
-                                mLoginView.showNeutralDialog(mFirebaseUser.getEmail(),
-                                        mContext.getString(R.string.sent_verify_email),
-                                        mContext.getString(R.string.check_my_email));
+                                mLoginView.showVerifyEmailSentDialog();
                             }
                         }
                     }
@@ -135,16 +109,7 @@ public class LoginPresenter extends BasePresenter implements
                 new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()){
-                            mLoginView.showNeutralDialog(email,
-                                    mContext.getString(R.string.sent_email_restore_password),
-                                    mContext.getString(R.string.check_my_email));
-                        } else {
-                            mLoginView.showNeutralDialog(email,
-                                    mContext.getString(R.string.failed_send_password_reset_email),
-                                    mContext.getString(R.string.verify_my_email));
-
-                        }
+                        mLoginView.showRestorePasswordEmailSentDialog(task.isSuccessful());
                     }
                 });
     }

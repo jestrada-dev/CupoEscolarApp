@@ -52,16 +52,6 @@ public class ConfigAccountPresenter extends BasePresenter implements
     }
 
     @Override
-    public void getUserTransactionState(boolean successful) {
-
-    }
-
-    @Override
-    public void getData() {
-        mConfigAccountView.setUserUI(true);
-    }
-
-    @Override
     public void validateCredentials(final String password, final String emailOrPassword) {
         if (mFirebaseUser != null){
             AuthCredential authCredential = EmailAuthProvider.getCredential(mFirebaseUser.getEmail(), password);
