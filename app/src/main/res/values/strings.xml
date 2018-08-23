@@ -122,7 +122,6 @@
     <string name="request_permission_access_location">Cupo Escolar App solicita tu permiso para acceder a la ubicación del dispositivo. Este permiso es necesario para establecer las coordenadas del punto de referencia desde el cual se van a georreferencias los colegios mas cercanos.</string>
     <string name="denied_permission_access_location">Acceso no permitido</string>
     <string name="scholar_info">Información Escolar</string>
-    <string name="relationship">Parentesco</string>
     <string name="grade">Grado</string>
     <string name="grade_summary">Selecciona el grado al cual deseas inscribir al estudiante. Este dato se tendrá en cuenta para la búsqueda de colegios que tenga cupos disponibles para el grado seleccionado.</string>
     <string name="admin_area">Departamento</string>
@@ -147,6 +146,7 @@
     <string name="new_email_registered_successfully">Hemos registrado tu nueva cuenta exitosamente! El siguiente paso es confirmar el correo electrónico. Hemos enviado un mail de confirmación a tu buzón.</string>
     <string name="confirm_new_email">Confirma tu Nueva cuenta de correo</string>
     <string name="add_student">Agregar Nuevo Estudiante</string>
+    <string name="relationship">Parentesco</string>
 
 
 </resources>

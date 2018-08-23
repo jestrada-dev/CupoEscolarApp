@@ -2,7 +2,7 @@ package co.jestrada.cupoescolarapp.attendant.model.bo;
 
 import java.util.List;
 
-import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
+import co.jestrada.cupoescolarapp.common.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.AttendantDocJson;
 import co.jestrada.cupoescolarapp.attendant.model.enums.StateUserEnum;
 

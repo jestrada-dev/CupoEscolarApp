@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -25,8 +24,8 @@ import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
-import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
+import co.jestrada.cupoescolarapp.common.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.common.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.attendant.presenter.EditProfilePresenter;
 import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 
@@ -145,8 +144,8 @@ public class EditProfileActivity extends BaseActivity implements
 
         if(!isValidDocId(etDocId.getText().toString().trim())){
             validInputs = false;
-            etLocalPhone.setError(getString(R.string.validate_input_doc_id));
-            etLocalPhone.requestFocus();
+            etDocId.setError(getString(R.string.validate_input_doc_id));
+            etDocId.requestFocus();
         } else {
             if(!isValidDocIdType(etDocIdType.getText().toString().trim())){
                 validInputs = false;

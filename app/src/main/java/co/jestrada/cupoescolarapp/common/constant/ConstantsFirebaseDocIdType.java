@@ -1,4 +1,4 @@
-package co.jestrada.cupoescolarapp.attendant.constant;
+package co.jestrada.cupoescolarapp.common.constant;
 
 public class ConstantsFirebaseDocIdType {
 

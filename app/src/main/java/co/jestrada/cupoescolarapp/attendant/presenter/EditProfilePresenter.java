@@ -12,9 +12,9 @@ import java.util.ArrayList;
 
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
 import co.jestrada.cupoescolarapp.attendant.interactor.AttendantInteractor;
-import co.jestrada.cupoescolarapp.attendant.interactor.DocIdTypeInteractor;
+import co.jestrada.cupoescolarapp.common.interactor.DocIdTypeInteractor;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.common.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
 
 public class EditProfilePresenter extends BasePresenter implements
@@ -34,7 +34,8 @@ public class EditProfilePresenter extends BasePresenter implements
 
     public EditProfilePresenter(final Context mContext) {
         this.mEditProfileView = (IEditProfileContract.IEditProfileView) mContext;
-        this.mDocIdTypeInteractor = new DocIdTypeInteractor(this);
+        this.mDocIdTypeInteractor = new DocIdTypeInteractor(this
+        , null);
         this.mAttendantInteractor = new AttendantInteractor(
                 null,
                 null,

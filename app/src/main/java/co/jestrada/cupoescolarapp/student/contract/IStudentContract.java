@@ -3,6 +3,7 @@ package co.jestrada.cupoescolarapp.student.contract;
 import java.util.ArrayList;
 
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
+import co.jestrada.cupoescolarapp.common.model.bo.RelationshipTypeBO;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
 
 public interface IStudentContract extends IBaseContract {

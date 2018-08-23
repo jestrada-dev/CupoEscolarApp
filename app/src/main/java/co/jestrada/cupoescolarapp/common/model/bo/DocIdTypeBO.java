@@ -1,20 +1,19 @@
-package co.jestrada.cupoescolarapp.attendant.model.modelDocJson;
+package co.jestrada.cupoescolarapp.common.model.bo;
 
-import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.common.model.modelDocJson.DocIdTypeDocJson;
 
-public class DocIdTypeDocJson {
+public class DocIdTypeBO {
 
     private String shortName;
     private String longName;
 
-    public DocIdTypeDocJson() {
+    public DocIdTypeBO() {
     }
 
-    public void setValues(DocIdTypeBO docIdTypeBO){
-        this.shortName = docIdTypeBO.getShortName();
-        this.longName = docIdTypeBO.getLongName();
+    public void setValues(DocIdTypeDocJson docIdTypeDocJson){
+        this.shortName = docIdTypeDocJson.getShortName();
+        this.longName = docIdTypeDocJson.getLongName();
     }
-
     public String getShortName() {
         return shortName;
     }

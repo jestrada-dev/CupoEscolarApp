@@ -18,7 +18,7 @@ import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
 import co.jestrada.cupoescolarapp.common.contract.IMainContract;
 import co.jestrada.cupoescolarapp.location.constant.ConstantsFirebaseRefPosition;
 import co.jestrada.cupoescolarapp.student.constant.ConstantsFirebaseStudent;
-import co.jestrada.cupoescolarapp.student.contract.IEditStudentContract;
+import co.jestrada.cupoescolarapp.student.contract.IAddEditStudentContract;
 import co.jestrada.cupoescolarapp.student.contract.IStudentContract;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
 import co.jestrada.cupoescolarapp.student.model.modelDocJson.StudentDocJson;
@@ -27,18 +27,18 @@ public class StudentInteractor implements
         IBaseContract.IBaseInteractor{
 
     private IMainContract.IMainPresenter mMainPresenter;
-    private IEditStudentContract.IEditStudentPresenter mEditStudentPresenter;
+    private IAddEditStudentContract.IAddEditStudentPresenter mAddEditStudentPresenter;
     private IStudentContract.IStudentPresenter mStudentPresenter;
 
     private FirebaseDatabase mFirebaseDB;
     private DatabaseReference dbRefStudents;
 
     public StudentInteractor(@Nullable IMainContract.IMainPresenter mMainPresenter,
-                             @Nullable IEditStudentContract.IEditStudentPresenter mEditStudentPresenter,
+                             @Nullable IAddEditStudentContract.IAddEditStudentPresenter mAddEditStudentPresenter,
                              @Nullable IStudentContract.IStudentPresenter mStudentPresenter) {
 
         this.mMainPresenter = mMainPresenter;
-        this.mEditStudentPresenter = mEditStudentPresenter;
+        this.mAddEditStudentPresenter = mAddEditStudentPresenter;
         this.mStudentPresenter = mStudentPresenter;
 
         this.mFirebaseDB = FirebaseDatabase.getInstance();
@@ -46,13 +46,10 @@ public class StudentInteractor implements
     }
 
     public void getStudent(final String docId) {
-
         dbRefStudents.child(docId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot studentDS) {
                 final StudentDocJson studentDocJson = studentDS.getValue(StudentDocJson.class);
-                Log.d("RefPositions","RefPositionInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseRefPosition.REF_POSITIONS + "/" + docId);
-
                 if(studentDocJson != null){
                     StudentBO studentBO = new StudentBO();
                     studentBO.setValues(studentDocJson);
@@ -61,12 +58,12 @@ public class StudentInteractor implements
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
+                notifyStudentTransactionState(false);
             }
         });
     }
 
     public void getStudentsByAttendantUserUid(final String attendantUserUid) {
-
         dbRefStudents.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot studentDS) {
@@ -99,8 +96,8 @@ public class StudentInteractor implements
         if(mMainPresenter != null){
             mMainPresenter.getStudent(studentBO, isChanged);
         }
-        if(mEditStudentPresenter != null){
-            mEditStudentPresenter.getStudent(studentBO, isChanged);
+        if(mAddEditStudentPresenter != null){
+            mAddEditStudentPresenter.getStudent(studentBO, isChanged);
         }
         if(mStudentPresenter != null){
             mStudentPresenter.getStudent(studentBO, isChanged);
@@ -117,8 +114,8 @@ public class StudentInteractor implements
         if(mMainPresenter != null){
             mMainPresenter.getStudentTransactionState(successful);
         }
-        if(mEditStudentPresenter != null){
-            mEditStudentPresenter.getStudentTransactionState(successful);
+        if(mAddEditStudentPresenter != null){
+            mAddEditStudentPresenter.getStudentTransactionState(successful);
         }
         if(mStudentPresenter != null){
             mStudentPresenter.getStudentTransactionState(successful);
@@ -128,10 +125,10 @@ public class StudentInteractor implements
     public void saveStudent(final StudentBO studentBO) {
 
         if(studentBO.getAttendantUserUid() != null){
-            final DatabaseReference dbRefRefPositions = mFirebaseDB.getReference(ConstantsFirebaseRefPosition.REF_POSITIONS);
+            dbRefStudents = mFirebaseDB.getReference(ConstantsFirebaseStudent.STUDENTS);
             final StudentDocJson studentDocJson = new StudentDocJson();
             studentDocJson.setValues(studentBO);
-            dbRefRefPositions.child(studentDocJson.getAttendantUserUid())
+            dbRefStudents.child(studentDocJson.getAttendantUserUid())
                     .setValue(studentBO).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {

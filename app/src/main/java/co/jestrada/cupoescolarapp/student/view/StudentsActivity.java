@@ -1,13 +1,18 @@
 package co.jestrada.cupoescolarapp.student.view;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
+import co.jestrada.cupoescolarapp.attendant.view.ConfigAccountActivity;
 import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 import co.jestrada.cupoescolarapp.student.contract.IStudentContract;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
@@ -17,6 +22,9 @@ public class StudentsActivity extends BaseActivity implements
         IStudentContract.IStudentView{
 
     private StudentPresenter mStudentPresenter;
+
+    @BindView(R.id.cv_new_student)
+    CardView cvNewStudent;
 
     private Toolbar mToolbar;
 
@@ -58,6 +66,20 @@ public class StudentsActivity extends BaseActivity implements
     private void getData(){
         showProgressBar(true);
         mStudentPresenter.getData();
+    }
+
+    @OnClick(R.id.cv_new_student)
+    public void addStudent(){
+        goToAddEditStudent(null);
+    }
+
+    private void goToAddEditStudent(String docIdStudent) {
+        Intent intent = new Intent(this, AddEditStudentActivity.class);
+        if(docIdStudent != null){
+            intent.putExtra("docIdStudent", docIdStudent);
+        }
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(intent);
     }
 
     @Override

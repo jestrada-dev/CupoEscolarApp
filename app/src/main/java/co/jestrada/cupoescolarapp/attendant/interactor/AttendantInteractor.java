@@ -79,7 +79,7 @@ public class AttendantInteractor implements
             }
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                notifyTransactionState(false);
             }
         });
     }

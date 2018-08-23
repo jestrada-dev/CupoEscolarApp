@@ -2,8 +2,7 @@ package co.jestrada.cupoescolarapp.attendant.contract;
 
 import java.util.ArrayList;
 
-import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
-import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.common.model.bo.DocIdTypeBO;
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
 
 public interface IEditProfileContract extends IBaseContract {

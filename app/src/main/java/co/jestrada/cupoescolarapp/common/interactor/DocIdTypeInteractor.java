@@ -1,7 +1,6 @@
-package co.jestrada.cupoescolarapp.attendant.interactor;
+package co.jestrada.cupoescolarapp.common.interactor;
 
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -11,22 +10,26 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 
-import co.jestrada.cupoescolarapp.attendant.constant.ConstantsFirebaseDocIdType;
+import co.jestrada.cupoescolarapp.common.constant.ConstantsFirebaseDocIdType;
 import co.jestrada.cupoescolarapp.attendant.contract.IEditProfileContract;
-import co.jestrada.cupoescolarapp.attendant.model.bo.DocIdTypeBO;
-import co.jestrada.cupoescolarapp.attendant.model.modelDocJson.DocIdTypeDocJson;
+import co.jestrada.cupoescolarapp.common.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.common.model.modelDocJson.DocIdTypeDocJson;
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
+import co.jestrada.cupoescolarapp.student.contract.IAddEditStudentContract;
 
 public class DocIdTypeInteractor implements
         IBaseContract.IBaseInteractor{
 
     private IEditProfileContract.IEditProfilePresenter mEditProfilePresenter;
+    private IAddEditStudentContract.IAddEditStudentPresenter mAddEditStudentPresenter;
 
     private FirebaseDatabase mFirebaseDB;
     private DatabaseReference dbRefDocIdTypes;
 
-    public DocIdTypeInteractor(@Nullable IEditProfileContract.IEditProfilePresenter mEditProfilePresenter) {
+    public DocIdTypeInteractor(@Nullable IEditProfileContract.IEditProfilePresenter mEditProfilePresenter,
+                               @Nullable IAddEditStudentContract.IAddEditStudentPresenter mAddEditStudentPresenter) {
         this.mEditProfilePresenter = mEditProfilePresenter;
+        this.mAddEditStudentPresenter = mAddEditStudentPresenter;
         this.mFirebaseDB = FirebaseDatabase.getInstance();
         this.dbRefDocIdTypes = mFirebaseDB.getReference(ConstantsFirebaseDocIdType.DOC_ID_TYPES);
     }
@@ -53,6 +56,9 @@ public class DocIdTypeInteractor implements
     private void notifyAttandantChanges(ArrayList<DocIdTypeBO> docIdTypeBOS, boolean isChanged) {
         if(mEditProfilePresenter != null){
             mEditProfilePresenter.getDocIdTypes(docIdTypeBOS, isChanged);
+        }
+        if(mAddEditStudentPresenter != null){
+            mAddEditStudentPresenter.getDocIdTypes(docIdTypeBOS, isChanged);
         }
     }
 

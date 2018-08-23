@@ -1,6 +1,6 @@
 package co.jestrada.cupoescolarapp.student.model.modelDocJson;
 
-import co.jestrada.cupoescolarapp.attendant.model.enums.GenreEnum;
+import co.jestrada.cupoescolarapp.common.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.student.model.bo.StudentBO;
 
 public class StudentDocJson {
@@ -13,6 +13,7 @@ public class StudentDocJson {
     private String birthdate;
     private String grade;
     private String attendantUserUid;
+    private String relationship;
 
     public StudentDocJson() {
     }
@@ -26,6 +27,7 @@ public class StudentDocJson {
         this.birthdate = studentBO.getBirthdate();
         this.grade = studentBO.getGrade();
         this.attendantUserUid = studentBO.getAttendantUserUid();
+        this.relationship = studentBO.getRelationship();
     }
 
     public String getAttendantUserUid() {
@@ -90,5 +92,13 @@ public class StudentDocJson {
 
     public void setGrade(String grade) {
         this.grade = grade;
+    }
+
+    public String getRelationship() {
+        return relationship;
+    }
+
+    public void setRelationship(String relationship) {
+        this.relationship = relationship;
     }
 }
