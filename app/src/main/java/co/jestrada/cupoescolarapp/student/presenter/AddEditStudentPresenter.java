@@ -11,8 +11,10 @@ import butterknife.BindView;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
 import co.jestrada.cupoescolarapp.base.presenter.BasePresenter;
 import co.jestrada.cupoescolarapp.common.interactor.DocIdTypeInteractor;
+import co.jestrada.cupoescolarapp.common.interactor.GradeInteractor;
 import co.jestrada.cupoescolarapp.common.interactor.RelationshipTypeInteractor;
 import co.jestrada.cupoescolarapp.common.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.common.model.bo.GradeBO;
 import co.jestrada.cupoescolarapp.common.model.bo.RelationshipTypeBO;
 import co.jestrada.cupoescolarapp.student.contract.IAddEditStudentContract;
 import co.jestrada.cupoescolarapp.student.interactor.StudentInteractor;
@@ -27,6 +29,7 @@ public class AddEditStudentPresenter extends BasePresenter implements
     private StudentInteractor mStudentInteractor;
     private DocIdTypeInteractor mDocIdTypeInteractor;
     private RelationshipTypeInteractor mRelationshipTypeInteractor;
+    private GradeInteractor mGradeInteractor;
 
     private FirebaseAuth mFirebaseAuth;
     FirebaseUser mFirebaseUser;
@@ -46,6 +49,9 @@ public class AddEditStudentPresenter extends BasePresenter implements
         this.mRelationshipTypeInteractor = new RelationshipTypeInteractor(
                 this
         );
+        this.mGradeInteractor = new GradeInteractor(
+                this
+        );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();
         attendantBO = AttendantBO.getInstance();
@@ -58,18 +64,20 @@ public class AddEditStudentPresenter extends BasePresenter implements
 
     @Override
     public void getData(String docIdStudent) {
-        if(docIdStudent != null){
-            mStudentInteractor.getStudent(docIdStudent);
-        } else {
-            getStudent(null, false);
-        }
         mDocIdTypeInteractor.getDocIdTypes();
         mRelationshipTypeInteractor.getRelationshipTypes();
+        mGradeInteractor.getGrades();
+        mStudentInteractor.getStudent(docIdStudent);
     }
 
     @Override
     public void getRelationshipTypes(ArrayList<RelationshipTypeBO> relationshipTypeBOS, boolean isChanged) {
         mAddEditStudentView.setRelationshipTypesList(relationshipTypeBOS, isChanged);
+    }
+
+    @Override
+    public void getGrades(ArrayList<GradeBO> gradeBOS, boolean isChanged) {
+        mAddEditStudentView.setGradesList(gradeBOS, isChanged);
     }
 
     @Override

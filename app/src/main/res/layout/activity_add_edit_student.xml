@@ -246,6 +246,7 @@
                                 android:layout_height="wrap_content"
                                 style="@style/TextInputField"
                                 android:longClickable="false"
+                                android:focusable="false"
                                 android:inputType="text"
                                 android:hint="@string/relationship"
                                 android:nextFocusForward="@id/btn_save"/>
@@ -275,7 +276,7 @@
                             android:layout_weight="0.1"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/address"
-                            android:src="@drawable/ic_email_light_96"/>
+                            android:src="@drawable/ic_grade_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_grade"
                             android:layout_width="0dp"
@@ -289,7 +290,7 @@
                                 android:longClickable="false"
                                 android:focusable="false"
                                 android:enabled="false"
-                                android:inputType="textEmailAddress"
+                                android:inputType="number"
                                 android:hint="@string/grade"/>
                         </android.support.design.widget.TextInputLayout>
                     </LinearLayout>

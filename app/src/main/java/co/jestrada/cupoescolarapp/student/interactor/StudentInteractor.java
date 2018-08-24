@@ -46,21 +46,24 @@ public class StudentInteractor implements
     }
 
     public void getStudent(final String docId) {
-        dbRefStudents.child(docId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot studentDS) {
-                final StudentDocJson studentDocJson = studentDS.getValue(StudentDocJson.class);
-                if(studentDocJson != null){
-                    StudentBO studentBO = new StudentBO();
-                    studentBO.setValues(studentDocJson);
-                    notifyStudentChanges(studentBO, true);
+        if (docId != null){
+            dbRefStudents.child(docId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot studentDS) {
+                    final StudentDocJson studentDocJson = studentDS.getValue(StudentDocJson.class);
+                    if(studentDocJson != null){
+                        StudentBO studentBO = new StudentBO();
+                        studentBO.setValues(studentDocJson);
+                        notifyStudentChanges(studentBO, true);
+                    }
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                notifyStudentTransactionState(false);
-            }
-        });
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+                    notifyStudentTransactionState(false);
+                }
+            });
+
+        }
     }
 
     public void getStudentsByAttendantUserUid(final String attendantUserUid) {
@@ -108,6 +111,7 @@ public class StudentInteractor implements
         if(mStudentPresenter != null){
             mStudentPresenter.getStudentsByAttendantUserUid(studentBOS, isChanged);
         }
+
     }
 
     private void notifyStudentTransactionState(boolean successful){
@@ -123,22 +127,18 @@ public class StudentInteractor implements
     }
 
     public void saveStudent(final StudentBO studentBO) {
-
-        if(studentBO.getAttendantUserUid() != null){
             dbRefStudents = mFirebaseDB.getReference(ConstantsFirebaseStudent.STUDENTS);
             final StudentDocJson studentDocJson = new StudentDocJson();
             studentDocJson.setValues(studentBO);
-            dbRefStudents.child(studentDocJson.getAttendantUserUid())
+            dbRefStudents.child(studentDocJson.getDocId())
                     .setValue(studentBO).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
+                    getStudent(studentBO.getDocId());
                     notifyStudentTransactionState(task.isSuccessful());
-
                 }
             });
         }
-
-    }
 
 }
 

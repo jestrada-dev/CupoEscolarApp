@@ -7,13 +7,13 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -22,9 +22,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import co.jestrada.cupoescolarapp.R;
-import co.jestrada.cupoescolarapp.attendant.view.EditProfileActivity;
 import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 import co.jestrada.cupoescolarapp.common.model.bo.DocIdTypeBO;
+import co.jestrada.cupoescolarapp.common.model.bo.GradeBO;
 import co.jestrada.cupoescolarapp.common.model.bo.RelationshipTypeBO;
 import co.jestrada.cupoescolarapp.common.model.enums.GenreEnum;
 import co.jestrada.cupoescolarapp.student.contract.IAddEditStudentContract;
@@ -83,6 +83,9 @@ public class AddEditStudentActivity extends BaseActivity implements
     private ArrayList<String> docIdTypeArrayList;
     private ArrayList<String> docIdTypeShortNameArrayList;
 
+    private ArrayList<String> gradeArrayList;
+    private ArrayList<String> gradeNumberArrayList;
+
     private ArrayList<String> relationshipNameArrayList;
 
     @Override
@@ -100,7 +103,13 @@ public class AddEditStudentActivity extends BaseActivity implements
 
         docIdTypeArrayList = new ArrayList<>();
         docIdTypeShortNameArrayList = new ArrayList<>();
+
+        gradeArrayList = new ArrayList<>();
+        gradeNumberArrayList = new ArrayList<>();
+
         relationshipNameArrayList = new ArrayList<>();
+
+
     }
 
     private String getDocIdStudent() {
@@ -110,6 +119,7 @@ public class AddEditStudentActivity extends BaseActivity implements
     private void initView() {
         ButterKnife.bind(this);
         setToolbar();
+
     }
 
     private void setToolbar() {
@@ -229,6 +239,22 @@ public class AddEditStudentActivity extends BaseActivity implements
 
     }
 
+    @OnClick(R.id.et_grade)
+    public void showGradeList(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddEditStudentActivity.this);
+        builder.setTitle("Selecciona el grado");
+        final ArrayAdapter<String> gradeBOArrayAdapter = new ArrayAdapter<>(
+                AddEditStudentActivity.this, android.support.design.R.layout.select_dialog_singlechoice_material);
+        gradeBOArrayAdapter.addAll(gradeArrayList);
+        builder.setAdapter(gradeBOArrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
+                etGrade.setText(gradeNumberArrayList.get(item));
+                dialog.dismiss();
+            }
+        }).show();
+    }
+
     @OnClick(R.id.btn_save)
     public void save() {
         if (validateInputs()) {
@@ -260,7 +286,7 @@ public class AddEditStudentActivity extends BaseActivity implements
     @Override
     public void getStudentTransactionState(boolean successful) {
         if(successful){
-
+            Toast.makeText(this,"Estudiante guardado exitosamente!",Toast.LENGTH_LONG).show();
         }
 
     }
@@ -311,6 +337,23 @@ public class AddEditStudentActivity extends BaseActivity implements
                 relationshipNameArrayList.clear();
                 for (RelationshipTypeBO relationshipTypeBO : relationshipTypeBOS){
                     relationshipNameArrayList.add(relationshipTypeBO.getName());
+                }
+            }
+        }
+
+    }
+
+    @Override
+    public void setGradesList(ArrayList<GradeBO> gradeBOS, boolean isChanged) {
+        showProgressBar(false);
+        enableInputs(true);
+        if (isChanged){
+            if (!gradeBOS.isEmpty()){
+                gradeArrayList.clear();
+                gradeNumberArrayList.clear();
+                for (GradeBO gradeBO : gradeBOS){
+                    gradeArrayList.add(gradeBO.getGrade() + " " + gradeBO.getName());
+                    gradeNumberArrayList.add(gradeBO.getGrade());
                 }
             }
         }

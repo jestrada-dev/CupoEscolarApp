@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mColorBackground"
+    android:background="@color/mColorBackgroundSection"
     tools:context=".student.view.StudentsActivity">
 
     <include
@@ -25,8 +25,7 @@
             <RelativeLayout
                 android:id="@+id/rl_add_student"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/mColorBorder">
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv_new_student"
@@ -35,7 +34,7 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                    android:layout_margin="@dimen/margin">
+                    android:layout_margin="@dimen/margin_vertical">
 
                     <TextView
                         android:id="@+id/tv_add_student"
@@ -67,23 +66,64 @@
                 android:id="@+id/rl_students"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/mColorBackgroundSection"
-                android:paddingBottom="@dimen/margin"
                 android:layout_below="@id/rl_add_student">
 
                 <android.support.v7.widget.CardView
                     android:id="@+id/cv_students"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/card_view_height"
                     android:clickable="true"
                     android:focusable="true"
                     android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                    android:layout_marginTop="@dimen/margin"
-                    android:layout_marginStart="@dimen/margin"
-                    android:layout_marginEnd="@dimen/margin">
+                    android:layout_marginStart="@dimen/margin_horizontal"
+                    android:layout_marginEnd="@dimen/margin_horizontal">
                     <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/card_view_height" />
+                        android:id="@+id/iv_student"
+                        android:contentDescription=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_vertical_triple"
+                        android:layout_marginStart="@dimen/margin_horizontal_triple"
+                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
+                        android:tint="@color/mColorSecondaryText"
+                        android:src="@drawable/ic_student_light_96"/>
+                    <TextView
+                        android:id="@+id/tv_student_name"
+                        android:layout_width="240dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_vertical_triple"
+                        android:layout_marginStart="80dp"
+                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
+                        style="@style/TextSubtitle1"
+                        android:text="Alejandro Antonio de Jesus Estrada Sierra"/>
+
+                    <TextView
+                        android:id="@+id/tv_doc_id_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="80dp"
+                        android:layout_marginStart="80dp"
+                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
+                        style="@style/TextLabel1"
+                        android:text="RC"/>
+                    <TextView
+                        android:id="@+id/tv_doc_id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="80dp"
+                        android:layout_marginStart="80dp"
+                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
+                        style="@style/TextLabel1"
+                        android:text="RC"/>
+
+                    <ImageView
+                        android:id="@+id/iv_edit_student"
+                        android:contentDescription=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="24dp"
+                        android:layout_gravity="end|center"
+                        android:tint="@color/mColorSecondaryText"
+                        android:src="@drawable/ic_next_light_96"/>
 
                 </android.support.v7.widget.CardView>
             </RelativeLayout>

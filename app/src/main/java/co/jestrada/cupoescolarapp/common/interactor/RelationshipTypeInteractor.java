@@ -36,7 +36,7 @@ public class RelationshipTypeInteractor implements
             @Override
             public void onDataChange(DataSnapshot relationshipTypesDS) {
                 ArrayList<RelationshipTypeBO> relationshipTypeBOS = new ArrayList<>();
-                for( DataSnapshot relationshipTypesChildDS : relationshipTypesDS.child(ConstantsFirebaseRelationshipType.RELATIONSHIP_TYPE_SPANISH).getChildren()){
+                for( DataSnapshot relationshipTypesChildDS : relationshipTypesDS.getChildren()){
                     RelationshipTypeDocJson relationshipTypeDocJson = relationshipTypesChildDS.
                             getValue(RelationshipTypeDocJson.class);
                     RelationshipTypeBO relationshipTypeBO = new RelationshipTypeBO();
