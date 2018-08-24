@@ -147,6 +147,7 @@
     <string name="confirm_new_email">Confirma tu Nueva cuenta de correo</string>
     <string name="add_student">Agregar Nuevo Estudiante</string>
     <string name="relationship">Parentesco</string>
+    <string name="student_name">Nombre del Estudiante</string>
 
 
 </resources>

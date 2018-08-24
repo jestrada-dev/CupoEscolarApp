@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,18 @@ public class StudentsActivity extends BaseActivity implements
         IStudentContract.IStudentView{
 
     private StudentPresenter mStudentPresenter;
+
+    @BindView(R.id.cv_students)
+    CardView cvStudent;
+    @BindView(R.id.tv_student_name)
+    TextView tvStudentName;
+    @BindView(R.id.tv_doc_id_type)
+    TextView tvDocIdType;
+    @BindView(R.id.tv_doc_id)
+    TextView tvDocId;
+    @BindView(R.id.iv_edit_student)
+    ImageView ivEditStudent;
+
 
     @BindView(R.id.cv_new_student)
     CardView cvNewStudent;
@@ -73,6 +87,12 @@ public class StudentsActivity extends BaseActivity implements
         goToAddEditStudent(null);
     }
 
+
+    @OnClick(R.id.iv_edit_student)
+    public void goToStudent(){
+        goToAddEditStudent(tvDocId.getText().toString());
+    }
+
     private void goToAddEditStudent(String docIdStudent) {
         Intent intent = new Intent(this, AddEditStudentActivity.class);
         if(docIdStudent != null){
@@ -90,6 +110,11 @@ public class StudentsActivity extends BaseActivity implements
     @Override
     public void setStudentsUI(ArrayList<StudentBO> studentBOS, boolean isChanged) {
         showProgressBar(false);
+        if(isChanged){
+            tvStudentName.setText(studentBOS.get(0).getFirstName() + " " + studentBOS.get(0).getLastName());
+            tvDocIdType.setText(studentBOS.get(0).getDocIdType());
+            tvDocId.setText(studentBOS.get(0).getDocId());
+        }
     }
 
 }

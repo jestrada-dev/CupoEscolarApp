@@ -95,7 +95,7 @@
                         android:layout_marginStart="80dp"
                         android:layout_marginEnd="@dimen/margin_horizontal_triple"
                         style="@style/TextSubtitle1"
-                        android:text="Alejandro Antonio de Jesus Estrada Sierra"/>
+                        android:text="@string/student_name"/>
 
                     <TextView
                         android:id="@+id/tv_doc_id_type"
@@ -105,16 +105,16 @@
                         android:layout_marginStart="80dp"
                         android:layout_marginEnd="@dimen/margin_horizontal_triple"
                         style="@style/TextLabel1"
-                        android:text="RC"/>
+                        android:text="Doc"/>
                     <TextView
                         android:id="@+id/tv_doc_id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="80dp"
-                        android:layout_marginStart="80dp"
+                        android:layout_marginStart="120dp"
                         android:layout_marginEnd="@dimen/margin_horizontal_triple"
                         style="@style/TextLabel1"
-                        android:text="RC"/>
+                        android:text="1123456789"/>
 
                     <ImageView
                         android:id="@+id/iv_edit_student"
@@ -124,6 +124,29 @@
                         android:layout_gravity="end|center"
                         android:tint="@color/mColorSecondaryText"
                         android:src="@drawable/ic_next_light_96"/>
+
+                    <Button
+                        android:id="@+id/btn_edit"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="80dp"
+                        android:layout_marginBottom="@dimen/margin_vertical"
+                        android:layout_gravity="bottom"
+                        android:drawableStart="@drawable/ic_edit"
+                        style="@style/TextButtonCardView"
+                        android:text="@string/edit"/>
+
+                    <Button
+                        android:id="@+id/btn_enroll"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_marginStart="200dp"
+                        android:layout_marginBottom="@dimen/margin_vertical"
+                        android:layout_gravity="bottom"
+                        android:drawableStart="@drawable/ic_edit"
+                        style="@style/TextButtonCardView"
+                        android:text="@string/enroll_students"/>
+
 
                 </android.support.v7.widget.CardView>
             </RelativeLayout>
