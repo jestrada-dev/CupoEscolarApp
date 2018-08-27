@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_current_position_map"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".location.view.CurrentPositionMapActivity">
@@ -12,18 +13,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         />
-    <Button
-        android:id="@+id/btn_set_current_position"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fav_update_position"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:src="@drawable/ic_current_position_bold_48"
+        android:backgroundTint="@color/mColorBackgroundSection"
+        android:tint="@color/mColorSecondaryText"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="@dimen/margin_horizontal"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fav_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save_bold_96"
+        android:layout_marginBottom="@dimen/margin_vertical"
         android:layout_marginEnd="@dimen/margin_horizontal"
-        android:drawableTint="@android:color/white"
-        android:drawableStart="@drawable/ic_current_position_bold_48"
-        android:drawablePadding="@dimen/margin_vertical"
-        style="@style/TextButton"
-        android:text="@string/set_current_position"/>
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        />
 
     <ProgressBar
         android:id="@+id/pb"

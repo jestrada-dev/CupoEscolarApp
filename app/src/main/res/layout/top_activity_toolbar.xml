@@ -3,6 +3,5 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
-    android:theme="@style/MainToolbar"
-    android:background="@color/mColorPrimaryDark"
+    android:background="@android:color/white"
     android:translationZ="4dp" />

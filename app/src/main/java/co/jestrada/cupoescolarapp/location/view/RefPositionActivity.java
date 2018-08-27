@@ -1,11 +1,15 @@
 package co.jestrada.cupoescolarapp.location.view;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
@@ -22,8 +26,12 @@ public class RefPositionActivity extends BaseActivity implements
 
     @BindView(R.id.et_description)
     EditText etDescription;
-    @BindView(R.id.btn_save)
-    Button btnSave;
+    @BindView(R.id.fav_save)
+    FloatingActionButton favSave;
+    @BindView(R.id.fav_edit)
+    FloatingActionButton favEdit;
+    @BindView(R.id.fav_cancel)
+    FloatingActionButton favCancel;
 
     @BindView(R.id.et_address)
     EditText etAddress;
@@ -35,8 +43,9 @@ public class RefPositionActivity extends BaseActivity implements
     EditText etAdminArea;
     @BindView(R.id.et_country)
     EditText etCountry;
-    @BindView(R.id.btn_get_current_position)
-    Button btnGetCurrentPosition;
+
+    @BindView(R.id.fav_map)
+    FloatingActionButton favMap;
 
     private RefPositionPresenter mRefPositionPresenter;
 
@@ -65,8 +74,13 @@ public class RefPositionActivity extends BaseActivity implements
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle(R.string.set_current_position);
+            getSupportActionBar().setSubtitle("Obtén tus coordenadas del mapa");
             mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
-            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
+            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_blue_48);
+            mToolbar.setTitleTextAppearance(this, R.style.TextTitle);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorPrimaryText));
+            mToolbar.setSubtitleTextAppearance(this, R.style.TextSubtitle1);
+            mToolbar.setSubtitleTextColor(getColor(R.color.mColorSecondaryText));
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -86,18 +100,38 @@ public class RefPositionActivity extends BaseActivity implements
         etDescription.setEnabled(enable);
     }
 
-    @OnClick(R.id.btn_save)
+    @OnClick(R.id.fav_save)
     public void saveDescription(){
         showProgressBar(true);
         enableInputs(false);
+        favEdit.show();
+        favSave.hide();
+        favCancel.hide();
         RefPositionBO refPositionBO = new RefPositionBO();
         refPositionBO.setDescription(etDescription.getText().toString());
         mRefPositionPresenter.saveDescriptionRefPosition(refPositionBO);
     }
 
-    @OnClick(R.id.btn_get_current_position)
+    @OnClick(R.id.fav_map)
     public void getCurrentPosition(){
         goToCurrentPositionMap();
+    }
+
+    @OnClick(R.id.fav_edit)
+    public void edit(){
+        enableInputs(true);
+        etDescription.requestFocus();
+        favEdit.hide();
+        favSave.show();
+        favCancel.show();
+    }
+
+    @OnClick(R.id.fav_cancel)
+    public void cancel(){
+        enableInputs(false);
+        favEdit.show();
+        favSave.hide();
+        favCancel.hide();
     }
 
     private void goToCurrentPositionMap() {
@@ -107,8 +141,16 @@ public class RefPositionActivity extends BaseActivity implements
 
     @Override
     public void getRefPositionTransactionState(boolean successful) {
+        showProgressBar(false);
         if (successful){
-            Toast.makeText(this, R.string.ref_positions_updated_succesfully,Toast.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_ref_position), R.string.ref_positions_updated_succesfully, Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getColor(R.color.mColorPrimaryText))
+                    .setAction("Action", null);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(getColor(R.color.mColorPrimaryLight));
+            TextView tv = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            tv.setTextColor(Color.WHITE);
+            snackbar.show();
         }
     }
 
@@ -123,7 +165,6 @@ public class RefPositionActivity extends BaseActivity implements
             etCity.setText((refPositionBO.getCity() != null) ? refPositionBO.getCity() : "");
         }
         showProgressBar(false);
-        enableInputs(true);
     }
 
 }

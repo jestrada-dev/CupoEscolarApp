@@ -4,7 +4,7 @@
     <!-- Margin -->
     <dimen name="margin_logo">24dp</dimen>
 
-    <dimen name="margin">16dp</dimen>
+    <dimen name="margin">12dp</dimen>
 
     <dimen name="margin_vertical_middle">4dp</dimen>
     <dimen name="margin_vertical">8dp</dimen>

@@ -1,44 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/left_nav_view_header"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/height_nav_view_header_custom"
-    android:clickable="true"
-    android:focusable="true"
-    app:cardBackgroundColor="@color/mColorBackgroundSection"
-    android:foreground="?android:attr/selectableItemBackgroundBorderless">
+    android:layout_height="match_parent"
+    android:background="@color/mColorBorder">
 
-    <!--Iconos diseñados por Freepik desde www.flaticon.com con licencia CC 3.0 BY -->
-    <ImageView
-        android:id="@+id/iv_avatar"
-        android:layout_width="@dimen/iv_avatar_width_and_height"
-        android:layout_height="@dimen/iv_avatar_width_and_height"
-        android:scaleType="centerCrop"
-        style="@style/ImageAvatar"
-        android:contentDescription="@string/click_to_change_avatar"
-        android:src="@drawable/ic_avatar_bold_96"
-        android:layout_marginTop="@dimen/margin_vertical_cuadruple"
-        android:layout_gravity="start"/>
-    <TextView
-        android:id="@+id/tv_attendant_name"
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_vertical_cuadruple"
-        android:layout_marginStart="@dimen/margin_horizontal_double"
-        android:layout_gravity="bottom"
-        style="@style/TextBodyInvert1"
-        android:text="@string/first_name"
-        android:layout_centerHorizontal="true"/>
-    <TextView
-        android:id="@+id/tv_attendant_email"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_vertical"
-        android:layout_marginStart="@dimen/margin_horizontal_double"
-        android:layout_gravity="bottom"
-        style="@style/TextBodyInvert2"
-        android:text="@string/email"
-        android:layout_centerHorizontal="true"/>
-</android.support.v7.widget.CardView>
+        android:layout_height="@dimen/height_nav_view_header_custom"
+        android:layout_margin="@dimen/margin"
+        android:clickable="true"
+        android:focusable="true"
+        app:cardBackgroundColor="@android:color/white"
+        android:foreground="?android:attr/selectableItemBackgroundBorderless">
+
+        <!--Iconos diseñados por Freepik desde www.flaticon.com con licencia CC 3.0 BY -->
+        <ImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/iv_avatar_width_and_height"
+            android:layout_height="@dimen/iv_avatar_width_and_height"
+            android:scaleType="centerCrop"
+            style="@style/ImageAvatar"
+            android:contentDescription="@string/click_to_change_avatar"
+            android:src="@drawable/ic_avatar_bold_greis_96"
+            android:layout_marginTop="@dimen/margin_vertical_cuadruple"
+            android:layout_gravity="start"/>
+        <TextView
+            android:id="@+id/tv_attendant_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_vertical_cuadruple"
+            android:layout_marginStart="@dimen/margin_horizontal_double"
+            android:layout_gravity="bottom"
+            style="@style/TextBodyInvert1"
+            android:text="@string/first_name"
+            android:layout_centerHorizontal="true"/>
+        <TextView
+            android:id="@+id/tv_attendant_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_vertical"
+            android:layout_marginStart="@dimen/margin_horizontal_double"
+            android:layout_gravity="bottom"
+            style="@style/TextBodyInvert2"
+            android:text="@string/email"
+            android:layout_centerHorizontal="true"/>
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

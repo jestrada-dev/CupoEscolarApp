@@ -2,7 +2,11 @@ package co.jestrada.cupoescolarapp.attendant.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -13,7 +17,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,8 +51,12 @@ public class EditProfileActivity extends BaseActivity implements
     private ArrayList<String> docIdTypeArrayList;
     private ArrayList<String> docIdTypeShortNameArrayList;
 
-    @BindView(R.id.btn_save)
-    Button btnSave;
+    @BindView(R.id.fav_edit)
+    FloatingActionButton favEdit;
+    @BindView(R.id.fav_save)
+    FloatingActionButton favSave;
+    @BindView(R.id.fav_cancel)
+    FloatingActionButton favCancel;
 
     @BindView(R.id.et_doc_id_type)
     EditText etDocIdType;
@@ -92,6 +100,7 @@ public class EditProfileActivity extends BaseActivity implements
 
     private void initView() {
         ButterKnife.bind(this);
+        enableFields(false);
         setToolbar();
         getData();
     }
@@ -100,8 +109,13 @@ public class EditProfileActivity extends BaseActivity implements
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle(R.string.edit_profile);
-            mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
-            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
+            getSupportActionBar().setSubtitle("Actualiza tus datos personales y de contacto");
+            mToolbar.setTitleTextAppearance(this, R.style.TextTitle);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorPrimaryText));
+            mToolbar.setSubtitleTextAppearance(this, R.style.TextSubtitle1);
+            mToolbar.setSubtitleTextColor(getColor(R.color.mColorSecondaryText));
+            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_blue_48);
+
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -115,16 +129,40 @@ public class EditProfileActivity extends BaseActivity implements
         enableFields(false);
         showProgressBar(true);
         mEditProfilePresenter.getData();
+
     }
 
-    @OnClick(R.id.btn_save)
+    @OnClick(R.id.fav_edit)
+    public void edit(){
+        enableFields(true);
+/*        ColorStateList csl = new ColorStateList(new int[][]{new int[0]}, new int[]{getColor(R.color.mColorBackgroundSection)});
+        favEdit.setBackgroundTintList(csl);
+        csl = new ColorStateList(new int[][]{new int[0]}, new int[]{getColor(R.color.mColorSecondaryText)});
+        favEdit.setSupportImageTintList(csl);*/
+        favEdit.hide();
+        favSave.show();
+        favCancel.show();
+    }
+
+    @OnClick(R.id.fav_save)
     public void save(){
         if(validateInputs()){
+            favEdit.show();
+            favSave.hide();
+            favCancel.hide();
             showProgressBar(true);
             enableFields(false);
             saveAttendant();
         }
 
+    }
+
+    @OnClick(R.id.fav_cancel)
+    public void cancel(){
+        enableFields(false);
+        favEdit.show();
+        favSave.hide();
+        favCancel.hide();
     }
 
     private boolean validateInputs() {
@@ -237,7 +275,6 @@ public class EditProfileActivity extends BaseActivity implements
     }
 
     void enableFields(boolean enable){
-        btnSave.setEnabled(enable);
         enableFieldsPersonalInfo(enable);
         enableFieldsContactInfo(enable);
     }
@@ -267,9 +304,16 @@ public class EditProfileActivity extends BaseActivity implements
     @Override
     public void getAttendantTransactionState(boolean successful) {
         if(successful){
-            Toast.makeText(this, R.string.attendan_profile_updated,Toast.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_edit_profile), R.string.attendan_profile_updated, Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getColor(R.color.mColorPrimaryText))
+                    .setAction("Action", null);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(getColor(R.color.mColorPrimaryLight));
+            TextView tv = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            tv.setTextColor(Color.WHITE);
+            snackbar.show();
         }
-
+        showProgressBar(false);
     }
 
     @Override
@@ -296,8 +340,6 @@ public class EditProfileActivity extends BaseActivity implements
             etMobilPhone.setText((attendantBO.getMobilePhone() != null) ? attendantBO.getMobilePhone() : "");
         }
         showProgressBar(false);
-        enableFields(true);
-        etDocId.requestFocus();
     }
 
     @Override

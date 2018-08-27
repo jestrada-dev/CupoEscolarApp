@@ -22,12 +22,15 @@
     <!--Color de fondo para el header de perfil-->
     <color name="mColorBackgroundSection">#FAFAFA</color>
 
-    <!--Color para el borde de los inputs-->
+    <!--Color para la línea inferior de los inputs-->
     <color name="mColorBorder">#CFD8DC</color>
 
     <!--Color del avatar sin foto, nombre y correo del perfil del usuario
-     iconos de inputs, línea inferior de los edit text, el BottomBar y el NavBar-->
+     iconos de inputs, el BottomBar y el NavBar-->
     <color name="mColorSecondaryText">#757575</color>
+
+    <!--Color para Title, subtitle, buttons -->
+    <color name="mColorWhite">#FFFFFF</color>
 
     <!--Colores no utilizados-->
     <color name="mColorHint">#B2EBF2</color>

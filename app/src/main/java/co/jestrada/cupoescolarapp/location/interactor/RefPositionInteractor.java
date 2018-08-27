@@ -48,7 +48,6 @@ public class RefPositionInteractor implements
             @Override
             public void onDataChange(DataSnapshot refPositionDS) {
                 final RefPositionDocJson refPositionDocJson = refPositionDS.getValue(RefPositionDocJson.class);
-                Log.d("RefPositions","RefPositionInteractor -> Se ejecutó el onDataChange para " + ConstantsFirebaseRefPosition.REF_POSITIONS + "/" + userUid);
 
                 if(refPositionDocJson != null){
                     RefPositionBO refPositionBO = new RefPositionBO();
@@ -94,18 +93,13 @@ public class RefPositionInteractor implements
             final DatabaseReference dbRefRefPositions = mFirebaseDB.getReference(ConstantsFirebaseRefPosition.REF_POSITIONS);
             final RefPositionDocJson refPositionDocJson = new RefPositionDocJson();
             refPositionDocJson.setValues(refPositionBO);
-            Log.d("RefPosition","RefPositionInteractor -> Usuario: " + refPositionDocJson.getUserUid());
             dbRefRefPositions.child(refPositionDocJson.getUserUid())
                     .setValue(refPositionBO).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     notifyTransactionState(task.isSuccessful());
-                    Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
-                            " grabado exitosamente");
                 }
             });
-        } else {
-            Log.d("RefPosition","RefPositionInteractor -> Usuario null");
         }
 
     }
@@ -115,21 +109,17 @@ public class RefPositionInteractor implements
             final DatabaseReference dbRefRefPositions = mFirebaseDB.getReference(ConstantsFirebaseRefPosition.REF_POSITIONS);
             final RefPositionDocJson refPositionDocJson = new RefPositionDocJson();
             refPositionDocJson.setValues(refPositionBO);
-            Log.d("RefPosition","RefPositionInteractor -> Usuario: " + refPositionDocJson.getUserUid());
             dbRefRefPositions.child(refPositionDocJson.getUserUid())
                     .child(ConstantsFirebaseRefPosition.REF_POSITION_DESCRIPTION)
                     .setValue(refPositionDocJson.getDescription()).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()){
-                        Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
-                                " grabado exitosamente");
                         getRefPosition(refPositionBO.getUserUid());
+                        notifyTransactionState(task.isSuccessful());
                     }
                 }
             });
-        } else {
-            Log.d("RefPosition","RefPositionInteractor -> Usuario null");
         }
 
     }

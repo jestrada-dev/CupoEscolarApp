@@ -3,7 +3,8 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/mColorPrimary</item>
         <item name="colorPrimaryDark">@color/mColorPrimaryDark</item>
-        <item name="colorAccent">@color/mColorAccent</item>
+        <!--<item name="colorAccent">@color/mColorAccent</item>-->
+        <item name="colorAccent">@color/mColorPrimaryLight</item>
         <item name="android:textColorPrimary">@color/mColorPrimaryText</item>
         <item name="android:textColorSecondary">@color/mColorPrimaryLight</item>
         <item name="android:colorButtonNormal">@color/mColorPrimary</item>
@@ -14,26 +15,19 @@
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
 
-    <style name="MainToolbar" parent="Theme.MaterialComponents.Light">
-        <item name="android:fontFamily">@font/worksans_medium</item>
-        <item name="android:textSize">14sp</item>
-    </style>
-
-    <style name="TextTitle" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/mColorPrimary</item>
+    <style name="TextTitle" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:fontFamily">@font/worksans_medium</item>
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="TextSubtitle1" parent="TextAppearance.AppCompat">
-        <item name="android:textColor">@color/mColorPrimaryText</item>
-        <item name="android:fontFamily">@font/worksans_semibold</item>
-        <item name="android:textSize">18sp</item>
+    <style name="TextSubtitle1" parent="Base.TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:fontFamily">@font/worksans_light</item>
+        <item name="android:textSize">12sp</item>
     </style>
 
     <style name="TextSubtitle2" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/mColorPrimary</item>
-        <item name="android:fontFamily">@font/worksans_medium</item>
+        <item name="android:fontFamily">@font/worksans_light</item>
         <item name="android:textSize">14sp</item>
     </style>
 
@@ -74,7 +68,8 @@
     </style>
 
     <style name="TextInputField" parent="TextAppearance.AppCompat">
-        <item name="android:backgroundTint">@color/mColorSecondaryText</item>
+        <item name="android:colorAccent">@color/mColorSecondaryText</item>
+        <item name="android:backgroundTint">@color/mColorBorder</item>
         <item name="android:textColor">@color/mColorPrimaryText</item>
         <item name="android:buttonTint">@color/mColorPrimaryText</item>
         <item name="android:fontFamily">@font/worksans_medium</item>
@@ -127,9 +122,12 @@
     </style>
 
     <style name="RelativeLayoutInput" >
-        <item name="android:padding">@dimen/margin_vertical_middle</item>
-        <item name="android:layout_marginStart">@dimen/margin_horizontal_double</item>
-        <item name="android:layout_marginEnd">@dimen/margin_horizontal_double</item>
+        <item name="android:padding">@dimen/margin_vertical_cuadruple</item>
+        <item name="android:paddingStart">@dimen/margin_horizontal</item>
+        <item name="android:paddingEnd">@dimen/margin_horizontal_quintuple</item>
+        <item name="android:layout_marginStart">@dimen/margin</item>
+        <item name="android:layout_marginEnd">@dimen/margin</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
         <item name="android:background">@drawable/layout_background</item>
     </style>
 

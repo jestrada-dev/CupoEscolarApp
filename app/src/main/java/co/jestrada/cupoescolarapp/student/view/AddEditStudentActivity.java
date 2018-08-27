@@ -2,7 +2,10 @@ package co.jestrada.cupoescolarapp.student.view;
 
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.Toolbar;
@@ -13,6 +16,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -65,8 +69,13 @@ public class AddEditStudentActivity extends BaseActivity implements
     TextInputLayout tilGrade;
     @BindView(R.id.et_grade)
     EditText etGrade;
-    @BindView(R.id.btn_save)
-    Button btnSave;
+
+    @BindView(R.id.fav_save)
+    FloatingActionButton favSave;
+    @BindView(R.id.fav_edit)
+    FloatingActionButton favEdit;
+    @BindView(R.id.fav_cancel)
+    FloatingActionButton favCancel;
 
     private AddEditStudentPresenter mAddEditStudentPresenter;
 
@@ -126,14 +135,19 @@ public class AddEditStudentActivity extends BaseActivity implements
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
             getSupportActionBar().setTitle(R.string.edit_student);
-            mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
-            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
+            getSupportActionBar().setSubtitle("Registra los datos personales y el grado a solicitar");
+            mToolbar.setTitleTextAppearance(this, R.style.TextTitle);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorPrimaryText));
+            mToolbar.setSubtitleTextAppearance(this, R.style.TextSubtitle1);
+            mToolbar.setSubtitleTextColor(getColor(R.color.mColorSecondaryText));
+            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_blue_48);;
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     onBackPressed();
                 }
             });
+
         }
     }
 
@@ -255,9 +269,28 @@ public class AddEditStudentActivity extends BaseActivity implements
         }).show();
     }
 
-    @OnClick(R.id.btn_save)
+    @OnClick(R.id.fav_edit)
+    public void edit(){
+        enableInputs(true);
+        favEdit.hide();
+        favSave.show();
+        favCancel.show();
+    }
+
+    @OnClick(R.id.fav_cancel)
+    public void cancel(){
+        enableInputs(false);
+        favEdit.show();
+        favSave.hide();
+        favCancel.hide();
+    }
+
+    @OnClick(R.id.fav_save)
     public void save() {
         if (validateInputs()) {
+            favEdit.show();
+            favSave.hide();
+            favCancel.hide();
             showProgressBar(true);
             enableInputs(false);
             saveStudent();
@@ -286,9 +319,16 @@ public class AddEditStudentActivity extends BaseActivity implements
     @Override
     public void getStudentTransactionState(boolean successful) {
         if(successful){
-            Toast.makeText(this,"Estudiante guardado exitosamente!",Toast.LENGTH_LONG).show();
+            Snackbar snackbar = Snackbar.make(findViewById(R.id.activity_add_edit_student), "Estudiante agregado exitosamente", Snackbar.LENGTH_LONG)
+                    .setActionTextColor(getColor(R.color.mColorPrimaryText))
+                    .setAction("Action", null);
+            View sbView = snackbar.getView();
+            sbView.setBackgroundColor(getColor(R.color.mColorPrimaryLight));
+            TextView tv = (TextView) sbView.findViewById(android.support.design.R.id.snackbar_text);
+            tv.setTextColor(Color.WHITE);
+            snackbar.show();
         }
-
+        showProgressBar(false);
     }
 
     @Override
@@ -312,8 +352,6 @@ public class AddEditStudentActivity extends BaseActivity implements
             etGrade.setText((studentBO.getGrade() != null) ? studentBO.getGrade() : "");
         }
         showProgressBar(false);
-        enableInputs(true);
-        etDocId.requestFocus();
     }
 
     @Override

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
+    android:id="@+id/activity_edit_profile"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/mColorBackground"
+    android:background="@color/mColorBorder"
     tools:context=".attendant.view.EditProfileActivity">
 
     <include
@@ -25,32 +26,30 @@
             <RelativeLayout
                 android:id="@+id/rl_inputs"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_vertical_double"
-                android:layout_marginBottom="@dimen/margin_vertical">
+                android:layout_height="wrap_content">
                 <RelativeLayout
                     android:id="@+id/rl_personal_info"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/RelativeLayoutInput">
+                    style="@style/RelativeLayoutInput"
+                    android:layout_marginBottom="@dimen/margin_vertical_double">
                     <LinearLayout
                         android:id="@+id/ll_doc_id_type"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_vertical_middle"
                         android:orientation="horizontal"
                         android:weightSum="1">
                         <ImageView
                             android:id="@+id/iv_doc_id_type"
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/doc_id"
                             android:src="@drawable/ic_doc_id_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_doc_id_type"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.4"
                             android:layout_height="wrap_content">
                             <EditText
                                 android:layout_width="match_parent"
@@ -63,26 +62,10 @@
                                 android:hint="@string/doc_id_type"
                                 android:nextFocusForward="@id/et_doc_id"/>
                         </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ll_doc_id"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_vertical_double"
-                        android:layout_below="@id/ll_doc_id_type"
-                        android:orientation="horizontal"
-                        android:weightSum="1">
-                        <ImageView
-                            android:id="@+id/iv_doc_id"
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            style="@style/ImageInputField"
-                            android:contentDescription="@string/doc_id"
-                            android:src="@drawable/ic_doc_id_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_doc_id"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.4"
                             android:layout_height="wrap_content">
                             <EditText
                                 android:id="@+id/et_doc_id"
@@ -101,19 +84,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_vertical_double"
                         android:orientation="horizontal"
-                        android:layout_below="@+id/ll_doc_id"
+                        android:layout_below="@+id/ll_doc_id_type"
                         android:weightSum="1">
                         <ImageView
                             android:id="@+id/iv_names"
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/first_name"
                             android:src="@drawable/ic_avatar_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_first_name"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.8"
                             android:layout_height="wrap_content">
                             <EditText
                                 android:id="@+id/et_first_name"
@@ -136,14 +119,14 @@
                         <ImageView
                             android:id="@+id/iv_last_name"
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/first_name"
                             android:src="@drawable/ic_avatar_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_last_name"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.8"
                             android:layout_height="wrap_content">
                             <EditText
                                 android:id="@+id/et_last_name"
@@ -165,14 +148,14 @@
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/genre_male"
                             android:src="@drawable/ic_genre_light_96"/>
                         <RadioGroup
                             android:id="@+id/rg_genre"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.8"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <RadioButton
@@ -181,12 +164,14 @@
                                 android:layout_height="wrap_content"
                                 style="@style/TextInputField"
                                 android:text="@string/genre_male"
+                                android:padding="0dp"
                                 android:nextFocusForward="@id/rb_female" />
                             <RadioButton
                                 android:id="@+id/rb_female"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 style="@style/TextInputField"
+                                android:layout_marginStart="@dimen/margin_horizontal_double"
                                 android:text="@string/genre_female"
                                 android:nextFocusForward="@id/et_birthdate"/>
                         </RadioGroup>
@@ -195,19 +180,19 @@
                         android:id="@+id/ll_birthday"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/ll_genre"
                         android:layout_marginTop="@dimen/margin_vertical_double"
+                        android:layout_below="@id/ll_genre"
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/birthdate"
                             android:src="@drawable/ic_date_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_birthdate"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.8"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_horizontal">
                             <EditText
@@ -226,19 +211,19 @@
                         android:id="@+id/ll_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@id/ll_birthday"
                         android:layout_marginTop="@dimen/margin_vertical_double"
+                        android:layout_below="@id/ll_birthday"
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/address"
                             android:src="@drawable/ic_email_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_email"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.8"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_horizontal">
                             <EditText
@@ -263,14 +248,14 @@
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/address"
                             android:src="@drawable/ic_address_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_address"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.8"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_horizontal">
                             <EditText
@@ -289,19 +274,19 @@
                         android:id="@+id/ll_local_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/ll_address"
                         android:layout_marginTop="@dimen/margin_vertical_double"
+                        android:layout_below="@+id/ll_address"
                         android:weightSum="1">
                         <ImageView
                             android:layout_width="0dp"
-                            android:layout_weight="0.1"
+                            android:layout_weight="0.2"
                             style="@style/ImageInputField"
                             android:contentDescription="@string/local_phone"
                             android:src="@drawable/ic_phone_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_local_phone"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.4"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_horizontal">
                             <EditText
@@ -314,24 +299,10 @@
                                 android:hint="@string/local_phone"
                                 android:nextFocusForward="@id/et_mobile_phone"/>
                         </android.support.design.widget.TextInputLayout>
-                    </LinearLayout>
-                    <LinearLayout
-                        android:id="@+id/ll_mobile_phone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/ll_local_phone"
-                        android:layout_marginTop="@dimen/margin_vertical_double"
-                        android:weightSum="1">
-                        <ImageView
-                            android:layout_width="0dp"
-                            android:layout_weight="0.1"
-                            style="@style/ImageInputField"
-                            android:contentDescription="@string/local_phone"
-                            android:src="@drawable/ic_mobile_phone_light_96"/>
                         <android.support.design.widget.TextInputLayout
                             android:id="@+id/til_mobile_phone"
                             android:layout_width="0dp"
-                            android:layout_weight="0.9"
+                            android:layout_weight="0.4"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/margin_horizontal">
                             <EditText
@@ -349,21 +320,47 @@
 
             </RelativeLayout>
 
-            <Button
-                android:id="@+id/btn_save"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/rl_inputs"
-                android:layout_marginTop="@dimen/margin_vertical_cuadruple"
-                android:layout_marginEnd="@dimen/margin_horizontal"
-                android:layout_alignParentEnd="true"
-                android:drawableStart="@drawable/ic_save_bold_48"
-                style="@style/TextButton"
-                android:text="@string/save"/>
-
         </RelativeLayout>
 
     </ScrollView>
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fav_edit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_edit_bold_96"
+        android:layout_marginBottom="@dimen/margin_vertical"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="visible"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fav_cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cancel_bold_96"
+        android:backgroundTint="@color/mColorBackgroundSection"
+        android:tint="@color/mColorSecondaryText"
+        android:layout_marginBottom="80dp"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fav_save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_save_bold_96"
+        android:layout_marginBottom="@dimen/margin_vertical"
+        android:layout_marginEnd="@dimen/margin_horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:visibility="invisible"
+        />
 
     <ProgressBar
         android:id="@+id/pb"

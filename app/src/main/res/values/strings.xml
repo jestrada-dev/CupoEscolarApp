@@ -78,8 +78,8 @@
     <string name="enroll_students">Estudiantes Inscritos</string>
     <string name="dashboard">Dashboard</string>
     <string name="notifications">Notificaciones</string>
-    <string name="list_closest_schools">Lista Colegios más Cercanos</string>
-    <string name="map_closest_schools">Mapa Colegios más Cercanos</string>
+    <string name="list_schools">Lista de Colegios</string>
+    <string name="closest_schools">Colegios Cercanos</string>
     <string name="doc_id">Documento No</string>
     <string name="address">Dirección</string>
     <string name="local_phone">Fijo Local</string>
@@ -94,7 +94,7 @@
     <string name="personal_info">Información Personal</string>
     <string name="contact_info">Información de Contacto</string>
     <string name="ref_point">Punto de Referencia</string>
-    <string name="ref_point_summary">Estos valores se obtienen automáticamente del Mapa. Haz click en Obtener Ubicación</string>
+    <string name="ref_point_summary">Estos valores se obtienen automáticamente del Mapa. Haz click en el botón del Mapa</string>
     <string name="ref_point_description">Descripción</string>
     <string name="btn_get_coords_current_location">Obtener Ubicación</string>
     <string name="lat">Latitud</string>
@@ -123,7 +123,7 @@
     <string name="denied_permission_access_location">Acceso no permitido</string>
     <string name="scholar_info">Información Escolar</string>
     <string name="grade">Grado</string>
-    <string name="grade_summary">Selecciona el grado al cual deseas inscribir al estudiante. Este dato se tendrá en cuenta para la búsqueda de colegios que tenga cupos disponibles para el grado seleccionado.</string>
+    <string name="grade_summary">Selecciona el grado al cual deseas inscribir al estudiante. Este dato se tendrá en cuenta para la búsqueda de colegios.</string>
     <string name="admin_area">Departamento</string>
     <string name="country">País</string>
     <string name="location_failed">Ubicación no disponible</string>
@@ -148,6 +148,10 @@
     <string name="add_student">Agregar Nuevo Estudiante</string>
     <string name="relationship">Parentesco</string>
     <string name="student_name">Nombre del Estudiante</string>
+    <string name="main_panel">Panel Principal</string>
+    <string name="request_quota_state">Estado actual del cupo solicitado</string>
+    <string name="order_by_distance">Por orden de cercanía</string>
+    <string name="located_on_the_map">Ubicados en el mapa</string>
 
 
 </resources>

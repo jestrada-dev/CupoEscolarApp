@@ -100,7 +100,7 @@ public class MainActivity extends BaseActivity implements
         mBottomNavigationView.setSelectedItemId(R.id.menu_nav_dashboard);
 
         setFragment(mDashboardFragment);
-        setTitleToolbar(getString(R.string.dashboard));
+        setTitleSubtitleToolbar(getString(R.string.dashboard), getString(R.string.main_panel));
         getData();
     }
 
@@ -112,13 +112,17 @@ public class MainActivity extends BaseActivity implements
     private void setToolbar() {
         if(mToolbar != null){
             setSupportActionBar(mToolbar);
-            mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
-            mToolbar.setNavigationIcon(R.drawable.ic_avatar_bold_48);
+            mToolbar.setTitleTextAppearance(this, R.style.TextTitle);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorPrimaryText));
+            mToolbar.setSubtitleTextAppearance(this, R.style.TextSubtitle1);
+            mToolbar.setSubtitleTextColor(getColor(R.color.mColorSecondaryText));
+            mToolbar.setNavigationIcon(R.drawable.ic_avatar_bold_greis_96);
         }
     }
 
-    private void setTitleToolbar(String title){
+    private void setTitleSubtitleToolbar(String title, String subtitle){
         getSupportActionBar().setTitle(title);
+        getSupportActionBar().setSubtitle(subtitle);
     }
 
     private boolean goToViewOnLeftNavItemSelected(int leftNavMenuItemId) {
@@ -162,22 +166,22 @@ public class MainActivity extends BaseActivity implements
         switch (bottomNavMenuItem){
             case R.id.menu_nav_enrolls:
                 setFragment(mEnrollsStudentsFragment);
-                setTitleToolbar(getString(R.string.enroll_students));
+                setTitleSubtitleToolbar(getString(R.string.enroll_students), getString(R.string.request_quota_state));
                 break;
 
             case R.id.menu_nav_dashboard:
                 setFragment(mDashboardFragment);
-                setTitleToolbar(getString(R.string.dashboard));
+                setTitleSubtitleToolbar(getString(R.string.dashboard),getString(R.string.main_panel));
                 break;
 
             case R.id.menu_nav_list_schools_closest:
                 setFragment(mListSchoolFragment);
-                setTitleToolbar(getString(R.string.list_closest_schools));
+                setTitleSubtitleToolbar(getString(R.string.list_schools), getString(R.string.order_by_distance));
                 break;
 
             case R.id.menu_nav_map_school_closest:
                 setFragment(mMapSchoolsFragment);
-                setTitleToolbar(getString(R.string.map_closest_schools));
+                setTitleSubtitleToolbar(getString(R.string.closest_schools), getString(R.string.located_on_the_map));
                 break;
 
             default:

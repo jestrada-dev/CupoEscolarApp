@@ -110,8 +110,11 @@ public class AttendantInteractor implements
             dbRefAttendants = mFirebaseDB.getReference(ConstantsFirebaseAttendant.ATTENDANTS);
             final AttendantDocJson attendantDocJson = new AttendantDocJson();
             attendantDocJson.setValues(attendantBO);
+
             final ArrayList<String> studentDocIds = new ArrayList<>();
-            studentDocIds.addAll(attendantBO.getStudents());
+            if(attendantBO.getStudents() != null) {
+                studentDocIds.addAll(attendantBO.getStudents());
+            }
 
             dbRefAttendants.child(attendantDocJson.getUserUid()).setValue(attendantDocJson)
                     .addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -135,6 +138,7 @@ public class AttendantInteractor implements
 
                         }
                     });
+
         }
     }
 

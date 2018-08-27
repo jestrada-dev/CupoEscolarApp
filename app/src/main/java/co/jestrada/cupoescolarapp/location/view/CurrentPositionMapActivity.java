@@ -11,6 +11,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -55,13 +56,16 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
     @BindView(R.id.pb)
     ProgressBar pb;
 
-    @BindView(R.id.btn_set_current_position)
-    Button btnSetCurrentPosition;
+    @BindView(R.id.fav_save)
+    FloatingActionButton favSave;
+    @BindView(R.id.fav_update_position)
+    FloatingActionButton favUpdatePosition;
 
     LocationManager mLocationManager;
     private List<Address> mAddress;
     private Marker mMarker;
 
+    SupportMapFragment mapFragment;
     private GoogleMap mMap;
 
     private FusedLocationProviderClient mFusedLocationClient;
@@ -85,7 +89,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
         refPositionBO = new RefPositionBO();
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+        mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
 
         if(mapFragment != null){
@@ -101,13 +105,18 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
     }
 
     private void enableBtnSetCurrentPosition(boolean enable) {
-        btnSetCurrentPosition.setEnabled(enable);
+        favSave.setEnabled(enable);
     }
 
-    @OnClick(R.id.btn_set_current_position)
-    public void saveCurrentPosition() {
+    @OnClick(R.id.fav_save)
+    public void save() {
         pb.setVisibility(View.VISIBLE);
         mCurrentPositionMapPresenter.saveRefPositionNoDescription(refPositionBO);
+    }
+
+    @OnClick(R.id.fav_update_position)
+    public void getCurrentPosition() {
+        mapFragment.onStart();
     }
 
     @Override
@@ -223,6 +232,14 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+        mFusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        mFusedLocationClient.getLocationAvailability().addOnCompleteListener(new OnCompleteListener<LocationAvailability>() {
+            @Override
+            public void onComplete(@NonNull Task<LocationAvailability> task) {
+                String nose = "";
+            }
+        });
+
         mFusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override

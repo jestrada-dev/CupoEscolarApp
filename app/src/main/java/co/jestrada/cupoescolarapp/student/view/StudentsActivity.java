@@ -2,6 +2,7 @@ package co.jestrada.cupoescolarapp.student.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -37,8 +38,8 @@ public class StudentsActivity extends BaseActivity implements
     ImageView ivEditStudent;
 
 
-    @BindView(R.id.cv_new_student)
-    CardView cvNewStudent;
+    @BindView(R.id.fav_add_student)
+    FloatingActionButton addStudent;
 
     private Toolbar mToolbar;
 
@@ -66,8 +67,13 @@ public class StudentsActivity extends BaseActivity implements
             setSupportActionBar(mToolbar);
 
             getSupportActionBar().setTitle(R.string.students);
-            mToolbar.setTitleTextColor(getColor(R.color.mColorNavText));
-            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_48);
+            getSupportActionBar().setSubtitle("Agrega o edita tus estudiantes");
+            mToolbar.setTitleTextAppearance(this, R.style.TextTitle);
+            mToolbar.setTitleTextColor(getColor(R.color.mColorPrimaryText));
+            mToolbar.setSubtitleTextAppearance(this, R.style.TextSubtitle1);
+            mToolbar.setSubtitleTextColor(getColor(R.color.mColorSecondaryText));
+            mToolbar.setNavigationIcon(R.drawable.ic_back_bold_blue_48);
+
             mToolbar.setNavigationOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -75,6 +81,7 @@ public class StudentsActivity extends BaseActivity implements
                 }
             });
         }
+
     }
 
     private void getData(){
@@ -82,7 +89,7 @@ public class StudentsActivity extends BaseActivity implements
         mStudentPresenter.getData();
     }
 
-    @OnClick(R.id.cv_new_student)
+    @OnClick(R.id.fav_add_student)
     public void addStudent(){
         goToAddEditStudent(null);
     }
