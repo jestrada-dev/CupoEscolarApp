@@ -13,6 +13,7 @@ public class RefPositionDocJson {
     private String adminArea;
     private String postalCode;
     private String country;
+    private boolean hasSchoolOrderedList;
 
     public RefPositionDocJson() {
     }
@@ -28,6 +29,7 @@ public class RefPositionDocJson {
             this.adminArea = refPositionBO.getAdminArea();
             this.postalCode = refPositionBO.getPostalCode();
             this.country = refPositionBO.getCountry();
+            this.hasSchoolOrderedList = refPositionBO.isHasSchoolOrderedList();
         }
     }
 
@@ -103,4 +105,11 @@ public class RefPositionDocJson {
         this.postalCode = postalCode;
     }
 
+    public boolean isHasSchoolOrderedList() {
+        return hasSchoolOrderedList;
+    }
+
+    public void setHasSchoolOrderedList(boolean hasSchoolOrderedList) {
+        this.hasSchoolOrderedList = hasSchoolOrderedList;
+    }
 }

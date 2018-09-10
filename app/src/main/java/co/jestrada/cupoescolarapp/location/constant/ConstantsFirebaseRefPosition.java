@@ -11,5 +11,5 @@ public class ConstantsFirebaseRefPosition {
     public static final String REF_POSITION_CITY = "city";
     public static final String REF_POSITION_ADMIN_AREA = "adminArea";
     public static final String REF_POSITION_COUNTRY = "country";
-
+    public static final String REF_POSITION_HAS_SCHOOL_ORDERED_LIST = "hasSchoolOrderedList";
 }

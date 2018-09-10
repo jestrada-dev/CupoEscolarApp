@@ -375,6 +375,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
         refPositionBO.setAdminArea(mAddress.get(0).getAdminArea());
         refPositionBO.setPostalCode(mAddress.get(0).getPostalCode());
         refPositionBO.setCountry(mAddress.get(0).getCountryName());
+        refPositionBO.setHasSchoolOrderedList(false);
     }
 
     private void goToRefPosition() {

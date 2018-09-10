@@ -68,7 +68,11 @@ public class MainPresenter extends BasePresenter implements
 
     @Override
     public void getRefPosition(RefPositionBO refPositionBO, boolean isChanged) {
+        if (refPositionBO.isHasSchoolOrderedList()){
 
+        }else{
+
+        }
     }
 
     @Override
@@ -78,7 +82,7 @@ public class MainPresenter extends BasePresenter implements
 
     @Override
     public void getRefPositionTransactionState(boolean successful) {
-
+        mMainView.getRefPositionTransactionState(successful);
     }
 
     @Override

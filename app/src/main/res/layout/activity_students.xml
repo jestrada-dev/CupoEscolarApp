@@ -12,107 +12,14 @@
         android:id="@+id/toolbar"
         layout="@layout/top_activity_toolbar" />
 
-    <ScrollView
-        android:id="@+id/sv_inputs_attendant_profile"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_students"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar">
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar"
+        android:scrollbars="vertical">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <RelativeLayout
-                android:id="@+id/rl_students"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <android.support.v7.widget.CardView
-                    android:id="@+id/cv_students"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/card_view_height"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:foreground="?android:attr/selectableItemBackgroundBorderless"
-                    android:layout_marginStart="@dimen/margin_horizontal"
-                    android:layout_marginEnd="@dimen/margin_horizontal">
-                    <ImageView
-                        android:id="@+id/iv_student"
-                        android:contentDescription=""
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_vertical_triple"
-                        android:layout_marginStart="@dimen/margin_horizontal_triple"
-                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
-                        android:tint="@color/mColorSecondaryText"
-                        android:src="@drawable/ic_student_light_96"/>
-                    <TextView
-                        android:id="@+id/tv_student_name"
-                        android:layout_width="240dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/margin_vertical_triple"
-                        android:layout_marginStart="80dp"
-                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
-                        style="@style/TextSubtitle1"
-                        android:text="@string/student_name"/>
-
-                    <TextView
-                        android:id="@+id/tv_doc_id_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="80dp"
-                        android:layout_marginStart="80dp"
-                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
-                        style="@style/TextLabel1"
-                        android:text="Doc"/>
-                    <TextView
-                        android:id="@+id/tv_doc_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="80dp"
-                        android:layout_marginStart="120dp"
-                        android:layout_marginEnd="@dimen/margin_horizontal_triple"
-                        style="@style/TextLabel1"
-                        android:text="1123456789"/>
-
-                    <ImageView
-                        android:id="@+id/iv_edit_student"
-                        android:contentDescription=""
-                        android:layout_width="wrap_content"
-                        android:layout_height="24dp"
-                        android:layout_gravity="end|center"
-                        android:tint="@color/mColorSecondaryText"
-                        android:src="@drawable/ic_next_light_96"/>
-
-                    <Button
-                        android:id="@+id/btn_edit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="80dp"
-                        android:layout_marginBottom="@dimen/margin_vertical"
-                        android:layout_gravity="bottom"
-                        android:drawableStart="@drawable/ic_edit"
-                        style="@style/TextButtonCardView"
-                        android:text="@string/edit"/>
-
-                    <Button
-                        android:id="@+id/btn_enroll"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="200dp"
-                        android:layout_marginBottom="@dimen/margin_vertical"
-                        android:layout_gravity="bottom"
-                        android:drawableStart="@drawable/ic_edit"
-                        style="@style/TextButtonCardView"
-                        android:text="@string/enroll_students"/>
-
-                </android.support.v7.widget.CardView>
-            </RelativeLayout>
-
-        </RelativeLayout>
-
-
-    </ScrollView>
+    </android.support.v7.widget.RecyclerView>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fav_add_student"

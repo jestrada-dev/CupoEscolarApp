@@ -14,6 +14,7 @@ public class StudentBO {
     private String grade;
     private String attendantUserUid;
     private String relationship;
+    private String state;
 
     public StudentBO() {
     }
@@ -29,6 +30,7 @@ public class StudentBO {
             this.grade = studentDocJson.getGrade();
             this.attendantUserUid = studentDocJson.getAttendantUserUid();
             this.relationship = studentDocJson.getRelationship();
+            this.state = studentDocJson.getState();
         }
 
     }
@@ -103,5 +105,13 @@ public class StudentBO {
 
     public void setRelationship(String relationship) {
         this.relationship = relationship;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

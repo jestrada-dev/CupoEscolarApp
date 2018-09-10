@@ -220,12 +220,26 @@ public class RefPositionInteractor implements
                 if(task.isSuccessful()){
                     Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
                             " grabado exitosamente");
-                    notifyRefPositionChanges(refPositionBO, false);
+                    saveRefPositionHasSchoolOrderedList(refPositionBO);
                 }
             }
         });
     }
 
+    private void saveRefPositionHasSchoolOrderedList(final RefPositionBO refPositionBO) {
+        dbRefRefPositions.child(refPositionBO.getUserUid())
+                .child(ConstantsFirebaseRefPosition.REF_POSITION_HAS_SCHOOL_ORDERED_LIST)
+                .setValue(refPositionBO.isHasSchoolOrderedList()).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(task.isSuccessful()){
+                    Log.d("RefPosition","RefPositionInteractor -> Usuario: email:" + refPositionBO.getUserUid() +
+                            " grabado exitosamente");
+                    notifyRefPositionChanges(refPositionBO, false);
+                }
+            }
+        });
+    }
 
 }
 

@@ -77,6 +77,19 @@
         <item name="android:padding">@dimen/padding_text</item>
     </style>
 
+    <style name="TextViewField" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/mColorPrimaryText</item>
+        <item name="android:fontFamily">@font/worksans_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewField2" parent="TextAppearance.AppCompat">
+
+        <item name="android:textColor">@color/mColorSecondaryText</item>
+        <item name="android:fontFamily">@font/worksans_medium</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="ImageInputField">
         <item name="android:textAlignment">center</item>
         <item name="android:tint">@color/mColorSecondaryText</item>
@@ -131,6 +144,13 @@
         <item name="android:background">@drawable/layout_background</item>
     </style>
 
+    <style name="LinearLayoutItem" >
+        <item name="android:padding">@dimen/margin_horizontal_double</item>
+        <item name="android:layout_marginStart">@dimen/margin</item>
+        <item name="android:layout_marginEnd">@dimen/margin</item>
+        <item name="android:layout_marginTop">@dimen/margin</item>
+        <item name="android:background">@drawable/layout_background</item>
+    </style>
 
     <style name="TextButtonSocial" parent="TextAppearance.AppCompat">
         <item name="android:fontFamily">@font/worksans_semibold</item>

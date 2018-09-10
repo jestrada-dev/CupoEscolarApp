@@ -97,6 +97,8 @@ public class AddEditStudentActivity extends BaseActivity implements
 
     private ArrayList<String> relationshipNameArrayList;
 
+    private boolean isAddStudent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,8 +109,6 @@ public class AddEditStudentActivity extends BaseActivity implements
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
 
         initView();
-
-        getData();
 
         docIdTypeArrayList = new ArrayList<>();
         docIdTypeShortNameArrayList = new ArrayList<>();
@@ -128,7 +128,7 @@ public class AddEditStudentActivity extends BaseActivity implements
     private void initView() {
         ButterKnife.bind(this);
         setToolbar();
-
+        getData();
     }
 
     private void setToolbar() {
@@ -152,9 +152,18 @@ public class AddEditStudentActivity extends BaseActivity implements
     }
 
     private void getData(){
-        enableInputs(false);
-        showProgressBar(true);
-        mAddEditStudentPresenter.getData(getDocIdStudent());
+        if(getDocIdStudent() == null){
+            isAddStudent = true;
+            enableInputs(true);
+            favEdit.hide();
+            favSave.show();
+            favCancel.show();
+        } else {
+            showProgressBar(true);
+            isAddStudent = false;
+            enableInputs(false);
+            mAddEditStudentPresenter.getData(getDocIdStudent());
+        }
     }
 
     private void enableInputs(boolean enable) {
@@ -279,18 +288,27 @@ public class AddEditStudentActivity extends BaseActivity implements
 
     @OnClick(R.id.fav_cancel)
     public void cancel(){
-        enableInputs(false);
-        favEdit.show();
-        favSave.hide();
-        favCancel.hide();
+        if (isAddStudent){
+            onBackPressed();
+        }else {
+            enableInputs(true);
+            favEdit.show();
+            favSave.hide();
+            favCancel.hide();
+        }
     }
 
     @OnClick(R.id.fav_save)
     public void save() {
         if (validateInputs()) {
-            favEdit.show();
-            favSave.hide();
-            favCancel.hide();
+            if(isAddStudent){
+                favSave.show();
+                favCancel.show();
+            } else {
+                favEdit.show();
+                favSave.hide();
+                favCancel.hide();
+            }
             showProgressBar(true);
             enableInputs(false);
             saveStudent();
@@ -312,6 +330,7 @@ public class AddEditStudentActivity extends BaseActivity implements
         studentBO.setBirthdate(etBirthdate.getText() != null ? etBirthdate.getText().toString() : "");
         studentBO.setRelationship(etRelationship.getText() != null ? etRelationship.getText().toString() : "");
         studentBO.setGrade(etGrade.getText() != null ? etGrade.getText().toString() : "");
+        studentBO.setState("NO INSCRITO");
 
         mAddEditStudentPresenter.saveStudent(studentBO);
     }

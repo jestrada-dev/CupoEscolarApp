@@ -164,10 +164,6 @@ public class MainActivity extends BaseActivity implements
 
     private boolean setFragmentOnNavItemSelected(int bottomNavMenuItem) {
         switch (bottomNavMenuItem){
-            case R.id.menu_nav_enrolls:
-                setFragment(mEnrollsStudentsFragment);
-                setTitleSubtitleToolbar(getString(R.string.enroll_students), getString(R.string.request_quota_state));
-                break;
 
             case R.id.menu_nav_dashboard:
                 setFragment(mDashboardFragment);
@@ -182,6 +178,11 @@ public class MainActivity extends BaseActivity implements
             case R.id.menu_nav_map_school_closest:
                 setFragment(mMapSchoolsFragment);
                 setTitleSubtitleToolbar(getString(R.string.closest_schools), getString(R.string.located_on_the_map));
+                break;
+
+            case R.id.menu_nav_enrolls:
+                setFragment(mEnrollsStudentsFragment);
+                setTitleSubtitleToolbar(getString(R.string.enroll_students), getString(R.string.request_quota_state));
                 break;
 
             default:
