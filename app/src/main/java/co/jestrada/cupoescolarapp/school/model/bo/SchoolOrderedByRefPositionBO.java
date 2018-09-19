@@ -5,22 +5,28 @@ import co.jestrada.cupoescolarapp.school.model.modelDocJson.SchoolOrderedByRefPo
 public class SchoolOrderedByRefPositionBO {
 
     private double position;
-    private double schoolId;
+    private String schoolCode;
+    private String name;
     private String distanceText;
     private Double distanceValue;
     private String durationText;
     private Double durationValue;
+    private Double lat;
+    private Double lng;
 
     public SchoolOrderedByRefPositionBO() {
     }
 
     public void setValues(SchoolOrderedByRefPositionDocJson schoolOrderedByRefPositionDocJson){
         this.position = schoolOrderedByRefPositionDocJson.getPosition();
-        this.schoolId = schoolOrderedByRefPositionDocJson.getSchoolId();
+        this.schoolCode = schoolOrderedByRefPositionDocJson.getSchoolCode();
+        this.name = schoolOrderedByRefPositionDocJson.getName();
         this.distanceText = schoolOrderedByRefPositionDocJson.getDistanceText();
         this.distanceValue = schoolOrderedByRefPositionDocJson.getDistanceValue();
         this.durationText = schoolOrderedByRefPositionDocJson.getDurationText();
         this.durationValue = schoolOrderedByRefPositionDocJson.getDurationValue();
+        this.lat = schoolOrderedByRefPositionDocJson.getLat();
+        this.lng = schoolOrderedByRefPositionDocJson.getLng();
     }
 
     public double getPosition() {
@@ -31,12 +37,20 @@ public class SchoolOrderedByRefPositionBO {
         this.position = position;
     }
 
-    public double getSchoolId() {
-        return schoolId;
+    public String getSchoolCode() {
+        return schoolCode;
     }
 
-    public void setSchoolId(double schoolId) {
-        this.schoolId = schoolId;
+    public void setSchoolCode(String schoolCode) {
+        this.schoolCode = schoolCode;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDistanceText() {
@@ -69,5 +83,21 @@ public class SchoolOrderedByRefPositionBO {
 
     public void setDurationValue(Double durationValue) {
         this.durationValue = durationValue;
+    }
+
+    public Double getLat() {
+        return lat;
+    }
+
+    public void setLat(Double lat) {
+        this.lat = lat;
+    }
+
+    public Double getLng() {
+        return lng;
+    }
+
+    public void setLng(Double lng) {
+        this.lng = lng;
     }
 }

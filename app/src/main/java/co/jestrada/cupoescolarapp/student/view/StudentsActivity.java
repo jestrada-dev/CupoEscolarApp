@@ -56,11 +56,6 @@ public class StudentsActivity extends BaseActivity implements
         mLayoutManager = new LinearLayoutManager(this);
 
         students = new ArrayList<>();
-/*        StudentBO studentBO = new StudentBO();
-        studentBO.setFirstName("Alejandro");
-        studentBO.setLastName("Estrada Sierra");
-        studentBO.setDocId("72345567");
-        students.add(studentBO);*/
 
         initView();
     }

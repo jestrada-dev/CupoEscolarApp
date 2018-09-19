@@ -31,7 +31,8 @@ public class StudentPresenter extends BasePresenter implements
         this.mStudentInteractor = new StudentInteractor(
                 null,
                 null,
-                this
+                this,
+                null
         );
         this.mContext = mContext;
         mFirebaseAuth = FirebaseAuth.getInstance();

@@ -152,6 +152,15 @@
     <string name="request_quota_state">Estado actual del cupo solicitado</string>
     <string name="order_by_distance">Por orden de cercanía</string>
     <string name="located_on_the_map">Ubicados en el mapa</string>
+    <string name="school_code">Código del Colegio</string>
+    <string name="school_name">Nombre del Colegio</string>
+    <string name="school_director">Director del Colegio</string>
+    <string name="school_days">Jornada Escolar del Colegio</string>
+    <string name="school_grades">Grados Disponibles</string>
+    <string name="school_phones">Teléfonos</string>
+    <string name="school_calendar">Tipo Calendario del Colegio</string>
+    <string name="select_student">Selecciona al Estudiante</string>
+    <string name="school">Colegio</string>
 
 
 </resources>

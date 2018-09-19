@@ -9,12 +9,13 @@ public class SchoolBO {
     private String director;
     private String address;
     private String calendar;
+    private String schoolDays;
+    private String grades;
     private boolean concession;
     private boolean official;
     private String email;
     private String phones;
     private String locality;
-    private String postalCodeLocality;
     private Double lat;
     private Double lng;
 
@@ -27,12 +28,13 @@ public class SchoolBO {
         this.director = schoolDocJson.getDirector();
         this.address = schoolDocJson.getAddress();
         this.calendar = schoolDocJson.getCalendar();
+        this.grades = schoolDocJson.getGrades();
+        this.schoolDays = schoolDocJson.getSchoolDays();
         this.concession = schoolDocJson.isConcession();
         this.official = schoolDocJson.isOfficial();
         this.email = schoolDocJson.getEmail();
         this.phones = schoolDocJson.getPhones();
         this.locality = schoolDocJson.getLocality();
-        this.postalCodeLocality = schoolDocJson.getPostalCodeLocality();
         this.lat = schoolDocJson.getLat();
         this.lng = schoolDocJson.getLng();
     }
@@ -55,6 +57,22 @@ public class SchoolBO {
 
     public String getDirector() {
         return director;
+    }
+
+    public String getSchoolDays() {
+        return schoolDays;
+    }
+
+    public void setSchoolDays(String schoolDay) {
+        this.schoolDays = schoolDay;
+    }
+
+    public String getGrades() {
+        return grades;
+    }
+
+    public void setGrades(String grades) {
+        this.grades = grades;
     }
 
     public void setDirector(String director) {
@@ -115,14 +133,6 @@ public class SchoolBO {
 
     public void setLocality(String locality) {
         this.locality = locality;
-    }
-
-    public String getPostalCodeLocality() {
-        return postalCodeLocality;
-    }
-
-    public void setPostalCodeLocality(String postalCodeLocality) {
-        this.postalCodeLocality = postalCodeLocality;
     }
 
     public Double getLat() {

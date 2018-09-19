@@ -48,7 +48,8 @@
             android:name=".location.view.CurrentPositionMapActivity"
             android:label="@string/title_activity_current_position_map" />
         <activity android:name=".location.view.RefPositionActivity" />
-        <activity android:name=".student.view.AddEditStudentActivity"/>
+        <activity android:name=".student.view.AddEditStudentActivity" />
+        <activity android:name=".school.view.SchoolActivity"></activity>
     </application>
 
 </manifest>

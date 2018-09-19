@@ -9,12 +9,13 @@ public class SchoolDocJson {
     private String director;
     private String address;
     private String calendar;
+    private String schoolDays;
+    private String grades;
     private boolean concession;
     private boolean official;
     private String email;
     private String phones;
     private String locality;
-    private String postalCodeLocality;
     private Double lat;
     private Double lng;
 
@@ -27,12 +28,13 @@ public class SchoolDocJson {
         this.director = schoolBO.getDirector();
         this.address = schoolBO.getAddress();
         this.calendar = schoolBO.getCalendar();
+        this.grades = schoolBO.getGrades();
+        this.schoolDays = schoolBO.getSchoolDays();
         this.concession = schoolBO.isConcession();
         this.official = schoolBO.isOfficial();
         this.email = schoolBO.getEmail();
         this.phones = schoolBO.getPhones();
         this.locality = schoolBO.getLocality();
-        this.postalCodeLocality = schoolBO.getPostalCodeLocality();
         this.lat = schoolBO.getLat();
         this.lng = schoolBO.getLng();
     }
@@ -77,6 +79,22 @@ public class SchoolDocJson {
         this.calendar = calendar;
     }
 
+    public String getSchoolDays() {
+        return schoolDays;
+    }
+
+    public void setSchoolDays(String schoolDay) {
+        this.schoolDays = schoolDay;
+    }
+
+    public String getGrades() {
+        return grades;
+    }
+
+    public void setGrades(String grades) {
+        this.grades = grades;
+    }
+
     public boolean isConcession() {
         return concession;
     }
@@ -115,14 +133,6 @@ public class SchoolDocJson {
 
     public void setLocality(String locality) {
         this.locality = locality;
-    }
-
-    public String getPostalCodeLocality() {
-        return postalCodeLocality;
-    }
-
-    public void setPostalCodeLocality(String postalCodeLocality) {
-        this.postalCodeLocality = postalCodeLocality;
     }
 
     public Double getLat() {

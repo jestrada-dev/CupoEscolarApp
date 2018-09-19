@@ -3,12 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".common.view.MapSchoolsFragment">
+    android:background="@color/mColorBorder"
+    tools:context=".common.view.ListSchoolFragment">
 
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/mapSchools"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_schools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        />
+        android:layout_below="@id/toolbar"
+        android:scrollbars="vertical">
+
+    </android.support.v7.widget.RecyclerView>
+
+
 </FrameLayout>

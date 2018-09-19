@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import co.jestrada.cupoescolarapp.base.contract.IBaseContract;
 import co.jestrada.cupoescolarapp.common.contract.IMainContract;
 import co.jestrada.cupoescolarapp.location.constant.ConstantsFirebaseRefPosition;
+import co.jestrada.cupoescolarapp.school.contract.SchoolContract;
 import co.jestrada.cupoescolarapp.student.constant.ConstantsFirebaseStudent;
 import co.jestrada.cupoescolarapp.student.contract.IAddEditStudentContract;
 import co.jestrada.cupoescolarapp.student.contract.IStudentContract;
@@ -29,17 +30,20 @@ public class StudentInteractor implements
     private IMainContract.IMainPresenter mMainPresenter;
     private IAddEditStudentContract.IAddEditStudentPresenter mAddEditStudentPresenter;
     private IStudentContract.IStudentPresenter mStudentPresenter;
+    private SchoolContract.ISchoolPresenter mSchoolPresenter;
 
     private FirebaseDatabase mFirebaseDB;
     private DatabaseReference dbRefStudents;
 
     public StudentInteractor(@Nullable IMainContract.IMainPresenter mMainPresenter,
                              @Nullable IAddEditStudentContract.IAddEditStudentPresenter mAddEditStudentPresenter,
-                             @Nullable IStudentContract.IStudentPresenter mStudentPresenter) {
+                             @Nullable IStudentContract.IStudentPresenter mStudentPresenter,
+                             @Nullable SchoolContract.ISchoolPresenter mSchoolPresenter) {
 
         this.mMainPresenter = mMainPresenter;
         this.mAddEditStudentPresenter = mAddEditStudentPresenter;
         this.mStudentPresenter = mStudentPresenter;
+        this.mSchoolPresenter = mSchoolPresenter;
 
         this.mFirebaseDB = FirebaseDatabase.getInstance();
         this.dbRefStudents = mFirebaseDB.getReference(ConstantsFirebaseStudent.STUDENTS);
@@ -111,6 +115,9 @@ public class StudentInteractor implements
         if(mStudentPresenter != null){
             mStudentPresenter.getStudentsByAttendantUserUid(studentBOS, isChanged);
         }
+        if(mSchoolPresenter != null){
+            mSchoolPresenter.getStudents(studentBOS, isChanged);
+        }
 
     }
 
@@ -123,6 +130,9 @@ public class StudentInteractor implements
         }
         if(mStudentPresenter != null){
             mStudentPresenter.getStudentTransactionState(successful);
+        }
+        if(mSchoolPresenter != null){
+            mSchoolPresenter.getEnrollStudentTransactionState(successful);
         }
     }
 
@@ -139,6 +149,29 @@ public class StudentInteractor implements
                 }
             });
         }
+
+    public void enrollStudent(final String studentDocId, final String schoolCode) {
+        dbRefStudents = mFirebaseDB.getReference(ConstantsFirebaseStudent.STUDENTS);
+        dbRefStudents.child(studentDocId).child(ConstantsFirebaseStudent.STUDENTS_SCHOOL_CODE)
+                .setValue(schoolCode).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                setEnrolledState(studentDocId);
+            }
+        });
+    }
+
+    public void setEnrolledState(final String studentDocId) {
+        dbRefStudents = mFirebaseDB.getReference(ConstantsFirebaseStudent.STUDENTS);
+        dbRefStudents.child(studentDocId).child(ConstantsFirebaseStudent.STUDENTS_STATE)
+                .setValue("INSCRITO").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                notifyStudentTransactionState(task.isSuccessful());
+            }
+        });
+    }
+
 
 }
 

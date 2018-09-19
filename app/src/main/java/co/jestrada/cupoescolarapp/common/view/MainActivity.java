@@ -15,6 +15,9 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 import co.jestrada.cupoescolarapp.R;
 import co.jestrada.cupoescolarapp.attendant.model.bo.AttendantBO;
@@ -22,15 +25,19 @@ import co.jestrada.cupoescolarapp.attendant.view.EditProfileActivity;
 import co.jestrada.cupoescolarapp.base.view.BaseActivity;
 import co.jestrada.cupoescolarapp.common.contract.IMainContract;
 import co.jestrada.cupoescolarapp.common.presenter.MainPresenter;
+import co.jestrada.cupoescolarapp.location.model.bo.RefPositionBO;
 import co.jestrada.cupoescolarapp.location.view.RefPositionActivity;
 import co.jestrada.cupoescolarapp.attendant.view.ConfigAccountActivity;
 import co.jestrada.cupoescolarapp.attendant.view.LoginActivity;
+import co.jestrada.cupoescolarapp.school.model.bo.SchoolOrderedByRefPositionBO;
 import co.jestrada.cupoescolarapp.social.view.SendSuggestionsActivity;
 import co.jestrada.cupoescolarapp.social.view.SocialActivity;
 import co.jestrada.cupoescolarapp.student.view.StudentsActivity;
 
 public class MainActivity extends BaseActivity implements
-        IMainContract.IMainView{
+        IMainContract.IMainView,
+        ListSchoolFragment.DataListener,
+        MapSchoolsFragment.DataListenerMaps{
 
     BottomNavigationView mBottomNavigationView;
     View leftNavViewHeader;
@@ -52,6 +59,9 @@ public class MainActivity extends BaseActivity implements
 
     private boolean closeOnBackPressed = false;
 
+    private List<SchoolOrderedByRefPositionBO> schools;
+    private RefPositionBO position;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +75,9 @@ public class MainActivity extends BaseActivity implements
         mDashboardFragment = new DashboardFragment();
         mListSchoolFragment = new ListSchoolFragment();
         mMapSchoolsFragment = new MapSchoolsFragment();
+
+        schools = new ArrayList<>();
+        position = new RefPositionBO();
 
         initView();
 
@@ -116,7 +129,7 @@ public class MainActivity extends BaseActivity implements
             mToolbar.setTitleTextColor(getColor(R.color.mColorPrimaryText));
             mToolbar.setSubtitleTextAppearance(this, R.style.TextSubtitle1);
             mToolbar.setSubtitleTextColor(getColor(R.color.mColorSecondaryText));
-            mToolbar.setNavigationIcon(R.drawable.ic_avatar_bold_greis_96);
+            mToolbar.setNavigationIcon(R.drawable.ic_menu_bold_48);
         }
     }
 
@@ -230,6 +243,14 @@ public class MainActivity extends BaseActivity implements
     }
 
     @Override
+    public void getSchoolsListOrdered(List<SchoolOrderedByRefPositionBO> schoolOrderedByRefPositionBOS, boolean isChanged) {
+        if (isChanged){
+            schools.clear();
+            schools = schoolOrderedByRefPositionBOS;
+        }
+    }
+
+    @Override
     public void goToLogin() {
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
@@ -294,4 +315,20 @@ public class MainActivity extends BaseActivity implements
         startActivity(intent);
     }
 
+    @Override
+    public void getSchools() {
+        mListSchoolFragment.setListSchools(schools);
+    }
+
+    @Override
+    public void setRefPosition(RefPositionBO refPositionBO, boolean isChanged){
+        if(isChanged){
+            position = refPositionBO;
+        }
+    }
+
+    @Override
+    public void getSchoolsMap() {
+        mMapSchoolsFragment.setListSchools(schools, position);
+    }
 }

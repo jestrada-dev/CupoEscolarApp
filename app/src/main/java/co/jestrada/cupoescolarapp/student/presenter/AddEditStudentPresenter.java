@@ -41,6 +41,7 @@ public class AddEditStudentPresenter extends BasePresenter implements
         this.mStudentInteractor = new StudentInteractor(
                 null,
                 this,
+                null,
                 null
         );
         this.mDocIdTypeInteractor = new DocIdTypeInteractor(null,

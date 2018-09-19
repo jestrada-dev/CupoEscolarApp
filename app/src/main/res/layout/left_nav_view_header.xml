@@ -17,7 +17,7 @@
         android:foreground="?android:attr/selectableItemBackgroundBorderless">
 
         <!--Iconos diseñados por Freepik desde www.flaticon.com con licencia CC 3.0 BY -->
-        <ImageView
+<!--        <ImageView
             android:id="@+id/iv_avatar"
             android:layout_width="@dimen/iv_avatar_width_and_height"
             android:layout_height="@dimen/iv_avatar_width_and_height"
@@ -26,7 +26,7 @@
             android:contentDescription="@string/click_to_change_avatar"
             android:src="@drawable/ic_avatar_bold_greis_96"
             android:layout_marginTop="@dimen/margin_vertical_cuadruple"
-            android:layout_gravity="start"/>
+            android:layout_gravity="start"/>-->
         <TextView
             android:id="@+id/tv_attendant_name"
             android:layout_width="match_parent"

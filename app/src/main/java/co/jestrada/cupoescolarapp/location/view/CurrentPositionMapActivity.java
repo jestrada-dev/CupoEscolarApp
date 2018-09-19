@@ -106,6 +106,7 @@ public class CurrentPositionMapActivity extends FragmentActivity implements
 
     private void enableBtnSetCurrentPosition(boolean enable) {
         favSave.setEnabled(enable);
+        favSave.show();
     }
 
     @OnClick(R.id.fav_save)

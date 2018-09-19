@@ -83,6 +83,12 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="TextViewFieldLight" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/mColorPrimaryText</item>
+        <item name="android:fontFamily">@font/worksans_medium</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
     <style name="TextViewField2" parent="TextAppearance.AppCompat">
 
         <item name="android:textColor">@color/mColorSecondaryText</item>
